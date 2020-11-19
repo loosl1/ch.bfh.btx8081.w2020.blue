@@ -15,7 +15,7 @@ public class MainView extends VerticalLayout {
 
     public MainView() {
         Button button = new Button("Click me",
-                event -> Notification.show("Clicked!"));
+                event -> Notification.show("I ha das ize klickt, man!"));
         add(button);
     }
 }
