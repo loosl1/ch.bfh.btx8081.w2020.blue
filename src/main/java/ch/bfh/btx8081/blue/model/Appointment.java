@@ -20,18 +20,26 @@ public class Appointment {
     protected String info;
 
     public void setShortDescription() {
+
         //toDo
+
     }
 
     protected enum type {
+
         TYPE1,
+
         TYPE2,
+
         TYPE3
     }
 
 /* toDo
+
     public void setColor(enum typeColor){
+
         if (color==)
+
     }
 */
 
