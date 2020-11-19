@@ -26,12 +26,13 @@ public class Appointment {
     }
 
     protected enum type {
+    	
+    	GROUPVISIT,
 
-        TYPE1,
+    	VISIT,
+    	
+    	INTERNAL
 
-        TYPE2,
-
-        TYPE3
     }
 
 /* toDo
