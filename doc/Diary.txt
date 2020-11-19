@@ -1,0 +1,154 @@
+_________________
+Date: 21.10.20
+Time: 14:25 - 16:00
+Attendance: 1. Stanic Nikola, 2. Stöckli Jan, 3. Rohr Jelena, 4. Loosli Lukas, 5. Oppliger Renato
+
+ToDo 
+____
+What: Scope has been defined and everyone has gotten the task to define and research all topics regarding the illness and the daily routine of a health caretaker, as well of current applications
+Who: 1 2 3 4 5 research
+Deadline: 21.10.2020
+Status: closed
+
+
+
+___________________________________________________
+Date: 22.10.20
+Time: 10:00 - 12:00
+Attendance: 1. Stanic Nikola, 2. Stöckli Jan, 3. Rohr Jelena, 4. Loosli Lukas,
+
+ToDo 
+____
+What:   Presentation of Results
+        Synthesis of results and first tasks have been handed out
+
+Who: 1 2 3 4 Synthesis, 3 Documentation, 1 4 Creation of personas, 1 2 3 4 List of Main Features, 2 Specification of functional user requirements
+Deadline: -13:00
+Status: closed
+
+
+
+___________________________________________________
+
+Date: 22.10.20
+Time: 12:00 - 14:30
+Attendance: 1. Stanic Nikola, 2. Stöckli Jan, 3. Rohr Jelena, 4. Loosli Lukas
+
+ToDo 
+____
+What: After results of morning have been presented, Storyboards have been defined and tasks have been allocated
+Who: 1 2 3 4 Presentation of results, 1 Completing Personas, Design GUIs, finishing a Interview, Presentation, 2 Storyboards, 3 Documentation, GUI, 4 Documentation, Storyboards, Completing Personas, 5 Storyboards
+Deadline: 25.10.20
+Status: closed
+
+
+
+___________________________________________________
+
+Date: 25.10.20
+Time: 14:00 - 15:00 
+Attendance: 1. Stanic Nikola, 2. Stöckli Jan, 3. Rohr Jelena, 4. Loosli Lukas
+
+ToDo 
+____
+What: Presentation of what has been done so far and discussion of how to proceed regarding the GUI. we also defined a new timeline to proceed
+Who: 1 2 3 4 Presentation of results, 1 3 Design GUI, 1 2 3 4 Show it for User Testing to friends or families
+Deadline: 28.10.20
+Status: closed
+
+
+
+___________________________________________________
+
+Date: 28.10.2020
+Time: 14:00 - 14:15
+Attendance: 1. Stanic Nikola, 2. Stöckli Jan, 3. Rohr Jelena, 4. Loosli Lukas, 5. Oppliger Renato
+
+ToDo 
+____
+What:Just did a checkup if everything is complete and ready to present
+Who: 1,2,3,4,5
+Deadline: 28.10.2020
+Status: closed
+
+___________________________________________________
+
+Date: 29.10.2020
+Time: 12:45 - 14:14
+Attendance: 1. Stanic Nikola,  3. Rohr Jelena, 4. Loosli Lukas,
+
+ToDo 
+____
+What:Discussed next Steps and already created a UML Domain Model
+Who: 1 4 Create Sequence Diagram,2 5 Create Sequence Diagram
+Deadline: 11.10.2020
+Status: Open
+
+___________________________________________________
+
+Date: 05.11.2020
+Time: 20:00 - 21:00
+Attendance: 1. Stanic Nikola , 3. Rohr Jelena, 4. Loosli Lukas
+
+ToDo 
+____
+What: Sequence Diagramm has been discussed and prepared
+Who: all attendees in Attendance
+Deadline: 11.10.2020
+Status: Closed
+
+___________________________________________________
+
+Date: 07.11.2020
+Time: 14:00 - 16:00
+Attendance: 1. Stanic Nikola , 2. Stöckli Jan, 5. Oppliger Renato
+
+ToDo 
+____
+What: Sequence Diagramm has been discussed and prepared
+Who: all attendees in Attendance
+Deadline: 11.10.2020
+Status: Closed
+
+___________________________________________________
+
+Date: 12.11.2020
+Time: 12:00 - 15:00
+Attendance: 1. Stanic Nikola, 2. Stöckli Jan, 3. Rohr Jelena, 4. Loosli Lukas, 5. Oppliger Renato
+
+ToDo
+____
+What: Prepared Component Diagram and Deployment Diagram and discussed meeting on sunday where we will do the class diagram. no tasks have been assigned as we need to do this together
+Who: all attendees in Attendance
+Deadline:
+Status: Closed
+
+___________________________________________________
+
+Date: 15.11.2020
+Time: 14:00 - 16:00
+Attendance: 1. Stanic Nikola, 2. Stöckli Jan, 3. Rohr Jelena, 4. Loosli Lukas, 5. Oppliger Renato
+
+ToDo
+____
+What: Did the class diagramm, 3. will prepare Task04, 4. Presentation and update Repository
+Who: all attendees in Attendance
+Deadline: 18.10.2020
+Status: open
+
+___________________________________________________
+
+Date: 19.11.2020
+Time: 13:00 - 15:00
+Attendance: 1. Stanic Nikola, 2. Stöckli Jan, 3. Rohr Jelena, 4. Loosli Lukas, 5. Oppliger Renato
+
+ToDo
+____
+What:
+Who:
+Deadline: .10.2020
+Status: open
+
+___________________________________________________
+
+
