@@ -11,7 +11,7 @@ public class Contact {
 	protected String countrycode;
 	protected int contactId;
 	/**
-	 * 
+	 *
 	 * @return
 	 */
 	public String generatePhonenumber() {

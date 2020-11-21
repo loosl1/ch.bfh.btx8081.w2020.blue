@@ -27,6 +27,8 @@ public class Calendar {
         return null;
     }
 
+    //previous and next via appointment
+
     public Appointment getNextAppointment(int currentAppointmentId){
 
         for (Appointment appointment : appointments) {
