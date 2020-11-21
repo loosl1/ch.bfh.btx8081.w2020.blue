@@ -22,16 +22,27 @@ public class Visit extends Appointment {
         this.treatedPatients = treatedPatients;
     }
 
+    /**
+     * saves the report given s into the constructed object
+     * @param s
+     */
     private void saveReport(String s) {
 
         this.report = s;
 
     }
 
-    //seq. diagram, loop through patients, comment
+    /**
+     *  loops through the treatedPatients List on which it searches for given Id
+     *  which was given the constructed Visit
+     *  If found, it ads the report with the id to the checklist
+     *
+     *
+     * @param visitID
+     */
     private void updateReports(int visitID) {
 
-        for (Patient patient : treatedPatients) {
+        for (Patient ignored : treatedPatients) {
 
             if (this.appointmentID == visitID) {
 
@@ -43,11 +54,16 @@ public class Visit extends Appointment {
 
     //-------------Checklist----------------------
 
+    /**
+     *
+     * @return checklist object
+     */
     public Checklist getChecklist() {
         return checklist;
     }
 
     public void setChecklist(Checklist checklist) {
+
         this.checklist = checklist;
     }
 
