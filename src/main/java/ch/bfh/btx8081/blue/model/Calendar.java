@@ -12,6 +12,10 @@ public class Calendar {
 
     private ArrayList<Appointment> appointments = new ArrayList<>();
 
+    public Calendar(ArrayList<Appointment> appointments) {
+        this.appointments = appointments;
+    }
+
     public Appointment getAppointment(int appointmentID) {
 
         for (Appointment appointment : appointments) {

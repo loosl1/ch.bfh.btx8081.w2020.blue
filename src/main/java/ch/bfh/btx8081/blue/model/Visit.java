@@ -16,32 +16,57 @@ public class Visit extends Appointment {
 
     ArrayList<Patient> treatedPatients = new ArrayList<>();
 
-    public Visit(int appointmentID, LocalDateTime start, LocalDateTime end, String title, String info) {
+    public Visit(int appointmentID, LocalDateTime start, LocalDateTime end, String title, String info, Checklist checklist, ArrayList<Patient> treatedPatients) {
         super(appointmentID, start, end, title, info);
+        this.checklist = checklist;
+
+        this.treatedPatients = treatedPatients;
     }
-
-
-    //Constructor everywhere
 
     private void saveReport(String s) {
 
-        report = s;
+        this.report = s;
 
     }
 
     //seq. diagram, loop through patients, comment
-    private void updateRecords(Visit visitID, PatientRecord record) {
+    private void updateReports(int visitID) {
 
+        for (Patient patient : treatedPatients) {
+            if (this.appointmentID == visitID) {
+                setPatientReport(this.report);
+            }
+        }
 
     }
 
-    //setter mit logik getter für jede variable retourniert,  try catch, constructor als klasse. this. in den methoden
-    private ArrayList<Patient> getPatients() {
-        
+    //-------------Checklist----------------------
+
+    public Checklist getChecklist() {
+        return checklist;
+    }
+
+    public void setChecklist(Checklist checklist) {
+        this.checklist = checklist;
+    }
+
+    //-------------Report----------------------
+
+    public String getReport() {
+        return report;
+    }
+
+    public void setReport(String report) {
+        this.report = report;
+    }
+
+    //-------------Patients----------------------
+
+    public ArrayList<Patient> getTreatedPatients() {
         return treatedPatients;
-    
     }
 
-
-
+    public void setTreatedPatients(ArrayList<Patient> treatedPatients) {
+        this.treatedPatients = treatedPatients;
+    }
 }
