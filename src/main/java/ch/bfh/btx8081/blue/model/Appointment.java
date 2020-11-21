@@ -56,14 +56,16 @@ public class Appointment {
         }
     }
 
+
+    //--------------------------start date----------------
     /**
      * @return startdate
      */
     public String getStart() {
         return start.toString();
+
     }
 
-    //----------------Start------------------
 
     /**
      * asks if the value given is empty and if the enddate is after the startdate
@@ -90,14 +92,15 @@ public class Appointment {
         }
     }
 
+    //----------------End------------------
     /**
-     * @return enddate
+     * @return end date
      */
     public String getEnd() {
         return end.toString();
     }
 
-    //----------------End------------------
+
 
     /**
      * asks if the value given is empty and if the startdate is before the enddate

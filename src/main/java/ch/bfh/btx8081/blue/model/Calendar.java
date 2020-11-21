@@ -1,5 +1,6 @@
 package ch.bfh.btx8081.blue.model;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 
 /**
@@ -16,6 +17,10 @@ public class Calendar {
         this.appointments = appointments;
     }
 
+    /**
+     * @param appointmentID
+     * @return appointment or null if requirements arent met
+     */
     public Appointment getAppointment(int appointmentID) {
 
         for (Appointment appointment : appointments) {
@@ -33,11 +38,15 @@ public class Calendar {
 
     //previous and next via appointment
 
-    public Appointment getNextAppointment(int currentAppointmentId){
+    /**
+     * @param appointmentID
+     * @return appointment or null if requirements arent met
+     */
+    public Appointment getNextAppointment(int appointmentID) {
 
         for (Appointment appointment : appointments) {
 
-            if (currentAppointmentId == appointment.appointmentID) {
+            if (appointmentID == appointment.appointmentID) {
 
                 return appointment;
 
@@ -48,11 +57,19 @@ public class Calendar {
         return null;
     }
 
-    public Appointment getPreviousAppointment(int currentAppointmentId){
+    /**
+     * @param appointmentId
+     * @return appointment or null if requirements arent met
+     */
+    public Appointment getPreviousAppointment(int appointmentId) {
 
         for (Appointment appointment : appointments) {
 
-            if (currentAppointmentId == appointment.appointmentID) {
+            if (appointmentId == appointment.appointmentID) {
+
+                LocalDateTime start = LocalDateTime.parse(appointment.getStart());
+
+                LocalDateTime end = LocalDateTime.parse(appointment.getEnd());
 
                 return appointment;
 
@@ -64,4 +81,13 @@ public class Calendar {
 
     }
 
+    //-------------------------Appointments----------------------------
+
+    /**
+     *
+     * @return appointments
+     */
+    public ArrayList<Appointment> getAppointments() {
+        return appointments;
+    }
 }
