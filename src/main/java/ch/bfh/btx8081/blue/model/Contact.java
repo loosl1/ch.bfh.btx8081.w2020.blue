@@ -7,12 +7,15 @@ package ch.bfh.btx8081.blue.model;
  */
 public class Contact {
 	protected String relation;
-	protected int phone;
-	protected int countrycode;
-	
+	protected String phone;
+	protected String countrycode;
+	protected int contactId;
+	/**
+	 * 
+	 * @return
+	 */
 	public String generatePhonenumber() {
-		int phoneCode = (countrycode + phone);
-		String phonenumber = String.valueOf(phoneCode);
-		return phonenumber;
+		String phoneNumber = (countrycode + phone);
+		return phoneNumber;
 	};
 }

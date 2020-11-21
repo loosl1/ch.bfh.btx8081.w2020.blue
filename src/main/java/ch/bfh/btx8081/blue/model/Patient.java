@@ -13,6 +13,7 @@ public class Patient {
 	protected Calendar calendar;
 	protected Checklist dailyGoals;
 	protected String infoAdmin;
+	protected int patientId;
 
     HashMap<Integer, PatientRecord> myRecords = new HashMap<>();
 

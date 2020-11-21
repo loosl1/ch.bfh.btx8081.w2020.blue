@@ -16,7 +16,8 @@ public class Person {
 	protected Address adress;
 	
 	public String getFullname() {
-		String fullname = (name + " " + surname);
+		//if suffix insert suffix else 
+		String fullname = this.name + " " + this.surname;
 		return fullname;
 	};
 	public int getAge() {
