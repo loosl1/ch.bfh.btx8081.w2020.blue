@@ -19,7 +19,6 @@ public class Visit extends Appointment {
     public Visit(int appointmentID, LocalDateTime start, LocalDateTime end, String title, String info, Checklist checklist, ArrayList<Patient> treatedPatients) {
         super(appointmentID, start, end, title, info);
         this.checklist = checklist;
-
         this.treatedPatients = treatedPatients;
     }
 
@@ -33,8 +32,10 @@ public class Visit extends Appointment {
     private void updateReports(int visitID) {
 
         for (Patient patient : treatedPatients) {
+
             if (this.appointmentID == visitID) {
-                setPatientReport(this.report);
+
+                checklist.setPatientReport(this.report, visitID);
             }
         }
 
