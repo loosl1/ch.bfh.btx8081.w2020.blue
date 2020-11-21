@@ -26,6 +26,7 @@ public class Appointment {
 
     }
 
+
     public Appointment(int appointmentID, LocalDateTime start, LocalDateTime end, String title, String info) {
         this.appointmentID = appointmentID;
         this.start = start;
@@ -41,8 +42,6 @@ public class Appointment {
         return appointmentID;
     }
 
-    //----------------Appointment------------------
-
     /**
      * asks if the value given is empty
      *
@@ -57,12 +56,11 @@ public class Appointment {
     }
 
 
-    //--------------------------start date----------------
     /**
      * @return startdate
      */
-    public String getStart() {
-        return start.toString();
+    public LocalDateTime getStart() {
+        return start;
 
     }
 
@@ -72,12 +70,12 @@ public class Appointment {
      *
      * @param start
      */
-    public void setStart(String start) {
+    public void setStart(LocalDateTime start) {
         if (!end.toString().isEmpty()) {
 
             if (end.isBefore(this.start)) {
 
-                this.start = LocalDateTime.parse(start);
+                this.start = start;
 
             } else {
 
@@ -85,21 +83,19 @@ public class Appointment {
 
             }
 
-        } else if (start.isEmpty()) {
+        } else if (start.toString().isEmpty()) {
 
             throw new NullPointerException("Start date is empty");
 
         }
     }
 
-    //----------------End------------------
     /**
      * @return end date
      */
-    public String getEnd() {
-        return end.toString();
+    public LocalDateTime getEnd() {
+        return end;
     }
-
 
 
     /**
@@ -107,13 +103,13 @@ public class Appointment {
      *
      * @param end
      */
-    public void setEnd(String end) {
+    public void setEnd(LocalDateTime end) {
 
         if (!start.toString().isEmpty()) {
 
             if (start.isBefore(this.end)) {
 
-                this.end = LocalDateTime.parse(end);
+                this.end = end;
 
             } else {
 
@@ -121,7 +117,7 @@ public class Appointment {
 
             }
 
-        } else if (end.isEmpty()) {
+        } else if (end.toString().isEmpty()) {
 
             throw new NullPointerException("End date is empty");
 
@@ -137,7 +133,6 @@ public class Appointment {
         return title;
     }
 
-    //----------------Title------------------
 
     /**
      * asks if the value given is empty
@@ -162,8 +157,6 @@ public class Appointment {
         return info;
     }
 
-    //----------------Info------------------
-
     /**
      * asks if the value given is empty
      *
@@ -179,5 +172,6 @@ public class Appointment {
         }
     }
 
-
 }
+
+

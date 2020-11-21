@@ -24,6 +24,7 @@ public class Visit extends Appointment {
 
     /**
      * saves the report given s into the constructed object
+     *
      * @param s
      */
     private void saveReport(String s) {
@@ -33,10 +34,9 @@ public class Visit extends Appointment {
     }
 
     /**
-     *  loops through the treatedPatients List on which it searches for given Id
-     *  which was given the constructed Visit
-     *  If found, it ads the report with the id to the checklist
-     *
+     * loops through the treatedPatients List on which it
+     * searches for given ID which was given the constructed Visit
+     * If found, it ads the report with the id to the checklist
      *
      * @param visitID
      */
@@ -52,10 +52,7 @@ public class Visit extends Appointment {
 
     }
 
-    //-------------Checklist----------------------
-
     /**
-     *
      * @return checklist object
      */
     public Checklist getChecklist() {
@@ -67,7 +64,6 @@ public class Visit extends Appointment {
         this.checklist = checklist;
     }
 
-    //-------------Report----------------------
 
     public String getReport() {
         return report;
@@ -77,7 +73,6 @@ public class Visit extends Appointment {
         this.report = report;
     }
 
-    //-------------Patients----------------------
 
     public ArrayList<Patient> getTreatedPatients() {
         return treatedPatients;
