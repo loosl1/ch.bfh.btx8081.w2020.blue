@@ -16,6 +16,16 @@ public class Appointment {
 
     protected String title, info;
 
+    protected enum type {
+
+        GROUPVISIT,
+
+        VISIT,
+
+        INTERNAL
+
+    }
+
     public Appointment(int appointmentID, LocalDateTime start, LocalDateTime end, String title, String info) {
         this.appointmentID = appointmentID;
         this.start = start;
@@ -24,11 +34,20 @@ public class Appointment {
         this.info = info;
     }
 
-    //----------------Appointment------------------
+    /**
+     * @return id
+     */
     public int getAppointmentID() {
         return appointmentID;
     }
 
+    //----------------Appointment------------------
+
+    /**
+     * asks if the value given is empty
+     *
+     * @param appointmentID
+     */
     public void setAppointmentID(int appointmentID) {
         try {
             this.appointmentID = appointmentID;
@@ -37,11 +56,20 @@ public class Appointment {
         }
     }
 
-    //----------------Start------------------
+    /**
+     * @return startdate
+     */
     public String getStart() {
         return start.toString();
     }
 
+    //----------------Start------------------
+
+    /**
+     * asks if the value given is empty and if the enddate is after the startdate
+     *
+     * @param start
+     */
     public void setStart(String start) {
         if (!end.toString().isEmpty()) {
 
@@ -55,20 +83,27 @@ public class Appointment {
 
             }
 
-        } else {
+        } else if (start.isEmpty()) {
 
             throw new NullPointerException("Start date is empty");
 
         }
-
-
     }
 
-    //----------------End------------------
+    /**
+     * @return enddate
+     */
     public String getEnd() {
         return end.toString();
     }
 
+    //----------------End------------------
+
+    /**
+     * asks if the value given is empty and if the startdate is before the enddate
+     *
+     * @param end
+     */
     public void setEnd(String end) {
 
         if (!start.toString().isEmpty()) {
@@ -83,7 +118,7 @@ public class Appointment {
 
             }
 
-        } else {
+        } else if (end.isEmpty()) {
 
             throw new NullPointerException("End date is empty");
 
@@ -92,32 +127,53 @@ public class Appointment {
 
     }
 
-    //----------------Title------------------
+    /**
+     * @return title
+     */
     public String getTitle() {
         return title;
     }
 
+    //----------------Title------------------
+
+    /**
+     * asks if the value given is empty
+     *
+     * @param title
+     */
     public void setTitle(String title) {
-        this.title = title;
+
+        if (title.isEmpty()) {
+
+            throw new NullPointerException("Title is empty");
+
+        } else {
+            this.title = title;
+        }
     }
 
-    //----------------Info------------------
+    /**
+     * @return info
+     */
     public String getInfo() {
         return info;
     }
 
+    //----------------Info------------------
+
+    /**
+     * asks if the value given is empty
+     *
+     * @param info
+     */
     public void setInfo(String info) {
-        this.info = info;
-    }
+        if (info.isEmpty()) {
 
-    protected enum type {
+            throw new NullPointerException("Info is empty");
 
-        GROUPVISIT,
-
-        VISIT,
-
-        INTERNAL
-
+        } else {
+            this.info = info;
+        }
     }
 
 
