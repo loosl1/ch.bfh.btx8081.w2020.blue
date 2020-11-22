@@ -78,14 +78,16 @@ public class Calendar {
 
         for (int i = 0; i < appointmentTimes.size(); i++) {
 
-            if (appointmentID == appointments.get(i).appointmentID) {
+
+
+            //if (appointmentID == appointments.get(i).appointmentID) {
 
                 // currentTime = appointments.get(i - 1).getStart();
 
                 // LocalDateTime end = LocalDateTime.parse(appointment.getEnd());
 
                 // previousAppointment = appointmentTimes.get(i - 1);
-            }
+            //}
 
         }
 

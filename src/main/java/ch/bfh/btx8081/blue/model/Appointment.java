@@ -26,7 +26,6 @@ public class Appointment {
 
     }
 
-
     public Appointment(int appointmentID, LocalDateTime start, LocalDateTime end, String title, String info) {
         this.appointmentID = appointmentID;
         this.start = start;
@@ -36,7 +35,7 @@ public class Appointment {
     }
 
     /**
-     * @return id
+     * @return id of the appointment
      */
     public int getAppointmentID() {
         return appointmentID;
@@ -57,7 +56,7 @@ public class Appointment {
 
 
     /**
-     * @return startdate
+     * @return startdate as LocalDateTime
      */
     public LocalDateTime getStart() {
         return start;
@@ -91,7 +90,7 @@ public class Appointment {
     }
 
     /**
-     * @return end date
+     * @return end date as Local Date Time
      */
     public LocalDateTime getEnd() {
         return end;
@@ -127,7 +126,7 @@ public class Appointment {
     }
 
     /**
-     * @return title
+     * @return title as String
      */
     public String getTitle() {
         return title;
@@ -151,7 +150,7 @@ public class Appointment {
     }
 
     /**
-     * @return info
+     * @return info as String
      */
     public String getInfo() {
         return info;

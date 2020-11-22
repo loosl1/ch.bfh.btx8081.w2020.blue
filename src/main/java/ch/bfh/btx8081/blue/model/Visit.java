@@ -49,35 +49,49 @@ public class Visit extends Appointment {
                 checklist.setPatientReport(this.report, visitID);
             }
         }
-
     }
 
     /**
-     * @return checklist object
+     * @return Checklist object
      */
     public Checklist getChecklist() {
         return checklist;
     }
 
+    /**
+     * @param checklist
+     */
     public void setChecklist(Checklist checklist) {
 
         this.checklist = checklist;
     }
 
-
+    /**
+     * @return report as a String
+     */
     public String getReport() {
         return report;
     }
 
+    /**
+     * @param report
+     */
     public void setReport(String report) {
         this.report = report;
     }
 
-
+    /**
+     *
+     * @return patients as Arraylist
+     */
     public ArrayList<Patient> getTreatedPatients() {
         return treatedPatients;
     }
 
+    /**
+     *
+     * @param treatedPatients
+     */
     public void setTreatedPatients(ArrayList<Patient> treatedPatients) {
         this.treatedPatients = treatedPatients;
     }
