@@ -1,9 +1,9 @@
 package ch.bfh.btx8081.blue.model;
 
-import java.time.LocalDateTime;
+import ch.bfh.btx8081.blue.exceptions.AppointmentNotFoundException;
+
 import java.util.ArrayList;
-import java.util.Comparator;
-import java.util.List;
+import java.util.Collections;
 
 /**
  * @author loosl1
@@ -13,91 +13,113 @@ import java.util.List;
 
 public class Calendar {
 
-    private ArrayList<Appointment> appointments = new ArrayList<>();
+    private final ArrayList<Appointment> appointments;
 
     public Calendar(ArrayList<Appointment> appointments) {
         this.appointments = appointments;
     }
 
     /**
-     * @param appointmentID
-     * @return appointment or null if requirements arent met
+     * Loops through all the appointments and returns the current one
+     * @param appointmentID the id of the current appointment
+     * @return returns the current appointment or an Exception
+     * @throws AppointmentNotFoundException Is thrown when no id is found
      */
-    public Appointment getAppointment(int appointmentID) {
+    public Appointment getAppointment(int appointmentID) throws AppointmentNotFoundException {
 
+        Appointment currentAppointment = null;
+
+        //loops through all the appointments and sets the nextAppointment to the currentAppointment
         for (Appointment appointment : appointments) {
 
-            if (appointmentID == appointment.appointmentID) {
-
-                return appointment;
-
-            }
+            currentAppointment = appointmentID == appointment.appointmentID ?
+                    appointment :
+                    null;
 
         }
 
-        return null;
+        if (currentAppointment == null) {
+            throw new AppointmentNotFoundException("Appointment not found");
+        }
+
+        return currentAppointment;
     }
 
 
     /**
-     * @param appointmentID
-     * @return appointment or null if requirements arent met
+     * Returns the next appointment
+     *
+     * @param appointmentID the ID of the current appointment
+     * @return nextAppointment returns the next appointment or an Exception
+     * @throws AppointmentNotFoundException Is thrown when no id is found
      */
-    public Appointment getNextAppointment(int appointmentID) {
+    public Appointment getNextAppointment(int appointmentID) throws AppointmentNotFoundException {
 
-        for (Appointment appointment : appointments) {
+        //Returns the id of the current Appointment
+        Appointment currentAppointment = getAppointment(appointmentID);
 
-            if (appointmentID == appointment.appointmentID) {
+        Appointment nextAppointment = null;
 
-                return appointment;
+        //Sorts the Appointments according to the Start Time and Date
+        Collections.sort(appointments);
 
-            }
+        //loops through all the appointments and sets the nextAppointment to the currentAppointment + 1
+        int i = appointments.size() - 1;
+        while (i >= 0) {
 
+            nextAppointment = appointments.get(i) == currentAppointment ?
+                    appointments.get(i + 1) :
+                    null;
+
+            i--;
         }
 
-        return null;
+        if (nextAppointment == null) {
+            throw new AppointmentNotFoundException("Appointment not found");
+        }
+        return nextAppointment;
     }
 
-    /**
-     * @param appointmentID
-     * @return appointment or null if requirements arent met
-     */
-    public Appointment getPreviousAppointment(int appointmentID) {
+    //
 
-        //LocalDateTime currentTime = null;
+    /**
+     * Returns the previous appointment
+     *
+     * @param appointmentID the ID of the current appointment
+     * @return previousAppointment returns the previous appointment or an Exception
+     * @throws AppointmentNotFoundException Is thrown when no id is found
+     */
+    public Appointment getPreviousAppointment(int appointmentID) throws AppointmentNotFoundException {
+
+        //Returns the id of the current Appointment
+        Appointment currentAppointment = getAppointment(appointmentID);
 
         Appointment previousAppointment = null;
 
-        List<LocalDateTime> appointmentTimes = new ArrayList<>();
+        //Sorts the Appointments according to the Start Time and Date
+        Collections.sort(appointments);
 
-        appointments.forEach(value -> appointmentTimes.add(value.getStart()));
+        //loops through all the appointments and sets the previousAppointment to the currentAppointment -1
+        int i = appointments.size() - 1;
+        while (i >= 0) {
 
-        appointmentTimes.sort(Comparator.naturalOrder());
+            previousAppointment = appointments.get(i) == currentAppointment ?
+                    appointments.get(i - 1) :
+                    null;
 
-
-
-        for (int i = 0; i < appointmentTimes.size(); i++) {
-
-
-
-            //if (appointmentID == appointments.get(i).appointmentID) {
-
-                // currentTime = appointments.get(i - 1).getStart();
-
-                // LocalDateTime end = LocalDateTime.parse(appointment.getEnd());
-
-                // previousAppointment = appointmentTimes.get(i - 1);
-            //}
-
+            i--;
         }
 
+        if (previousAppointment == null) {
+            throw new AppointmentNotFoundException("Appointment not found");
+        }
         return previousAppointment;
-
     }
 
-
     /**
-     * @return appointments
+     * Returns all appointments
+     *
+     * @return appointments returns Arraylist appointments
      */
     public ArrayList<Appointment> getAppointments() {
         return appointments;
