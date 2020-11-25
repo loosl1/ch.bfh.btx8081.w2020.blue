@@ -1,0 +1,13 @@
+.text-label {
+	margin: 0pt;
+	padding: 0pt;
+	color: #ddd;
+}
+
+.title-label {
+	font-size: 18pt;
+	text-decoration: underline;
+	margin: 0pt;
+	margin-bottom: 6pt;
+	color: #ddd;
+}
