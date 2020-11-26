@@ -10,14 +10,17 @@ import java.util.ArrayList;
  */
 public class Visit extends Appointment {
 
+    private static int  trackingId=1000;
+
     Checklist checklist;
 
     String report;
 
-    ArrayList<Patient> treatedPatients = new ArrayList<>();
+    ArrayList<Patient> treatedPatients;
 
-    public Visit(int appointmentID, LocalDateTime start, LocalDateTime end, String title, String info, Checklist checklist, ArrayList<Patient> treatedPatients) {
-        super(appointmentID, start, end, title, info);
+    public Visit(LocalDateTime start, LocalDateTime end, String title, String info, Checklist checklist, ArrayList<Patient> treatedPatients) {
+        super(start, end, title, info);
+        appointmentID = trackingId++;
         this.checklist = checklist;
         this.treatedPatients = treatedPatients;
     }
@@ -25,7 +28,7 @@ public class Visit extends Appointment {
     /**
      * saves the report given s into the constructed object
      *
-     * @param s
+     * @param s Is the report given as a String which is being saved locally
      */
     private void saveReport(String s) {
 
@@ -38,7 +41,7 @@ public class Visit extends Appointment {
      * searches for given ID which was given the constructed Visit
      * If found, it ads the report with the id to the checklist
      *
-     * @param visitID
+     * @param visitID the ID of the visit
      */
     private void updateReports(int visitID) {
 
@@ -52,6 +55,7 @@ public class Visit extends Appointment {
     }
 
     /**
+     * returns the checklist
      * @return Checklist object
      */
     public Checklist getChecklist() {
@@ -59,7 +63,8 @@ public class Visit extends Appointment {
     }
 
     /**
-     * @param checklist
+     * Saves the checklist given
+     * @param checklist Is checklist Object
      */
     public void setChecklist(Checklist checklist) {
 
@@ -67,6 +72,7 @@ public class Visit extends Appointment {
     }
 
     /**
+     * Returns the report
      * @return report as a String
      */
     public String getReport() {
@@ -74,7 +80,8 @@ public class Visit extends Appointment {
     }
 
     /**
-     * @param report
+     * Saves the report
+     * @param report Is the String saved in the report variable
      */
     public void setReport(String report) {
         this.report = report;
@@ -89,8 +96,8 @@ public class Visit extends Appointment {
     }
 
     /**
-     *
-     * @param treatedPatients
+     * Sets the treatedPatients
+     * @param treatedPatients The Arraylist with all patients
      */
     public void setTreatedPatients(ArrayList<Patient> treatedPatients) {
         this.treatedPatients = treatedPatients;

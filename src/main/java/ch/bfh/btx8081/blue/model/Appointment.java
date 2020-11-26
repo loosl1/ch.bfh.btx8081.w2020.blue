@@ -8,11 +8,13 @@ import java.time.LocalDateTime;
  * <p>
  * created on 19/11/2020
  */
-public class Appointment {
+public class Appointment implements Comparable<Appointment> {
 
     protected int appointmentID;
 
     protected LocalDateTime start, end;
+
+    private static int  trackingId=1000;
 
     protected String title, info;
 
@@ -26,8 +28,8 @@ public class Appointment {
 
     }
 
-    public Appointment(int appointmentID, LocalDateTime start, LocalDateTime end, String title, String info) {
-        this.appointmentID = appointmentID;
+    public Appointment(LocalDateTime start, LocalDateTime end, String title, String info) {
+        this.appointmentID = trackingId++;
         this.start = start;
         this.end = end;
         this.title = title;
@@ -35,7 +37,8 @@ public class Appointment {
     }
 
     /**
-     * @return id of the appointment
+     * returns the of of the appointment
+     * @return ID of the appointment
      */
     public int getAppointmentID() {
         return appointmentID;
@@ -44,7 +47,7 @@ public class Appointment {
     /**
      * asks if the value given is empty
      *
-     * @param appointmentID
+     * @param appointmentID the idNo of the appointment
      */
     public void setAppointmentID(int appointmentID) {
         try {
@@ -56,6 +59,7 @@ public class Appointment {
 
 
     /**
+     * returns the start date and time
      * @return startdate as LocalDateTime
      */
     public LocalDateTime getStart() {
@@ -67,7 +71,7 @@ public class Appointment {
     /**
      * asks if the value given is empty and if the enddate is after the startdate
      *
-     * @param start
+     * @param start start date and time
      */
     public void setStart(LocalDateTime start) {
         if (!end.toString().isEmpty()) {
@@ -90,7 +94,8 @@ public class Appointment {
     }
 
     /**
-     * @return end date as Local Date Time
+     * returns the end date and time
+     * @return end date and time
      */
     public LocalDateTime getEnd() {
         return end;
@@ -100,7 +105,7 @@ public class Appointment {
     /**
      * asks if the value given is empty and if the startdate is before the enddate
      *
-     * @param end
+     * @param end end date and time
      */
     public void setEnd(LocalDateTime end) {
 
@@ -126,6 +131,7 @@ public class Appointment {
     }
 
     /**
+     * returns the title
      * @return title as String
      */
     public String getTitle() {
@@ -134,9 +140,9 @@ public class Appointment {
 
 
     /**
-     * asks if the value given is empty
+     * Asks if the value given is empty and sets it onto the variable title
      *
-     * @param title
+     * @param title The title of the appointment
      */
     public void setTitle(String title) {
 
@@ -150,16 +156,17 @@ public class Appointment {
     }
 
     /**
-     * @return info as String
+     * Returns the information about the patient
+     * @return Info as String
      */
     public String getInfo() {
         return info;
     }
 
     /**
-     * asks if the value given is empty
+     * Sets the written Info-String onto the local info variable
      *
-     * @param info
+     * @param info Is the information written by the Health Visitor about the Patient
      */
     public void setInfo(String info) {
         if (info.isEmpty()) {
@@ -169,6 +176,19 @@ public class Appointment {
         } else {
             this.info = info;
         }
+    }
+
+    /**
+     * Defines a default sort criteria for sorting Objects via the Comparable class
+     * @param appointment the appointment in the list which is being compared to the next appointment
+     * @return Returns the compared start date given to the start date
+     */
+    @Override
+    public int compareTo(Appointment appointment) {
+        if (getStart() == null || appointment.getStart() == null) {
+            return 0;
+        }
+        return getStart().compareTo(appointment.getStart());
     }
 
 }

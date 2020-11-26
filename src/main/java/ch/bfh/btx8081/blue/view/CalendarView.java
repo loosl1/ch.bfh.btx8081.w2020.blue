@@ -1,24 +1,19 @@
 package ch.bfh.btx8081.blue.view;
 
 import java.time.LocalDate;
-import java.time.LocalTime;
 
-import org.vaadin.stefan.fullcalendar.BusinessHours;
-import org.vaadin.stefan.fullcalendar.CalendarViewImpl;
-import org.vaadin.stefan.fullcalendar.Entry;
 import org.vaadin.stefan.fullcalendar.FullCalendar;
 import org.vaadin.stefan.fullcalendar.FullCalendarBuilder;
 
-import com.vaadin.flow.component.applayout.DrawerToggle;
+
 import com.vaadin.flow.component.button.Button;
-import com.vaadin.flow.component.button.ButtonVariant;
 import com.vaadin.flow.component.datepicker.DatePicker;
 import com.vaadin.flow.component.dependency.CssImport;
-import com.vaadin.flow.component.html.Div;
 import com.vaadin.flow.component.html.Label;
 import com.vaadin.flow.component.notification.Notification;
 import com.vaadin.flow.component.orderedlayout.HorizontalLayout;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
+import com.vaadin.flow.component.textfield.TextArea;
 import com.vaadin.flow.router.Route;
 import com.vaadin.flow.server.PWA;
 import com.vaadin.flow.theme.Theme;
@@ -32,6 +27,7 @@ import ch.bfh.btx8081.blue.presenter.CalendarPresenter;
 @Theme(value = Lumo.class, variant =Lumo.DARK)
 @PWA(name = "CareTaker", shortName = "CareTaker")
 @CssImport("styles/lumo-custom-dark-theme.css")
+@CssImport("styles/custom-formatting.css")
 public class CalendarView extends VerticalLayout{
 	//Presenter
 	private CalendarPresenter presenter; 
@@ -53,9 +49,11 @@ public class CalendarView extends VerticalLayout{
 	private Label lblBeginsAt;
 	private Label lblEndsAt;
 	private Label lblTitleAdress;
+	private Label lblAdressName;
 	private Label lblAdress;
+	private Label lblAdressPlace;
 	private Label lblTitleInfo;
-	private Label lblInfo;
+	private TextArea lblInfo;
 	
 
 	/**
@@ -80,7 +78,9 @@ public class CalendarView extends VerticalLayout{
 				this.lblBeginsAt,
 				this.lblEndsAt,
 				this.lblTitleAdress,
+				this.lblAdressName,
 				this.lblAdress,
+				this.lblAdressPlace,
 				this.lblTitleInfo,
 				this.lblInfo,
 				buttonDiv
@@ -130,7 +130,11 @@ public class CalendarView extends VerticalLayout{
 		this.lblEndsAt.setClassName("text-label");
 		this.lblAdress = new Label();
 		this.lblAdress.setClassName("text-label");
-		this.lblInfo = new Label();
+		this.lblAdressName = new Label();
+		this.lblAdressName.setClassName("text-label");
+		this.lblAdressPlace = new Label();
+		this.lblAdressPlace.setClassName("text-label");
+		this.lblInfo = new TextArea();
 		this.lblInfo.setClassName("text-label");
 	}
 	
@@ -142,10 +146,11 @@ public class CalendarView extends VerticalLayout{
 		this.lblTitleAdress.setText("Adresse");
 		this.lblBeginsAt.setText("Beginnt\t26.10.2020\t08:30");
 		this.lblEndsAt.setText("Endet\t26.10.2020\t09:30");
-		this.lblAdress.setText("Lanzerray Kurt" + "<br>"
-				+ "Beispielstrasse 1\r\n"
-				+ "1234 Beispielort\r\n");
-		this.lblInfo.setText("Parkplatz 17 & 18\r\n"
+		this.lblAdressName.setText("Lanzerray Kurt");
+		this.lblAdress.setText("Beispielstrasse 1");
+		this.lblAdressPlace.setText("1234 Beispielort");
+		this.lblInfo.setReadOnly(true);
+		this.lblInfo.setValue("Parkplatz 17 & 18\r\n"
 				+ "Hausschlüssel: \r\n"
 				+ "Standort 1 - Kasten 1b\r\n");
 	}
@@ -163,7 +168,7 @@ public class CalendarView extends VerticalLayout{
 	 * @param appointment
 	 */
 	private VisitView showVisit(Appointment currentAppointment) {
-		//Platzhalter)
+		//Platzhalter
 		return new VisitView();
 	}
 	

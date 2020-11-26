@@ -50,7 +50,7 @@ public class CalendarPresenter {
 	}
 	
 	public void updateInfoPanel() {
-
+		
 	}
 	
 	public ArrayList<Entry> getAppointmentsForCalendar() {
