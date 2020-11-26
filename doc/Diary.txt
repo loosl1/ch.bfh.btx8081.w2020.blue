@@ -134,7 +134,7 @@ ____
 What: Did the class diagramm, 3. will prepare Task04, 4. Presentation and update Repository
 Who: all attendees in Attendance
 Deadline: 18.10.2020
-Status: open
+Status: closed
 
 ___________________________________________________
 
@@ -144,11 +144,126 @@ Attendance: 1. Stanic Nikola, 2. Stöckli Jan, 3. Rohr Jelena, 4. Loosli Lukas, 
 
 ToDo
 ____
-What:
-Who:
-Deadline: .10.2020
+What: Created a first SCRUM document and had a look at it, talked about open questions
+Who: 1. 2. Scrummaster will finalize sprint catalogue, 1. 2. 3. 4. 5. comprehend and start with first Sprints, implement Vaadin
+Deadline: 21.11.2020
+Status: closed
+
+___________________________________________________
+
+Date: 21.11.2020
+Time: 14:00 - 15:00
+Attendance: 1. Stanic Nikola, 2. Stöckli Jan, 3. Rohr Jelena, 4. Loosli Lukas, 5. Oppliger Renato
+
+ToDo
+____
+What: Had a daily scrum meeting, Discussed open problems, tracked progress
+Who: All in Attendance
+Deadline: 25.11.2020
+Status: closed
+
+___________________________________________________
+
+Date: 25.11.2020
+Time: 14:00 - 16:00
+Attendance: 1. Stanic Nikola, 2. Stöckli Jan, 3. Rohr Jelena, 4. Loosli Lukas,
+
+ToDo
+____
+What: Had a daily scrum meeting, Discussed open problems, tracked progress,
+Who: All in Attendance
+Deadline: 26.10.2020
 Status: open
 
 ___________________________________________________
 
+Date:
+Time:
+Attendance: 1. Stanic Nikola, 2. Stöckli Jan, 3. Rohr Jelena, 4. Loosli Lukas, 5. Oppliger Renato
 
+ToDo
+____
+What:
+Who:
+Deadline:
+Status: open
+
+___________________________________________________
+
+Date:
+Time:
+Attendance: 1. Stanic Nikola, 2. Stöckli Jan, 3. Rohr Jelena, 4. Loosli Lukas, 5. Oppliger Renato
+
+ToDo
+____
+What:
+Who:
+Deadline:
+Status: open
+
+___________________________________________________
+
+Date:
+Time:
+Attendance: 1. Stanic Nikola, 2. Stöckli Jan, 3. Rohr Jelena, 4. Loosli Lukas, 5. Oppliger Renato
+
+ToDo
+____
+What:
+Who:
+Deadline:
+Status: open
+
+___________________________________________________
+
+Date:
+Time:
+Attendance: 1. Stanic Nikola, 2. Stöckli Jan, 3. Rohr Jelena, 4. Loosli Lukas, 5. Oppliger Renato
+
+ToDo
+____
+What:
+Who:
+Deadline:
+Status: open
+
+___________________________________________________
+
+Date:
+Time:
+Attendance: 1. Stanic Nikola, 2. Stöckli Jan, 3. Rohr Jelena, 4. Loosli Lukas, 5. Oppliger Renato
+
+ToDo
+____
+What:
+Who:
+Deadline:
+Status: open
+
+___________________________________________________
+
+Date:
+Time:
+Attendance: 1. Stanic Nikola, 2. Stöckli Jan, 3. Rohr Jelena, 4. Loosli Lukas, 5. Oppliger Renato
+
+ToDo
+____
+What:
+Who:
+Deadline:
+Status: open
+
+___________________________________________________
+
+Date:
+Time:
+Attendance: 1. Stanic Nikola, 2. Stöckli Jan, 3. Rohr Jelena, 4. Loosli Lukas, 5. Oppliger Renato
+
+ToDo
+____
+What:
+Who:
+Deadline:
+Status: open
+
+___________________________________________________
