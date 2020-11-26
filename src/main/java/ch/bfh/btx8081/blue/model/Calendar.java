@@ -15,6 +15,14 @@ public class Calendar {
 
     private final ArrayList<Appointment> appointments;
 
+    public Calendar() {
+    	this.appointments = new ArrayList<Appointment>();
+    }
+    
+    /**
+     * Constructor with existing appointments
+     * @param appointments ArrayList with appointments
+     */
     public Calendar(ArrayList<Appointment> appointments) {
         this.appointments = appointments;
     }
