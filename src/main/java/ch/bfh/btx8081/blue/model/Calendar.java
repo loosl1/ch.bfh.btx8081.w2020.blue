@@ -18,7 +18,7 @@ public class Calendar {
     public Calendar() {
     	this.appointments = new ArrayList<Appointment>();
     }
-    
+
     /**
      * Constructor with existing appointments
      * @param appointments ArrayList with appointments
@@ -131,5 +131,9 @@ public class Calendar {
      */
     public ArrayList<Appointment> getAppointments() {
         return appointments;
+    }
+
+    public void addAppointment(Appointment appointment) {
+    	this.appointments.add(appointment);
     }
 }
