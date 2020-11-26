@@ -32,6 +32,7 @@ public class CalendarPresenter {
 	 * Constructor
 	 */
 	public CalendarPresenter (CalendarView viewComponent) {
+		
 		this.viewComponent = viewComponent;
 		selectedDate = LocalDate.now();
 		// manual created data

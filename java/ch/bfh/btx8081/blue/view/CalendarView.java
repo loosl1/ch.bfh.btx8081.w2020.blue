@@ -64,6 +64,7 @@ public class CalendarView extends VerticalLayout{
 
 		this.topBar.setAlignItems(Alignment.END);
 		this.topBar.add(
+				
 				this.dtpDatePicker,
 				btnToday,
 				btnPreviousAppointment,
