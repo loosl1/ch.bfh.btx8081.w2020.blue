@@ -101,6 +101,8 @@ public class CalendarView extends VerticalLayout{
 
 		this.calendar = FullCalendarBuilder.create().build();
 		this.presenter.setupCalendarConfiguration(this.calendar);
+		this.calendar.addEntryClickedListener(event -> this.presenter.setCurrentAppointment(event.getEntry()));
+		this.calendar.setHeight(750);
 
 		this.lblPatientName = new Label();
 		this.lblPatientName.setClassName("title-label");
@@ -141,14 +143,15 @@ public class CalendarView extends VerticalLayout{
 	public void update() {
 		this.calendar.gotoDate(this.presenter.getSelectedDate());
 		this.dtpDatePicker.setValue(this.presenter.getSelectedDate());
+		if (this.presenter.getCurrentAppointment() != null) {
 
 		//@ TODO Create Infopanel Logic
 		//Is directly implemented, as long as logic for model is not implemented
-		this.lblPatientName.setText("Lanzerray, Kurt");
+		this.lblPatientName.setText(this.presenter.getCurrentAppointment().getTitle());
 		this.lblTitleInfo.setText("Info");
 		this.lblTitleAdress.setText("Adresse");
-		this.lblBeginsAt.setText("Beginnt\t26.10.2020\t08:30");
-		this.lblEndsAt.setText("Endet\t26.10.2020\t09:30");
+		this.lblBeginsAt.setText("Starts: " + this.presenter.getCurrentAppointment().getStart());
+		this.lblEndsAt.setText("Ends: " + this.presenter.getCurrentAppointment().getEnd());
 		this.lblAdressName.setText("Lanzerray Kurt");
 		this.lblAdress.setText("Beispielstrasse 1");
 		this.lblAdressPlace.setText("1234 Beispielort");
@@ -156,6 +159,7 @@ public class CalendarView extends VerticalLayout{
 		this.lblInfo.setValue("Parkplatz 17 & 18\r\n"
 				+ "Hausschlüssel: \r\n"
 				+ "Standort 1 - Kasten 1b\r\n");
+		}
 	}
 
 	/**

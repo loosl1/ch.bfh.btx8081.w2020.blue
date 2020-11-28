@@ -4,10 +4,13 @@ import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.ArrayList;
 
+import org.apache.commons.io.filefilter.AndFileFilter;
 import org.vaadin.stefan.fullcalendar.BusinessHours;
 import org.vaadin.stefan.fullcalendar.CalendarViewImpl;
 import org.vaadin.stefan.fullcalendar.Entry;
 import org.vaadin.stefan.fullcalendar.FullCalendar;
+
+import com.vaadin.flow.dom.Element;
 
 import ch.bfh.btx8081.blue.exceptions.AppointmentNotFoundException;
 import ch.bfh.btx8081.blue.model.*;
@@ -79,6 +82,7 @@ public class CalendarPresenter {
 		    entry.setStart(appointment.getStart());
 		    entry.setEnd(appointment.getEnd());
 		    entry.setColor(APPOINTMENT_COLOR_LARGE);
+		    entry.setEditable(false);
 		    entries.add(entry);
 		});
 	    return entries;
@@ -118,8 +122,12 @@ public class CalendarPresenter {
 	 * Changes the current selected Appointment.
 	 * @param appointment New Appointment to be tracked.
 	 */
-	public void setCurrentAppointment (Appointment appointment) {
-		this.currentAppointment = appointment;
+	public void setCurrentAppointment (Entry entry) {
+		this.currentUser.getCalendar().getAppointments().forEach(appointment -> {
+			if(appointment.getStart().equals(entry.getStart()) && appointment.getEnd().equals(entry.getEnd()) ) {
+				this.currentAppointment = appointment;
+			}
+		});
 		this.viewComponent.update();
 	}
 
