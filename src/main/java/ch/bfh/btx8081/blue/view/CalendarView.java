@@ -2,18 +2,23 @@ package ch.bfh.btx8081.blue.view;
 
 import java.time.LocalDate;
 
+import org.vaadin.stefan.fullcalendar.CalendarViewImpl;
 import org.vaadin.stefan.fullcalendar.FullCalendar;
 import org.vaadin.stefan.fullcalendar.FullCalendarBuilder;
 
 
 import com.vaadin.flow.component.button.Button;
+import com.vaadin.flow.component.combobox.ComboBox;
 import com.vaadin.flow.component.datepicker.DatePicker;
 import com.vaadin.flow.component.dependency.CssImport;
+import com.vaadin.flow.component.grid.Grid;
 import com.vaadin.flow.component.html.Label;
 import com.vaadin.flow.component.notification.Notification;
 import com.vaadin.flow.component.orderedlayout.HorizontalLayout;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
+import com.vaadin.flow.component.page.Page;
 import com.vaadin.flow.component.textfield.TextArea;
+import com.vaadin.flow.dom.Style;
 import com.vaadin.flow.router.Route;
 import com.vaadin.flow.server.PWA;
 import com.vaadin.flow.theme.Theme;
@@ -34,6 +39,7 @@ public class CalendarView extends VerticalLayout{
 	//Layout
 	private HorizontalLayout topBar;
 	private HorizontalLayout content;
+	private Grid<VerticalLayout> layoutGrid;
 	private VerticalLayout infopanel;
 
 	//UI Objects
@@ -43,6 +49,7 @@ public class CalendarView extends VerticalLayout{
 	private Button btnPreviousAppointment;
 	private Button btnOpenPatient;
 	private Button btnOpenAppointment;
+	private ComboBox<String> cmbChangeCalendarType;
 	private DatePicker dtpDatePicker;
 	private Label lblPatientName;
 	private Label lblBeginsAt;
@@ -63,13 +70,15 @@ public class CalendarView extends VerticalLayout{
 		loadUIElements();
 
 		this.topBar.setAlignItems(Alignment.END);
+		this.topBar.setPadding(true);
 		this.topBar.add(
 				this.dtpDatePicker,
-				btnToday,
-				btnPreviousAppointment,
-				btnNextAppointment
+				this.btnToday,
+				this.btnPreviousAppointment,
+				this.btnNextAppointment,
+				this.cmbChangeCalendarType
 		);
-		HorizontalLayout buttonDiv = new HorizontalLayout(this.btnOpenAppointment,this.btnOpenPatient);
+		HorizontalLayout buttonDiv = new HorizontalLayout(this.btnOpenAppointment,this.btnOpenPatient); //Used to align Buttons horizontally
 		buttonDiv.setAlignItems(Alignment.END);
 		buttonDiv.add(this.btnOpenAppointment, this.btnOpenPatient);
 		this.infopanel.add(
@@ -98,6 +107,7 @@ public class CalendarView extends VerticalLayout{
 		this.topBar = new HorizontalLayout();
 		this.content = new HorizontalLayout();
 		this.infopanel = new VerticalLayout();
+		this.infopanel.addClassName("info-panel");
 
 		this.calendar = FullCalendarBuilder.create().build();
 		this.presenter.setupCalendarConfiguration(this.calendar);
@@ -138,6 +148,15 @@ public class CalendarView extends VerticalLayout{
 		this.dtpDatePicker.setLabel("Current Date");
 		this.dtpDatePicker.setValue(this.presenter.getSelectedDate());
 
+		this.cmbChangeCalendarType = new ComboBox<>();
+		this.cmbChangeCalendarType.setClassName("viewtype-picker");
+		this.cmbChangeCalendarType.setLabel("View type:");
+		this.cmbChangeCalendarType.setItems("Daily", "Weekly", "Monthly", "List-Daily", "List-Weekly", "List-Monthly" );
+		this.cmbChangeCalendarType.setClearButtonVisible(false);
+		this.cmbChangeCalendarType.setValue("Daily");
+		this.cmbChangeCalendarType.addValueChangeListener(event -> {
+			this.presenter.setCalendarType(event.getValue());
+		});
 	}
 
 	public void update() {
@@ -162,6 +181,19 @@ public class CalendarView extends VerticalLayout{
 		}
 	}
 
+	/**
+	 * Changes the Appearance of the Calendar when a new Item in the dropdown is selected.
+	 * @param type Type of the new Appearance
+	 */
+	public void changeCalendarAppearance (CalendarViewImpl type) {
+		this.calendar.changeView(type);
+		/*
+		this.getElement().executeJs(
+				"var sheet = new CSSStyleSheet; sheet.replaceSync($0); window.location.href.shadowRoot.adoptedStyleSheets = [ sheet ] ",
+				".fc-unthemed .fc-list-heading td {background: #292d2e !important;color: #60dde6 !important;}"
+		);*/
+	}
+	
 	/**
 	 *
 	 * @param appointment

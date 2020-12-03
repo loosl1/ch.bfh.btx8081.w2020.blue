@@ -11,3 +11,12 @@
 	margin-bottom: 6pt;
 	color: #ddd;
 }
+
+.viewtype-picker {
+	align-self: right;
+}
+
+.info-panel {
+	justify-self: flex-end;
+}
+

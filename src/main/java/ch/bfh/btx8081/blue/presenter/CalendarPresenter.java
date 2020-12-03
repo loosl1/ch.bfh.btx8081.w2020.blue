@@ -4,13 +4,10 @@ import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.ArrayList;
 
-import org.apache.commons.io.filefilter.AndFileFilter;
 import org.vaadin.stefan.fullcalendar.BusinessHours;
 import org.vaadin.stefan.fullcalendar.CalendarViewImpl;
 import org.vaadin.stefan.fullcalendar.Entry;
 import org.vaadin.stefan.fullcalendar.FullCalendar;
-
-import com.vaadin.flow.dom.Element;
 
 import ch.bfh.btx8081.blue.exceptions.AppointmentNotFoundException;
 import ch.bfh.btx8081.blue.model.*;
@@ -137,5 +134,29 @@ public class CalendarPresenter {
 	 */
 	public Appointment getCurrentAppointment () {
 		return this.currentAppointment;
+	}
+	
+	/**
+	 * Changes the appearance of the Calendar Object
+	 * @param Chosen Type for the Calendar Appearance
+	 */
+	public void setCalendarType (String viewtype) {
+		CalendarViewImpl type = null;
+		switch (viewtype) {
+			case "Daily":			type = CalendarViewImpl.TIME_GRID_DAY;					
+									break;
+			case "Weekly":			type = CalendarViewImpl.TIME_GRID_WEEK;
+									break;
+			case "Monthly":			type = CalendarViewImpl.DAY_GRID_MONTH;
+									break;
+			case "List-Daily":		type = CalendarViewImpl.LIST_DAY;
+									break;
+			case "List-Weekly":		type = CalendarViewImpl.LIST_WEEK;
+									break;
+			case "List-Monthly":	type = CalendarViewImpl.LIST_MONTH;
+									break;	
+			default:				break;
+		}
+		this.viewComponent.changeCalendarAppearance(type);
 	}
 }
