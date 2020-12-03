@@ -30,7 +30,7 @@ public class CalendarPresenter {
 
 
 	/**
-	 * Constructor
+	 * Constructor 
 	 */
 	public CalendarPresenter (CalendarView viewComponent) {
 		this.viewComponent = viewComponent;

@@ -194,7 +194,7 @@ public class CalendarView extends VerticalLayout{
 		);*/
 	}
 	
-	/**
+	/** 
 	 *
 	 * @param appointment
 	 */
