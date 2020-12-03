@@ -57,7 +57,7 @@ public class Checklist {
     /**
      * If a new item is added to the checklist, this method is called and adds a new item to the arraylist
      *
-     * @param itemDescription The textvalue which the user sets on the view
+     * @param itemDescription The textValue which the user sets on the view
      */
     public void setItems(String itemDescription) {
         try {
