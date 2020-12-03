@@ -5,7 +5,7 @@ import java.util.ArrayList;
 
 /**
  * @author loosl1
- * <p>
+ *
  * created on 19/11/2020
  */
 public class Visit extends Appointment {
@@ -43,7 +43,7 @@ public class Visit extends Appointment {
      *
      * @param visitID the ID of the visit
      */
-    private void updateReports(int visitID) {
+    private void updateRecords(int visitID) {
 
         for (Patient ignored : treatedPatients) {
 

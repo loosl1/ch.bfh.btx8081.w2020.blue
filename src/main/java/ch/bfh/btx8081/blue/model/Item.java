@@ -7,7 +7,7 @@ package ch.bfh.btx8081.blue.model;
  */
 public class Item {
 
-    private String description;
+    private final String description;
 
     /**
      * Constructor which sets a description
@@ -18,12 +18,12 @@ public class Item {
     }
 
     /**
-     * Empty Constructor
+     * Gets the Description
+     * @return Returns the description
      */
-    public Item(){
-        this.description="";
+    public String getDescription() {
+        return description;
     }
-
 
     /**
      * Checks if the value given is Empty or not
