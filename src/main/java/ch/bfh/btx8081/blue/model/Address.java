@@ -14,13 +14,27 @@ public class Address {
 	protected String city;
 	protected int ZIP;
 	
+	/**
+	 * constructor without streetaffix
+	 * @param street
+	 * @param number
+	 * @param city
+	 * @param ZIP
+	 */
 	public Address (String street, int number, String city, int ZIP) {
 		this.street = street;
 		this.number = number;
 		this.city = city;
 		this.ZIP = ZIP;
 	}
-	
+	/**
+	 * constructor with streetaffix
+	 * @param street
+	 * @param number
+	 * @param city
+	 * @param ZIP
+	 * @param streetaffix
+	 */
 	public Address (String street, int number, String city, int ZIP, String streetaffix) {
 		this.street = street;
 		this.number = number;
