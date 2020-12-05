@@ -11,11 +11,19 @@ public class Checklist {
 
     private PatientRecord report; //the report which is created by a HealthVisitor after a visit
 
+    /**
+     * Constructor
+     * @param items Arraylist
+     * @param report Patientrecord
+     */
     public Checklist(ArrayList<Item> items, PatientRecord report) {
         this.items = items;
         this.report = report;
     }
 
+    /**
+     * Constructor
+     */
     public Checklist() {
         this.items = new ArrayList<>();
         this.report = new PatientRecord();
@@ -39,7 +47,7 @@ public class Checklist {
     /**
      * Loads a record
      *
-     * @return calls the getReport-Method which returns the report of the object
+     * @return Retursn a report as a PatientRecord
      */
     private PatientRecord loadRecord() {
         return getReport();
@@ -60,18 +68,18 @@ public class Checklist {
      * @param itemDescription The textValue which the user sets on the view
      */
     public void setItems(String itemDescription) {
-        try {
+        if (itemDescription.isEmpty() || itemDescription == "") {
+            throw new NullPointerException("The itemDescription value was null");
+        } else {
             Item item = new Item(itemDescription);
             items.add(item);
-        } catch (NullPointerException e) {
-            System.out.println("The itemDescription value was null" + e.getMessage());
         }
     }
 
     /**
      * Gets the report
      *
-     * @return Returns the PatientRecord Report
+     * @return Returns the PatientRecord Report as a PatientRecord
      */
     public PatientRecord getReport() {
         return report;
@@ -80,9 +88,13 @@ public class Checklist {
     /**
      * Sets a report into the local report
      *
-     * @param report
+     * @param report the Report to be set
      */
     public void setReport(PatientRecord report) {
-        this.report = report;
+        if (report.toString().isEmpty()) {
+            throw new NullPointerException("The PatientRecord value was null");
+        } else {
+            this.report = report;
+        }
     }
 }

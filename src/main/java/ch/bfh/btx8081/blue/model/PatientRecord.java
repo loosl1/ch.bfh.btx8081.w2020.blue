@@ -12,8 +12,8 @@ public class PatientRecord {
 
     Date date, localDate;
     HealthVisitor healthVisitor;
-    String title;
-    String description;
+    String title; //toDo Wie ist der Titel zu verstehen? aus was besteht dieser?
+    String description; //Description of specific information for the patient
 
     /**
      * Constructor
@@ -24,34 +24,43 @@ public class PatientRecord {
      * @param description   Description of the report
      */
     public PatientRecord(Date date, HealthVisitor healthVisitor, String title, String description) {
+        this.localDate = java.util.Calendar.getInstance().getTime();
         this.date = date;
         this.healthVisitor = healthVisitor;
         this.title = title;
         this.description = description;
-        this.localDate = java.util.Calendar.getInstance().getTime();
+
     }
 
     /**
      * Constructor
      *
-     * @param healthVisitor
+     * @param healthVisitor creates a Healthvisitor
      */
     public PatientRecord(HealthVisitor healthVisitor) {
-        this.date = java.util.Calendar.getInstance().getTime();
+
         this.localDate = java.util.Calendar.getInstance().getTime();
+        this.date = this.localDate;
         this.healthVisitor = healthVisitor;
         this.title = "";
         this.description = "";
     }
 
+    /**
+     * Empty Constructor //toDo discuss if really needed and how to handle the situation without a Healthvisitor
+     */
     public PatientRecord() {
+        this.localDate = java.util.Calendar.getInstance().getTime();
+        this.date = this.localDate;
+        this.title = "";
+        this.description = "";
 
     }
 
     /**
      * Gets the date
      *
-     * @return Returns the date
+     * @return Returns the date as Date
      */
     public Date getDate() {
         return date;
@@ -60,7 +69,7 @@ public class PatientRecord {
     /**
      * Sets a new date
      *
-     * @param date Date to be set
+     * @param date Date to be set as Date
      */
     public void setDate(Date date) {
 
@@ -74,27 +83,63 @@ public class PatientRecord {
 
     }
 
+    /**
+     * Returns the healthvisitor
+     * @return Returns the Healthvisitor as a Healthvisitor
+     */
     public HealthVisitor getHealthVisitor() {
         return healthVisitor;
     }
 
+    /**
+     * Sets a new Healthvisitor //toDo DISCUSS IF REALLY NEEDED
+     * @param healthVisitor The Healthvisitor as a Healthvisitor
+     */
     public void setHealthVisitor(HealthVisitor healthVisitor) {
-        this.healthVisitor = healthVisitor;
+        if (healthVisitor.toString().isEmpty()) {
+            throw new NullPointerException("The HealthVisitor value was null");
+        } else {
+            this.healthVisitor = healthVisitor;
+        }
     }
 
+    /**
+     * Returns the Title of the PatientRecord
+     * @return Returns the Title as a String
+     */
     public String getTitle() {
         return title;
     }
 
+    /**
+     * Sets a new title
+     * @param title The Title which is to be set as a String
+     */
     public void setTitle(String title) {
-        this.title = title;
+        if (title == "" || title.isEmpty()) {
+            throw new NullPointerException("The Title value was null");
+        } else {
+            this.title = title;
+        }
     }
 
+    /**
+     * Returns the description for the patient
+     * @return Returns the description for the patient as a String
+     */
     public String getDescription() {
         return description;
     }
 
+    /**
+     * Sets a new description for a patient
+     * @param description Sets a description as a String
+     */
     public void setDescription(String description) {
-        this.description = description;
+        if (description == "" || description.isEmpty()) {
+            throw new NullPointerException("The Description value was null");
+        } else {
+            this.description = description;
+        }
     }
 }
