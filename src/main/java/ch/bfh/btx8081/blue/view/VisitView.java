@@ -57,6 +57,7 @@ public class VisitView extends VerticalLayout {
 
         this.buttonList.setWidth("30%");
         this.titlePanel.setWidth("10%");
+
         this.checklist.add(this.titlePanel, this.checklistPanel);
         this.content.add(this.checklist, this.buttonList);
 

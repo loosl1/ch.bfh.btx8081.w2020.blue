@@ -15,8 +15,8 @@ import javax.persistence.Transient;
 
 /**
  * @author loosl1
- *         <p>
- *         created on 19/11/2020
+ * <p>
+ * created on 19/11/2020
  */
 
 @Entity
@@ -29,7 +29,7 @@ public class Appointment implements Comparable<Appointment> {
 
 	@Column(name="end_datetime") // Name "end" dont work in JPA
 	protected LocalDateTime end;
-	
+
 	@Column(name="start_datetime")  // Same Name Shema as "end_datetime"
 	protected LocalDateTime start;
 
@@ -65,7 +65,7 @@ public class Appointment implements Comparable<Appointment> {
 
 	/**
 	 * returns the of of the appointment
-	 * 
+	 *
 	 * @return ID of the appointment
 	 */
 	public int getAppointmentID() {
@@ -87,7 +87,7 @@ public class Appointment implements Comparable<Appointment> {
 
 	/**
 	 * returns the start date and time
-	 * 
+	 *
 	 * @return startdate as LocalDateTime
 	 */
 	public LocalDateTime getStart() {
@@ -122,7 +122,7 @@ public class Appointment implements Comparable<Appointment> {
 
 	/**
 	 * returns the end date and time
-	 * 
+	 *
 	 * @return end date and time
 	 */
 	public LocalDateTime getEnd() {
@@ -158,7 +158,7 @@ public class Appointment implements Comparable<Appointment> {
 
 	/**
 	 * returns the title
-	 * 
+	 *
 	 * @return title as String
 	 */
 	public String getTitle() {
@@ -183,7 +183,7 @@ public class Appointment implements Comparable<Appointment> {
 
 	/**
 	 * Returns the information about the patient
-	 * 
+	 *
 	 * @return Info as String
 	 */
 	public String getInfo() {
@@ -208,7 +208,7 @@ public class Appointment implements Comparable<Appointment> {
 
 	/**
 	 * Defines a default sort criteria for sorting Objects via the Comparable class
-	 * 
+	 *
 	 * @param appointment the appointment in the list which is being compared to the
 	 *                    next appointment
 	 * @return Returns the compared start date given to the start date
