@@ -48,6 +48,7 @@ public class CalendarView extends VerticalLayout{
 	private Button btnNextAppointment;
 	private Button btnPreviousAppointment;
 	private Button btnOpenPatient;
+	private Button btnGenerateData;
 	private Button btnOpenAppointment;
 	private ComboBox<String> cmbChangeCalendarType;
 	private DatePicker dtpDatePicker;
@@ -78,9 +79,9 @@ public class CalendarView extends VerticalLayout{
 				this.btnNextAppointment,
 				this.cmbChangeCalendarType
 		);
-		HorizontalLayout buttonDiv = new HorizontalLayout(this.btnOpenAppointment,this.btnOpenPatient); //Used to align Buttons horizontally
+		HorizontalLayout buttonDiv = new HorizontalLayout(this.btnOpenAppointment,this.btnOpenPatient,this.btnGenerateData); //Used to align Buttons horizontally
 		buttonDiv.setAlignItems(Alignment.END);
-		buttonDiv.add(this.btnOpenAppointment, this.btnOpenPatient);
+		buttonDiv.add(this.btnOpenAppointment, this.btnOpenPatient,this.btnGenerateData);
 		this.infopanel.add(
 				this.lblPatientName,
 				this.lblBeginsAt,
@@ -143,6 +144,8 @@ public class CalendarView extends VerticalLayout{
 						event -> showVisit());
 		this.btnOpenPatient = new Button("Open Patient",
 						event -> showPatient());
+		this.btnGenerateData = new Button("Generate Data",
+				event -> this.presenter.generateData());
 		this.dtpDatePicker = new DatePicker("Current Date",
 						event -> this.presenter.setSelectedDate(dtpDatePicker.getValue()));
 		this.dtpDatePicker.setLabel("Current Date");

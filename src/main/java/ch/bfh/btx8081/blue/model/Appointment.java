@@ -3,194 +3,222 @@ package ch.bfh.btx8081.blue.model;
 import java.time.DateTimeException;
 import java.time.LocalDateTime;
 
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.Inheritance;
+import javax.persistence.InheritanceType;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
+import javax.persistence.Table;
+import javax.persistence.Transient;
+
 /**
  * @author loosl1
- * <p>
- * created on 19/11/2020
+ *         <p>
+ *         created on 19/11/2020
  */
+
+@Entity
+@Table(name = "appointments")
+@Inheritance(strategy = InheritanceType.JOINED)
 public class Appointment implements Comparable<Appointment> {
 
-    protected int appointmentID;
+	@Id
+	protected int appointmentID;
 
-    protected LocalDateTime start, end;
+	@Column(name="end_datetime") // Name "end" dont work in JPA
+	protected LocalDateTime end;
+	
+	@Column(name="start_datetime")  // Same Name Shema as "end_datetime"
+	protected LocalDateTime start;
 
-    private static int  trackingId=1000;
+	@Transient
+	private static int trackingId = 1000;
 
-    protected String title, info;
+	protected String title, info;
 
-    protected enum type {
+	protected enum type {
 
-        GROUPVISIT,
+		GROUPVISIT,
 
-        VISIT,
+		VISIT,
 
-        INTERNAL
+		INTERNAL
 
-    }
+	}
 
-    public Appointment(LocalDateTime start, LocalDateTime end, String title, String info) {
-        this.appointmentID = trackingId++;
-        this.start = start;
-        this.end = end;
-        this.title = title;
-        this.info = info;
-    }
+	/**
+	 * empty constructor
+	 */
+	public Appointment() {
+		this.appointmentID = trackingId++;
+	}
 
-    /**
-     * returns the of of the appointment
-     * @return ID of the appointment
-     */
-    public int getAppointmentID() {
-        return appointmentID;
-    }
+	public Appointment(LocalDateTime start, LocalDateTime end, String title, String info) {
+		this.appointmentID = trackingId++;
+		this.start = start;
+		this.end = end;
+		this.title = title;
+		this.info = info;
+	}
 
-    /**
-     * asks if the value given is empty
-     *
-     * @param appointmentID the idNo of the appointment
-     */
-    public void setAppointmentID(int appointmentID) {
-        try {
-            this.appointmentID = appointmentID;
-        } catch (Exception e) {
-            throw new IllegalArgumentException("AppointmentID is either null or blank: " + e);
-        }
-    }
+	/**
+	 * returns the of of the appointment
+	 * 
+	 * @return ID of the appointment
+	 */
+	public int getAppointmentID() {
+		return appointmentID;
+	}
 
+	/**
+	 * asks if the value given is empty
+	 *
+	 * @param appointmentID the idNo of the appointment
+	 */
+	public void setAppointmentID(int appointmentID) {
+		try {
+			this.appointmentID = appointmentID;
+		} catch (Exception e) {
+			throw new IllegalArgumentException("AppointmentID is either null or blank: " + e);
+		}
+	}
 
-    /**
-     * returns the start date and time
-     * @return startdate as LocalDateTime
-     */
-    public LocalDateTime getStart() {
-        return start;
+	/**
+	 * returns the start date and time
+	 * 
+	 * @return startdate as LocalDateTime
+	 */
+	public LocalDateTime getStart() {
+		return start;
 
-    }
+	}
 
+	/**
+	 * asks if the value given is empty and if the enddate is after the startdate
+	 *
+	 * @param start start date and time
+	 */
+	public void setStart(LocalDateTime start) {
+		if (!end.toString().isEmpty()) {
 
-    /**
-     * asks if the value given is empty and if the enddate is after the startdate
-     *
-     * @param start start date and time
-     */
-    public void setStart(LocalDateTime start) {
-        if (!end.toString().isEmpty()) {
+			if (end.isBefore(this.start)) {
 
-            if (end.isBefore(this.start)) {
+				this.start = start;
 
-                this.start = start;
+			} else {
 
-            } else {
+				throw new DateTimeException("End date is before start date");
 
-                throw new DateTimeException("End date is before start date");
+			}
 
-            }
+		} else if (start.toString().isEmpty()) {
 
-        } else if (start.toString().isEmpty()) {
+			throw new NullPointerException("Start date is empty");
 
-            throw new NullPointerException("Start date is empty");
+		}
+	}
 
-        }
-    }
+	/**
+	 * returns the end date and time
+	 * 
+	 * @return end date and time
+	 */
+	public LocalDateTime getEnd() {
+		return end;
+	}
 
-    /**
-     * returns the end date and time
-     * @return end date and time
-     */
-    public LocalDateTime getEnd() {
-        return end;
-    }
+	/**
+	 * asks if the value given is empty and if the startdate is before the enddate
+	 *
+	 * @param end end date and time
+	 */
+	public void setEnd(LocalDateTime end) {
 
+		if (!start.toString().isEmpty()) {
 
-    /**
-     * asks if the value given is empty and if the startdate is before the enddate
-     *
-     * @param end end date and time
-     */
-    public void setEnd(LocalDateTime end) {
+			if (start.isBefore(this.end)) {
 
-        if (!start.toString().isEmpty()) {
+				this.end = end;
 
-            if (start.isBefore(this.end)) {
+			} else {
 
-                this.end = end;
+				throw new DateTimeException("Start date is after end date");
 
-            } else {
+			}
 
-                throw new DateTimeException("Start date is after end date");
+		} else if (end.toString().isEmpty()) {
 
-            }
+			throw new NullPointerException("End date is empty");
 
-        } else if (end.toString().isEmpty()) {
+		}
 
-            throw new NullPointerException("End date is empty");
+	}
 
-        }
+	/**
+	 * returns the title
+	 * 
+	 * @return title as String
+	 */
+	public String getTitle() {
+		return title;
+	}
 
+	/**
+	 * Asks if the value given is empty and sets it onto the variable title
+	 *
+	 * @param title The title of the appointment
+	 */
+	public void setTitle(String title) {
 
-    }
+		if (title.isEmpty()) {
 
-    /**
-     * returns the title
-     * @return title as String
-     */
-    public String getTitle() {
-        return title;
-    }
+			throw new NullPointerException("Title is empty");
 
+		} else {
+			this.title = title;
+		}
+	}
 
-    /**
-     * Asks if the value given is empty and sets it onto the variable title
-     *
-     * @param title The title of the appointment
-     */
-    public void setTitle(String title) {
+	/**
+	 * Returns the information about the patient
+	 * 
+	 * @return Info as String
+	 */
+	public String getInfo() {
+		return info;
+	}
 
-        if (title.isEmpty()) {
+	/**
+	 * Sets the written Info-String onto the local info variable
+	 *
+	 * @param info Is the information written by the Health Visitor about the
+	 *             Patient
+	 */
+	public void setInfo(String info) {
+		if (info.isEmpty()) {
 
-            throw new NullPointerException("Title is empty");
+			throw new NullPointerException("Info is empty");
 
-        } else {
-            this.title = title;
-        }
-    }
+		} else {
+			this.info = info;
+		}
+	}
 
-    /**
-     * Returns the information about the patient
-     * @return Info as String
-     */
-    public String getInfo() {
-        return info;
-    }
-
-    /**
-     * Sets the written Info-String onto the local info variable
-     *
-     * @param info Is the information written by the Health Visitor about the Patient
-     */
-    public void setInfo(String info) {
-        if (info.isEmpty()) {
-
-            throw new NullPointerException("Info is empty");
-
-        } else {
-            this.info = info;
-        }
-    }
-
-    /**
-     * Defines a default sort criteria for sorting Objects via the Comparable class
-     * @param appointment the appointment in the list which is being compared to the next appointment
-     * @return Returns the compared start date given to the start date
-     */
-    @Override
-    public int compareTo(Appointment appointment) {
-        if (getStart() == null || appointment.getStart() == null) {
-            return 0;
-        }
-        return getStart().compareTo(appointment.getStart());
-    }
+	/**
+	 * Defines a default sort criteria for sorting Objects via the Comparable class
+	 * 
+	 * @param appointment the appointment in the list which is being compared to the
+	 *                    next appointment
+	 * @return Returns the compared start date given to the start date
+	 */
+	@Override
+	public int compareTo(Appointment appointment) {
+		if (getStart() == null || appointment.getStart() == null) {
+			return 0;
+		}
+		return getStart().compareTo(appointment.getStart());
+	}
 
 }
-
-

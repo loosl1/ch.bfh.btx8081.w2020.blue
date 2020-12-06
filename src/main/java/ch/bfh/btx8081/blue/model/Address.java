@@ -2,52 +2,66 @@ package ch.bfh.btx8081.blue.model;
 
 import java.time.LocalDate;
 
+import javax.persistence.Embeddable;
+import javax.persistence.Table;
+
 /**
  * @author loosl1
- * <p>
- * created on 19/11/2020
+ *         <p>
+ *         created on 19/11/2020
  */
+@Embeddable
+@Table(name = "addresses")
 public class Address {
 	protected String street;
 	protected String streetaffix;
 	protected int number;
 	protected String city;
 	protected int ZIP;
-	
+
+	/**
+	 * empty constructor
+	 */
+	public Address() {
+	}
+
 	/**
 	 * constructor without streetaffix
+	 * 
 	 * @param street
 	 * @param number
 	 * @param city
 	 * @param ZIP
 	 */
-	public Address (String street, int number, String city, int ZIP) {
+	public Address(String street, int number, String city, int ZIP) {
 		this.street = street;
 		this.number = number;
 		this.city = city;
 		this.ZIP = ZIP;
 	}
+
 	/**
 	 * constructor with streetaffix
+	 * 
 	 * @param street
 	 * @param number
 	 * @param city
 	 * @param ZIP
 	 * @param streetaffix
 	 */
-	public Address (String street, int number, String city, int ZIP, String streetaffix) {
+	public Address(String street, int number, String city, int ZIP, String streetaffix) {
 		this.street = street;
 		this.number = number;
 		this.city = city;
 		this.ZIP = ZIP;
 		this.streetaffix = streetaffix;
 	}
-	
+
 	/**
 	 * 
 	 * @return returns the full address formated
 	 */
-	//braucht es Streetaffix?
+	// braucht es Streetaffix?
 	public String formatAddress() {
 		String sNumber = String.valueOf(number);
 		String sZIP = String.valueOf(ZIP);
@@ -56,15 +70,15 @@ public class Address {
 		String address = (line1 + System.lineSeparator() + line2);
 		return address;
 	};
-	
+
 	/**
 	 * 
 	 * @param newStreet sets new street in address
 	 */
-	public void setStreet (String newStreet) {
+	public void setStreet(String newStreet) {
 		this.street = newStreet;
 	};
-	
+
 	/**
 	 * 
 	 * @return returns street from address
@@ -72,15 +86,15 @@ public class Address {
 	public String getStreet() {
 		return street;
 	};
-	
+
 	/**
 	 * 
 	 * @param newStreetaffix sets new streetaffix in address
 	 */
-	public void setStreetaffix (String newStreetaffix) {
+	public void setStreetaffix(String newStreetaffix) {
 		this.streetaffix = newStreetaffix;
 	};
-	
+
 	/**
 	 * 
 	 * @return returns streetaffix from address
@@ -88,15 +102,15 @@ public class Address {
 	public String getStreetaffix() {
 		return streetaffix;
 	};
-	
+
 	/**
 	 * 
 	 * @param newNumber sets news streetnumber in address
 	 */
-	public void setNumber (int newNumber) {
+	public void setNumber(int newNumber) {
 		this.number = newNumber;
 	};
-	
+
 	/**
 	 * 
 	 * @return returns streetnumber from address
@@ -104,15 +118,15 @@ public class Address {
 	public int getNumber() {
 		return number;
 	};
-	
+
 	/**
 	 * 
 	 * @param newCity sets new city in address
 	 */
-	public void setcity (String newCity) {
+	public void setcity(String newCity) {
 		this.city = newCity;
 	};
-	
+
 	/**
 	 * 
 	 * @return gets city from address
@@ -120,15 +134,15 @@ public class Address {
 	public String getCity() {
 		return city;
 	};
-	
+
 	/**
 	 * 
 	 * @param newZIP sets ZIP in address
 	 */
-	public void setZIP (int newZIP) {
+	public void setZIP(int newZIP) {
 		this.ZIP = newZIP;
 	};
-	
+
 	/**
 	 * 
 	 * @return gets ZIP from address

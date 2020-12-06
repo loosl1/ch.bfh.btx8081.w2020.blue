@@ -15,9 +15,8 @@ import com.vaadin.flow.theme.lumo.Lumo;
 @SuppressWarnings("serial")
 @CssImport("styles/lumo-custom-dark-theme.css")
 @CssImport("styles/custom-formatting.css")
-@Route("")
+@Route("VisitView")
 @Theme(value = Lumo.class, variant = Lumo.DARK)
-@PWA(name = "CareTaker", shortName = "CareTaker")
 
 public class VisitView extends VerticalLayout {
     //Presenter

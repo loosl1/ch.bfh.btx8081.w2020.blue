@@ -4,6 +4,9 @@ import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.ArrayList;
 
+import javax.persistence.EntityManager;
+import javax.persistence.Persistence;
+
 import org.vaadin.stefan.fullcalendar.BusinessHours;
 import org.vaadin.stefan.fullcalendar.CalendarViewImpl;
 import org.vaadin.stefan.fullcalendar.Entry;
@@ -36,6 +39,7 @@ public class CalendarPresenter {
 		this.viewComponent = viewComponent;
 		this.selectedDate = LocalDate.now();
 		// manual created data
+		
 		currentUser = new HealthVisitor ("Bern", "password", "naj", "Jung", "Natalie", "", LocalDate.parse("1990-05-23") , null);
 		currentUser.setCalendar(new Calendar ());
 		Appointment appointment1 = new Appointment(LocalDate.parse("2020-11-26").atTime(10, 0),LocalDate.parse("2020-11-26").atTime(11, 0),"Besuch bei Broenimanns","Und hier die Infos");
@@ -83,6 +87,32 @@ public class CalendarPresenter {
 		    entries.add(entry);
 		});
 	    return entries;
+	}
+	
+	public void generateData(){
+		EntityManager entityManager = Persistence.createEntityManagerFactory("CareTaker").createEntityManager();
+		entityManager.getTransaction().begin();
+		
+		HealthVisitor healthVisitor = new HealthVisitor ("Online", "password", "naj", "Jung", "Natalie", "", LocalDate.parse("1990-05-23") , null);
+		entityManager.persist(healthVisitor);
+		Calendar calendar = new Calendar ();
+		entityManager.persist(calendar);
+		healthVisitor.setCalendar(calendar);
+		Appointment appointment1 = new Appointment(LocalDate.parse("2020-11-26").atTime(10, 0),LocalDate.parse("2020-11-26").atTime(11, 0),"Besuch bei Broenimanns","Und hier die Infos");
+		entityManager.persist(appointment1);
+		healthVisitor.getCalendar().addAppointment(appointment1);
+		Appointment appointment2 = new Appointment(LocalDate.parse("2020-11-26").atTime(11, 15),LocalDate.parse("2020-11-26").atTime(11, 30),"Besuch bei Broenimanns","Und hier die Infos");
+		entityManager.persist(appointment2);
+		healthVisitor.getCalendar().addAppointment(appointment2);
+		Appointment appointment3 = new Appointment(LocalDate.parse("2020-11-27").atTime(8, 0),LocalDate.parse("2020-11-27").atTime(9, 0),"Besuch bei Broenimanns","Und hier die Infos");
+		entityManager.persist(appointment3);
+		healthVisitor.getCalendar().addAppointment(appointment3);
+		Appointment appointment4 = new Appointment(LocalDate.parse("2020-11-27").atTime(9, 0),LocalDate.parse("2020-11-27").atTime(9, 30),"Besuch bei Broenimanns","Und hier die Infos");
+		entityManager.persist(appointment4);
+		healthVisitor.getCalendar().addAppointment(appointment4);
+		
+		entityManager.getTransaction().commit();
+		entityManager.close();
 	}
 
 	/**
