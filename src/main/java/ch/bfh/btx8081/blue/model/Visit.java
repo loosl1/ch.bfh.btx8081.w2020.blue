@@ -29,7 +29,7 @@ public class Visit extends Appointment {
 	@OneToOne
 	private Checklist checklist;
 
-	private String report;
+	private String report; 
 
 	@OneToMany
 	private List<Patient> treatedPatients;

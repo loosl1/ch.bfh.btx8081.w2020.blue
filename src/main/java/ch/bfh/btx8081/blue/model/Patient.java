@@ -36,7 +36,7 @@ public class Patient extends Person {
 
 	/**
 	 * empty Constructor
-	 */
+	 */ 
 	public Patient() {
 		super();
 	}

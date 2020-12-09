@@ -42,7 +42,7 @@ public class Appointment implements Comparable<Appointment> {
 	public enum AppointmentType {
 		GROUPVISIT,
 		VISIT,
-		INTERNAL
+		INTERNAL 
 	}
 
 	/**

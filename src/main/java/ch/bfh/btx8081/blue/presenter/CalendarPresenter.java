@@ -40,7 +40,7 @@ public class CalendarPresenter {
 	public CalendarPresenter (CalendarView viewComponent) {
 		this.viewComponent = viewComponent;
 		this.selectedDate = LocalDate.now();
-		// manual created data
+		// manual created data 
 		ArrayList<Patient> firstList = new ArrayList<Patient>();
 		Address addresse = new Address("Lyssstrasse", 12, "Urtenen-Schönbühl", 3322);
 		Patient patient1 = new Patient("Stanic", "Nikola", "von der Weide", LocalDate.of(1997, 2, 1), addresse);

@@ -166,7 +166,7 @@ public class CalendarView extends VerticalLayout{
 		this.calendar.gotoDate(this.presenter.getSelectedDate());
 		this.dtpDatePicker.setValue(this.presenter.getSelectedDate());
 		if (this.presenter.getCurrentAppointment() != null && this.presenter.getCurrentAppointment().getAppointmentType() != AppointmentType.INTERNAL) {
-			this.lblPatientName.setVisible(true);
+			this.lblPatientName.setVisible(true); 
 			this.lblTitleInfo.setVisible(true);
 			this.lblTitleAdress.setVisible(true);
 			this.lblBeginsAt.setVisible(true);
