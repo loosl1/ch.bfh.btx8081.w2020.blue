@@ -44,6 +44,7 @@ public class Patient extends Person {
 	/* Constructor */
 	public Patient(String name, String surname, String namesuffix, LocalDate birthday, Address address) {
 		super(name, surname, namesuffix, birthday);
+		super.setAdress(address);
 		this.contacts = new ArrayList<>();
 		this.calendar = new Calendar();
 		this.patientId = patientIdCounter++;
@@ -53,6 +54,7 @@ public class Patient extends Person {
 	public Patient(String name, String surname, String namesuffix, LocalDate birthday, Address address,
 			String infoAdmin) {
 		super(name, surname, namesuffix, birthday);
+		super.setAdress(address);
 		this.contacts = new ArrayList<>();
 		this.calendar = new Calendar();
 		this.patientId = patientIdCounter++;
@@ -134,5 +136,4 @@ public class Patient extends Person {
 	public void setPatientId(int newPatientId) {
 		this.patientId = newPatientId;
 	};
-
 }

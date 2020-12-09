@@ -1,11 +1,10 @@
 package ch.bfh.btx8081.blue.presenter;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.time.LocalTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
-
-import javax.persistence.EntityManager;
-import javax.persistence.Persistence;
 
 import org.vaadin.stefan.fullcalendar.BusinessHours;
 import org.vaadin.stefan.fullcalendar.CalendarViewImpl;
@@ -14,6 +13,7 @@ import org.vaadin.stefan.fullcalendar.FullCalendar;
 
 import ch.bfh.btx8081.blue.exceptions.AppointmentNotFoundException;
 import ch.bfh.btx8081.blue.model.*;
+import ch.bfh.btx8081.blue.model.Appointment.AppointmentType;
 import ch.bfh.btx8081.blue.view.CalendarView;
 
 public class CalendarPresenter {
@@ -28,8 +28,10 @@ public class CalendarPresenter {
 	private static final int WORKHOURS_END_HOUR = 18;
 	private static final int WORKHOURS_END_MINUTE = 0;
 	private static final String APPOINTMENT_COLOR_LARGE = "#ff5969";
-	//private static final String APPOINTMENT_COLOR_SMALL = "#fec630";
-	//private static final String APPOINTMENT_COLOR_ADMIN = "#52cbbe";
+	private static final String APPOINTMENT_COLOR_SMALL = "#fec630";
+	private static final String APPOINTMENT_COLOR_ADMIN = "#52cbbe";
+	private static final int APPOINTMENT_IS_LARGE_IN_MIN = 60;
+	private static final String DATETIME_PATTERN = "dd.MM.yyyy        HH:mm";
 
 
 	/**
@@ -39,16 +41,22 @@ public class CalendarPresenter {
 		this.viewComponent = viewComponent;
 		this.selectedDate = LocalDate.now();
 		// manual created data
-		
+		ArrayList<Patient> firstList = new ArrayList<Patient>();
+		Address addresse = new Address("Lyssstrasse", 12, "Urtenen-Schönbühl", 3322);
+		Patient patient1 = new Patient("Stanic", "Nikola", "von der Weide", LocalDate.of(1997, 2, 1), addresse);
+		Patient patient2 = new Patient("Müller", "Stephanie", "", LocalDate.of(2002, 12, 11), new Address("Grubenstrasse", 53, "Belp", 3106));
+		firstList.add(patient1);
+		ArrayList<Patient> secondList = new ArrayList<Patient>();
+		secondList.add(patient2);
 		currentUser = new HealthVisitor ("Bern", "password", "naj", "Jung", "Natalie", "", LocalDate.parse("1990-05-23") , null);
 		currentUser.setCalendar(new Calendar ());
-		Appointment appointment1 = new Appointment(LocalDate.parse("2020-11-26").atTime(10, 0),LocalDate.parse("2020-11-26").atTime(11, 0),"Besuch bei Broenimanns","Und hier die Infos");
+		Appointment appointment1 = new Visit(LocalDate.parse("2020-11-26").atTime(10, 0),LocalDate.parse("2020-11-26").atTime(11, 0),"Besuch bei Broenimanns","Und hier die Infos", new Checklist(), firstList, AppointmentType.GROUPVISIT);
 		currentUser.getCalendar().addAppointment(appointment1);
-		Appointment appointment2 = new Appointment(LocalDate.parse("2020-11-26").atTime(11, 15),LocalDate.parse("2020-11-26").atTime(11, 30),"Besuch bei Broenimanns","Und hier die Infos");
+		Appointment appointment2 = new Visit(LocalDate.parse("2020-11-26").atTime(11, 15),LocalDate.parse("2020-11-26").atTime(11, 30),"Besuch bei Broenimanns","Und hier die Infos", new Checklist(), secondList, AppointmentType.GROUPVISIT);
 		currentUser.getCalendar().addAppointment(appointment2);
-		Appointment appointment3 = new Appointment(LocalDate.parse("2020-11-27").atTime(8, 0),LocalDate.parse("2020-11-27").atTime(9, 0),"Besuch bei Broenimanns","Und hier die Infos");
+		Appointment appointment3 = new Appointment(LocalDate.parse("2020-11-27").atTime(8, 0),LocalDate.parse("2020-11-27").atTime(9, 0),"Besuch bei Broenimanns","Und hier die Infos", AppointmentType.VISIT);
 		currentUser.getCalendar().addAppointment(appointment3);
-		Appointment appointment4 = new Appointment(LocalDate.parse("2020-11-27").atTime(9, 0),LocalDate.parse("2020-11-27").atTime(9, 30),"Besuch bei Broenimanns","Und hier die Infos");
+		Appointment appointment4 = new Appointment(LocalDate.parse("2020-11-27").atTime(9, 0),LocalDate.parse("2020-11-27").atTime(9, 30),"Besuch bei Broenimanns","Und hier die Infos", AppointmentType.INTERNAL);
 		currentUser.getCalendar().addAppointment(appointment4);
 	}
 
@@ -75,45 +83,39 @@ public class CalendarPresenter {
 		this.viewComponent.update();
 	}
 
+	/**
+	 * Converts the Appointments into applyable Objects of the Type "Entry", since the Calendar Object can only handle these type of objects.
+	 * @return List of all Entries to be displayed.
+	 */
 	public ArrayList<Entry> generateEntriesForCalendar() {
 		ArrayList<Entry> entries = new ArrayList<Entry>();
 		this.currentUser.getCalendar().getAppointments().forEach(appointment -> {
-			Entry entry = new Entry();
+			Entry entry = new Entry(); //Makes Creating an Entry into Calendar Object possible.
 		    entry.setTitle(appointment.getTitle());
 		    entry.setStart(appointment.getStart());
 		    entry.setEnd(appointment.getEnd());
-		    entry.setColor(APPOINTMENT_COLOR_LARGE);
+		    //Color Handling
+		    if (appointment.getAppointmentType() != AppointmentType.INTERNAL) {
+		    	int hourDiff, minDiff = 0; //Needed to calculate difference of start and endtime
+		    	hourDiff = (appointment.getEnd().getHour() - appointment.getStart().getHour());
+		    	minDiff = (appointment.getEnd().getMinute() - appointment.getStart().getMinute());
+		    	if ((hourDiff * 60) + minDiff >= APPOINTMENT_IS_LARGE_IN_MIN) {
+		    		entry.setColor(APPOINTMENT_COLOR_LARGE);
+		    	}
+		    	else {
+		    		entry.setColor(APPOINTMENT_COLOR_SMALL);
+		    	}
+		    }
+		    else {
+		    	entry.setColor(APPOINTMENT_COLOR_ADMIN);
+		    }
+		    
 		    entry.setEditable(false);
 		    entries.add(entry);
 		});
 	    return entries;
 	}
 	
-	public void generateData(){
-		EntityManager entityManager = Persistence.createEntityManagerFactory("CareTaker").createEntityManager();
-		entityManager.getTransaction().begin();
-		
-		HealthVisitor healthVisitor = new HealthVisitor ("Online", "password", "naj", "Jung", "Natalie", "", LocalDate.parse("1990-05-23") , null);
-		entityManager.persist(healthVisitor);
-		Calendar calendar = new Calendar ();
-		entityManager.persist(calendar);
-		healthVisitor.setCalendar(calendar);
-		Appointment appointment1 = new Appointment(LocalDate.parse("2020-11-26").atTime(10, 0),LocalDate.parse("2020-11-26").atTime(11, 0),"Besuch bei Broenimanns","Und hier die Infos");
-		entityManager.persist(appointment1);
-		healthVisitor.getCalendar().addAppointment(appointment1);
-		Appointment appointment2 = new Appointment(LocalDate.parse("2020-11-26").atTime(11, 15),LocalDate.parse("2020-11-26").atTime(11, 30),"Besuch bei Broenimanns","Und hier die Infos");
-		entityManager.persist(appointment2);
-		healthVisitor.getCalendar().addAppointment(appointment2);
-		Appointment appointment3 = new Appointment(LocalDate.parse("2020-11-27").atTime(8, 0),LocalDate.parse("2020-11-27").atTime(9, 0),"Besuch bei Broenimanns","Und hier die Infos");
-		entityManager.persist(appointment3);
-		healthVisitor.getCalendar().addAppointment(appointment3);
-		Appointment appointment4 = new Appointment(LocalDate.parse("2020-11-27").atTime(9, 0),LocalDate.parse("2020-11-27").atTime(9, 30),"Besuch bei Broenimanns","Und hier die Infos");
-		entityManager.persist(appointment4);
-		healthVisitor.getCalendar().addAppointment(appointment4);
-		
-		entityManager.getTransaction().commit();
-		entityManager.close();
-	}
 
 	/**
 	 * Gets next Appointment to the currently selected one.
@@ -188,5 +190,60 @@ public class CalendarPresenter {
 			default:				break;
 		}
 		this.viewComponent.changeCalendarAppearance(type);
+	}
+	
+	/**
+	 * Prepares the Name to be displayed in the Infopanel of the Appointment
+	 * @param appointment Current Appointment
+	 * @return String to be displayed
+	 */
+	public String displayNameOfPatient(Appointment appointment) {
+		if (this.getCurrentAppointment().getAppointmentType() != AppointmentType.INTERNAL) {
+			Visit visit = (Visit) this.getCurrentAppointment(); //Cast to Visit, so access to functions is possible.
+			return visit.getTreatedPatients().get(0).getSurname() + " " + visit.getTreatedPatients().get(0).getName();
+		}
+		else {
+			return "";
+		}
+	}
+	
+	/**
+	 * Prepares the Adress to be displayed in the Infopanel of the Appointment
+	 * @param appointment Current Appointment
+	 * @return String to be displayed
+	 */
+	public String displayAdressOfPatient (Appointment appointment) {
+		if (this.getCurrentAppointment().getAppointmentType() != AppointmentType.INTERNAL) {
+			Visit visit = (Visit) this.getCurrentAppointment(); //Cast to Visit, so access to functions is possible.
+			return visit.getTreatedPatients().get(0).getAdress().getStreet() + " " + visit.getTreatedPatients().get(0).getAdress().getNumber();
+		}
+		else {
+			return "";
+		}
+	}
+	
+	/**
+	 * Prepares the Place to be displayed in the Infopanel of the Appointment
+	 * @param appointment Current Appointment
+	 * @return String to be displayed
+	 */
+	public String displayPlaceOfPatient (Appointment appointment) {
+		if (this.getCurrentAppointment().getAppointmentType() != AppointmentType.INTERNAL) {
+			Visit visit = (Visit) this.getCurrentAppointment(); //Cast to Visit, so access to functions is possible.
+			return visit.getTreatedPatients().get(0).getAdress().getZIP() + " " + visit.getTreatedPatients().get(0).getAdress().getCity();
+		}
+		else {
+			return "";
+		}
+	}
+	
+	/**
+	 * Formats dates to a specific pattern
+	 * @param date Date to be formatted
+	 * @return Formatted Date
+	 */
+	public String formatedDate(LocalDateTime date) {
+		DateTimeFormatter formatter = DateTimeFormatter.ofPattern(DATETIME_PATTERN);
+		return date.format(formatter) + " Uhr";
 	}
 }

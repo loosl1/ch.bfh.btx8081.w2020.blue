@@ -24,6 +24,9 @@ import com.vaadin.flow.server.PWA;
 import com.vaadin.flow.theme.Theme;
 import com.vaadin.flow.theme.lumo.Lumo;
 
+import ch.bfh.btx8081.blue.model.Appointment.AppointmentType;
+import ch.bfh.btx8081.blue.model.Patient;
+import ch.bfh.btx8081.blue.model.Visit;
 import ch.bfh.btx8081.blue.presenter.CalendarPresenter;
 
 @SuppressWarnings("serial")
@@ -48,7 +51,6 @@ public class CalendarView extends VerticalLayout{
 	private Button btnNextAppointment;
 	private Button btnPreviousAppointment;
 	private Button btnOpenPatient;
-	private Button btnGenerateData;
 	private Button btnOpenAppointment;
 	private ComboBox<String> cmbChangeCalendarType;
 	private DatePicker dtpDatePicker;
@@ -79,9 +81,9 @@ public class CalendarView extends VerticalLayout{
 				this.btnNextAppointment,
 				this.cmbChangeCalendarType
 		);
-		HorizontalLayout buttonDiv = new HorizontalLayout(this.btnOpenAppointment,this.btnOpenPatient,this.btnGenerateData); //Used to align Buttons horizontally
+		HorizontalLayout buttonDiv = new HorizontalLayout(this.btnOpenAppointment,this.btnOpenPatient); //Used to align Buttons horizontally
 		buttonDiv.setAlignItems(Alignment.END);
-		buttonDiv.add(this.btnOpenAppointment, this.btnOpenPatient,this.btnGenerateData);
+		buttonDiv.add(this.btnOpenAppointment, this.btnOpenPatient);
 		this.infopanel.add(
 				this.lblPatientName,
 				this.lblBeginsAt,
@@ -144,8 +146,6 @@ public class CalendarView extends VerticalLayout{
 						event -> showVisit());
 		this.btnOpenPatient = new Button("Open Patient",
 						event -> showPatient());
-		this.btnGenerateData = new Button("Generate Data",
-				event -> this.presenter.generateData());
 		this.dtpDatePicker = new DatePicker("Current Date",
 						event -> this.presenter.setSelectedDate(dtpDatePicker.getValue()));
 		this.dtpDatePicker.setLabel("Current Date");
@@ -165,22 +165,39 @@ public class CalendarView extends VerticalLayout{
 	public void update() {
 		this.calendar.gotoDate(this.presenter.getSelectedDate());
 		this.dtpDatePicker.setValue(this.presenter.getSelectedDate());
-		if (this.presenter.getCurrentAppointment() != null) {
-
-		//@ TODO Create Infopanel Logic
-		//Is directly implemented, as long as logic for model is not implemented
-		this.lblPatientName.setText(this.presenter.getCurrentAppointment().getTitle());
-		this.lblTitleInfo.setText("Info");
-		this.lblTitleAdress.setText("Adresse");
-		this.lblBeginsAt.setText("Starts: " + this.presenter.getCurrentAppointment().getStart());
-		this.lblEndsAt.setText("Ends: " + this.presenter.getCurrentAppointment().getEnd());
-		this.lblAdressName.setText("Lanzerray Kurt");
-		this.lblAdress.setText("Beispielstrasse 1");
-		this.lblAdressPlace.setText("1234 Beispielort");
-		this.lblInfo.setReadOnly(true);
-		this.lblInfo.setValue("Parkplatz 17 & 18\r\n"
-				+ "Hausschlüssel: \r\n"
-				+ "Standort 1 - Kasten 1b\r\n");
+		if (this.presenter.getCurrentAppointment() != null && this.presenter.getCurrentAppointment().getAppointmentType() != AppointmentType.INTERNAL) {
+			this.lblPatientName.setVisible(true);
+			this.lblTitleInfo.setVisible(true);
+			this.lblTitleAdress.setVisible(true);
+			this.lblBeginsAt.setVisible(true);
+			this.lblEndsAt.setVisible(true);
+			this.lblAdressName.setVisible(true);
+			this.lblAdress.setVisible(true);
+			this.lblAdressPlace.setVisible(true);
+			this.lblInfo.setVisible(true);
+			
+			this.lblPatientName.setText(this.presenter.getCurrentAppointment().getTitle());
+			this.lblTitleInfo.setText("Info");
+			this.lblTitleAdress.setText("Adresse");
+			
+			this.lblBeginsAt.setText("Starts: " + this.presenter.formatedDate(this.presenter.getCurrentAppointment().getStart()));
+			this.lblEndsAt.setText("Ends:   " + this.presenter.formatedDate(this.presenter.getCurrentAppointment().getEnd()));
+			this.lblAdressName.setText(this.presenter.displayNameOfPatient(this.presenter.getCurrentAppointment()));
+			this.lblAdress.setText(this.presenter.displayAdressOfPatient(this.presenter.getCurrentAppointment()));
+			this.lblAdressPlace.setText(this.presenter.displayPlaceOfPatient(this.presenter.getCurrentAppointment()));
+			this.lblInfo.setReadOnly(true);
+			this.lblInfo.setValue(this.presenter.getCurrentAppointment().getInfo());
+		}
+		else {
+			this.lblPatientName.setVisible(false);
+			this.lblTitleInfo.setVisible(false);
+			this.lblTitleAdress.setVisible(false);
+			this.lblBeginsAt.setVisible(false);
+			this.lblEndsAt.setVisible(false);
+			this.lblAdressName.setVisible(false);
+			this.lblAdress.setVisible(false);
+			this.lblAdressPlace.setVisible(false);
+			this.lblInfo.setVisible(false);
 		}
 	}
 

@@ -42,8 +42,8 @@ public class Visit extends Appointment {
 	}
 
 	public Visit(LocalDateTime start, LocalDateTime end, String title, String info, Checklist checklist,
-			ArrayList<Patient> treatedPatients) {
-		super(start, end, title, info);
+			ArrayList<Patient> treatedPatients, AppointmentType type) {
+		super(start, end, title, info, type);
 		appointmentID = trackingId++;
 		this.checklist = checklist;
 		this.treatedPatients = treatedPatients;

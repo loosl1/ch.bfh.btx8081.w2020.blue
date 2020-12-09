@@ -35,17 +35,14 @@ public class Appointment implements Comparable<Appointment> {
 
 	@Transient
 	private static int trackingId = 1000;
+	private AppointmentType appointmentType;
 
 	protected String title, info;
 
-	protected enum type {
-
+	public enum AppointmentType {
 		GROUPVISIT,
-
 		VISIT,
-
 		INTERNAL
-
 	}
 
 	/**
@@ -55,12 +52,13 @@ public class Appointment implements Comparable<Appointment> {
 		this.appointmentID = trackingId++;
 	}
 
-	public Appointment(LocalDateTime start, LocalDateTime end, String title, String info) {
+	public Appointment(LocalDateTime start, LocalDateTime end, String title, String info, AppointmentType type) {
 		this.appointmentID = trackingId++;
 		this.start = start;
 		this.end = end;
 		this.title = title;
 		this.info = info;
+		this.appointmentType = type;
 	}
 
 	/**
@@ -206,6 +204,22 @@ public class Appointment implements Comparable<Appointment> {
 		}
 	}
 
+	/**
+	 * Returns the Appointment Type
+	 * @return Returns the Appointments Type with enum AppointmentType
+	 */
+	public AppointmentType getAppointmentType() {
+		return appointmentType;
+	}
+	
+	/**
+	 * Sets the new Appointment Type
+	 * @param type One of the enum constants of AppointmentType, which is to be set
+	 */
+	public void setAppointmentType(AppointmentType type) {
+		this.appointmentType = type;
+	}
+	
 	/**
 	 * Defines a default sort criteria for sorting Objects via the Comparable class
 	 *
