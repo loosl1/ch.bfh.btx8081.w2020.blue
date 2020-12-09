@@ -8,7 +8,6 @@ import com.vaadin.flow.component.listbox.MultiSelectListBox;
 import com.vaadin.flow.component.orderedlayout.HorizontalLayout;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
 import com.vaadin.flow.router.Route;
-import com.vaadin.flow.server.PWA;
 import com.vaadin.flow.theme.Theme;
 import com.vaadin.flow.theme.lumo.Lumo;
 
@@ -33,11 +32,11 @@ public class VisitView extends VerticalLayout {
 
     //UI Objects
     private MultiSelectListBox<String> listBox;
-    private Button concludeVisit;
-    private Button editChecklist;
-    private Button gotoReport;
-    private Button Goals;
-    private Button dailyPlanning;
+    private Button btnConcludeVisit;
+    private Button bttEditChecklist;
+    private Button btnGotoReport;
+    private Button btnGoals;
+    private Button btnDailyPlanning;
 
     /**
      * Constructor
@@ -52,7 +51,6 @@ public class VisitView extends VerticalLayout {
         this.topBar.add(
                 //toDO add the elements for the topbar
         );
-
 
 
         this.buttonList.setWidth("30%");
