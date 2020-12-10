@@ -31,18 +31,18 @@ public class DataService {
 	 * @param patient Updated Patient Object
 	 */
 	public void updatePatient(Patient patient) {
-		Patient dbPatient = getPatient(patient.getPatientId());
-		entityManager.getTransaction().begin();
-		dbPatient.setAdress(patient.getAdress());
-		dbPatient.setBirthday(patient.getBirthday());
-		dbPatient.setContacts((ArrayList<Contact>) patient.getContacts());
-		dbPatient.setDailyGoals(patient.getDailyGoals());
-		dbPatient.setInfoAdmin(patient.getInfoAdmin());
-		dbPatient.setName(patient.getName());
-		dbPatient.setNamesuffix(patient.getNamesuffix());
-		dbPatient.setPatientId(patient.getPatientId());
-		dbPatient.setSurname(patient.getSurname());
-		entityManager.getTransaction().commit();
+		entityManager.merge(patient);
+		entityManager.flush();
+		
+		//Updatet spezifische Attribute in der Instant -> fügt danach zu Context hinzu und Commitet es.
+		//entityManager.getTransaction().begin();
+		// Updates hier.
+		//entityManager.getTransaction().commit();
+		
+		//Verbindet die Dateien, da ID bereits Verbunden ist durch Entity -> fügt zu Persistence Context hinzu
+		//entityManager.merge(patient);		
+		//Alles im Persistence Context wird in Datenbank geschoben, unabhängig von commit
+		//entityManager.flush();
 	}
 	
 	/**
@@ -51,8 +51,9 @@ public class DataService {
 	 * @return Patient Object from the Database
 	 */
 	public Patient getPatient(int ID) {
-		Patient statement = entityManager.find(Patient.class, ID);
-		return statement;
+		//entityManager.getTransaction().begin();
+		Patient patient = entityManager.find(Patient.class, ID);
+		return patient;
 	}
 	
 	/**
