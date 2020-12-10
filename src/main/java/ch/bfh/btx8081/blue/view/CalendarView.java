@@ -143,7 +143,7 @@ public class CalendarView extends VerticalLayout{
 		this.btnPreviousAppointment = new Button("Previous\nAppointment",
 						event -> this.presenter.getPreviousAppointment());
 		this.btnOpenAppointment = new Button("Open Appointment",
-						event -> showVisit());
+						event -> this.presenter.createVisit());
 		this.btnOpenPatient = new Button("Open Patient",
 						event -> showPatient());
 		this.dtpDatePicker = new DatePicker("Current Date",
@@ -214,14 +214,7 @@ public class CalendarView extends VerticalLayout{
 		);*/
 	}
 	
-	/** 
-	 *
-	 * @param appointment
-	 */
-	private VisitView showVisit() {
-		Notification.show("Clicked Open Appointment");
-		return new VisitView(this.presenter.getCurrentAppointment());
-	}
+
 
 	private PatientView showPatient () {
 		Notification.show("Clicked Open Patient");

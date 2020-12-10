@@ -17,10 +17,10 @@ import ch.bfh.btx8081.blue.model.Appointment.AppointmentType;
 import ch.bfh.btx8081.blue.view.CalendarView;
 
 public class CalendarPresenter {
-	private CalendarView viewComponent;
+	private final CalendarView viewComponent;
 	private Appointment currentAppointment;
 	private LocalDate selectedDate;
-	private HealthVisitor currentUser;
+	private final HealthVisitor currentUser;
 
 	//Configurations
 	private static final int WORKHOURS_START_HOUR = 6;
@@ -41,12 +41,12 @@ public class CalendarPresenter {
 		this.viewComponent = viewComponent;
 		this.selectedDate = LocalDate.now();
 		// manual created data 
-		ArrayList<Patient> firstList = new ArrayList<Patient>();
+		ArrayList<Patient> firstList = new ArrayList<>();
 		Address addresse = new Address("Lyssstrasse", 12, "Urtenen-Schönbühl", 3322);
 		Patient patient1 = new Patient("Stanic", "Nikola", "von der Weide", LocalDate.of(1997, 2, 1), addresse);
 		Patient patient2 = new Patient("Müller", "Stephanie", "", LocalDate.of(2002, 12, 11), new Address("Grubenstrasse", 53, "Belp", 3106));
 		firstList.add(patient1);
-		ArrayList<Patient> secondList = new ArrayList<Patient>();
+		ArrayList<Patient> secondList = new ArrayList<>();
 		secondList.add(patient2);
 		currentUser = new HealthVisitor ("Bern", "password", "naj", "Jung", "Natalie", "", LocalDate.parse("1990-05-23") , null);
 		currentUser.setCalendar(new Calendar ());
@@ -62,7 +62,7 @@ public class CalendarPresenter {
 
 	/**
 	 * Sets configuration for a FullCalendar Object
-	 * @param calendarToSetup FullCalendar-Object to be configured.
+	 * @param calendar FullCalendar-Object to be configured.
 	 */
 	public void setupCalendarConfiguration(FullCalendar calendar) {
 		calendar.changeView(CalendarViewImpl.TIME_GRID_DAY);
@@ -88,7 +88,7 @@ public class CalendarPresenter {
 	 * @return List of all Entries to be displayed.
 	 */
 	public ArrayList<Entry> generateEntriesForCalendar() {
-		ArrayList<Entry> entries = new ArrayList<Entry>();
+		ArrayList<Entry> entries = new ArrayList<>();
 		this.currentUser.getCalendar().getAppointments().forEach(appointment -> {
 			Entry entry = new Entry(); //Makes Creating an Entry into Calendar Object possible.
 		    entry.setTitle(appointment.getTitle());
@@ -96,7 +96,7 @@ public class CalendarPresenter {
 		    entry.setEnd(appointment.getEnd());
 		    //Color Handling
 		    if (appointment.getAppointmentType() != AppointmentType.INTERNAL) {
-		    	int hourDiff, minDiff = 0; //Needed to calculate difference of start and endtime
+		    	int hourDiff, minDiff; //Needed to calculate difference of start and endtime
 		    	hourDiff = (appointment.getEnd().getHour() - appointment.getStart().getHour());
 		    	minDiff = (appointment.getEnd().getMinute() - appointment.getStart().getMinute());
 		    	if ((hourDiff * 60) + minDiff >= APPOINTMENT_IS_LARGE_IN_MIN) {
@@ -149,7 +149,7 @@ public class CalendarPresenter {
 
 	/**
 	 * Changes the current selected Appointment.
-	 * @param appointment New Appointment to be tracked.
+	 * @param entry New entry to be tracked.
 	 */
 	public void setCurrentAppointment (Entry entry) {
 		this.currentUser.getCalendar().getAppointments().forEach(appointment -> {
@@ -170,7 +170,7 @@ public class CalendarPresenter {
 	
 	/**
 	 * Changes the appearance of the Calendar Object
-	 * @param Chosen Type for the Calendar Appearance
+	 * @param viewtype Type for the Calendar Appearance
 	 */
 	public void setCalendarType (String viewtype) {
 		CalendarViewImpl type = null;
@@ -208,7 +208,7 @@ public class CalendarPresenter {
 	}
 	
 	/**
-	 * Prepares the Adress to be displayed in the Infopanel of the Appointment
+	 * Prepares the Address to be displayed in the Infopanel of the Appointment
 	 * @param appointment Current Appointment
 	 * @return String to be displayed
 	 */
@@ -245,5 +245,9 @@ public class CalendarPresenter {
 	public String formatedDate(LocalDateTime date) {
 		DateTimeFormatter formatter = DateTimeFormatter.ofPattern(DATETIME_PATTERN);
 		return date.format(formatter) + " Uhr";
+	}
+
+	public void createVisit(){
+		new VisitPresenter(currentAppointment);
 	}
 }
