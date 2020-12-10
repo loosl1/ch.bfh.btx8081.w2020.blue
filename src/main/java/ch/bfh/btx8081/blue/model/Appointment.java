@@ -1,9 +1,11 @@
 package ch.bfh.btx8081.blue.model;
 
+import java.sql.Timestamp;
 import java.time.DateTimeException;
 import java.time.LocalDateTime;
 
 import javax.persistence.Column;
+import javax.persistence.Converter;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Inheritance;
@@ -28,10 +30,10 @@ public class Appointment implements Comparable<Appointment> {
 	protected int appointmentID;
 
 	@Column(name="end_datetime") // Name "end" dont work in JPA
-	protected LocalDateTime end;
+	protected Timestamp end;
 
 	@Column(name="start_datetime")  // Same Name Shema as "end_datetime"
-	protected LocalDateTime start;
+	protected Timestamp start;
 
 	@Transient
 	private static int trackingId = 1000;
@@ -54,8 +56,8 @@ public class Appointment implements Comparable<Appointment> {
 
 	public Appointment(LocalDateTime start, LocalDateTime end, String title, String info, AppointmentType type) {
 		this.appointmentID = trackingId++;
-		this.start = start;
-		this.end = end;
+		this.start = Timestamp.valueOf(start);
+		this.end = Timestamp.valueOf(end);
 		this.title = title;
 		this.info = info;
 		this.appointmentType = type;
@@ -89,7 +91,7 @@ public class Appointment implements Comparable<Appointment> {
 	 * @return startdate as LocalDateTime
 	 */
 	public LocalDateTime getStart() {
-		return start;
+		return start.toLocalDateTime();
 
 	}
 
@@ -101,9 +103,9 @@ public class Appointment implements Comparable<Appointment> {
 	public void setStart(LocalDateTime start) {
 		if (!end.toString().isEmpty()) {
 
-			if (end.isBefore(this.start)) {
+			if (end.before(this.start)) {
 
-				this.start = start;
+				this.start = Timestamp.valueOf(start);
 
 			} else {
 
@@ -124,7 +126,7 @@ public class Appointment implements Comparable<Appointment> {
 	 * @return end date and time
 	 */
 	public LocalDateTime getEnd() {
-		return end;
+		return end.toLocalDateTime();
 	}
 
 	/**
@@ -136,9 +138,9 @@ public class Appointment implements Comparable<Appointment> {
 
 		if (!start.toString().isEmpty()) {
 
-			if (start.isBefore(this.end)) {
+			if (start.before(this.end)) {
 
-				this.end = end;
+				this.end = Timestamp.valueOf(end);
 
 			} else {
 
