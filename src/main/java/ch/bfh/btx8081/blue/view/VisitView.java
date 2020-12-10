@@ -6,6 +6,7 @@ import ch.bfh.btx8081.blue.presenter.VisitPresenter;
 import com.vaadin.flow.component.button.Button;
 import com.vaadin.flow.component.dependency.CssImport;
 import com.vaadin.flow.component.grid.Grid;
+import com.vaadin.flow.component.html.Label;
 import com.vaadin.flow.component.listbox.MultiSelectListBox;
 import com.vaadin.flow.component.orderedlayout.HorizontalLayout;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
@@ -39,12 +40,17 @@ public class VisitView extends VerticalLayout {
     private Button btnGotoReport;
     private Button btnGoals;
     private Button btnDailyPlanning;
+    private Label lblTitle;
 
+    /**
+     * Constructor empty
+     */
+    
     /**
      * Constructor
      * @param currentAppointment
      */
-    public VisitView(Appointment currentAppointment) {
+    public VisitView() {
         addClassName("visit-view");
         loadUIElements();
 
@@ -55,7 +61,16 @@ public class VisitView extends VerticalLayout {
         this.topBar.add(
                 //toDO add the elements for the topbar
         );
-
+        this.buttonList.add(
+        		this.btnConcludeVisit,
+        	    this.bttEditChecklist,
+        	    this.btnGotoReport,
+        	    this.btnGoals,
+        	    this.btnDailyPlanning
+        		);
+        
+        this.titlePanel.add(
+        		this.lblTitle);
 
         this.buttonList.setWidth("30%");
         this.titlePanel.setWidth("10%");
@@ -66,6 +81,17 @@ public class VisitView extends VerticalLayout {
     }
 
     private void loadUIElements() {
-        this.presenter = new VisitPresenter(this);
+      //  this.presenter = new VisitPresenter(this);
+		this.content = new HorizontalLayout();
+		this.checklist = new HorizontalLayout();
+		this.titlePanel = new VerticalLayout();
+		this.buttonList = new HorizontalLayout();
+
+		this.lblTitle = new Label();
+		this.btnConcludeVisit = new Button();
+	    this.bttEditChecklist = new Button();
+	    this.btnGotoReport = new Button();
+	    this.btnGoals = new Button();
+	    this.btnDailyPlanning = new Button();
     }
 }
