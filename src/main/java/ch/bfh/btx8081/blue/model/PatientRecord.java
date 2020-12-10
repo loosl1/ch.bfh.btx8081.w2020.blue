@@ -1,6 +1,8 @@
 package ch.bfh.btx8081.blue.model;
 
 import javax.persistence.*;
+
+import java.sql.Date;
 import java.time.DateTimeException;
 import java.time.LocalDate;
 import java.util.List;
@@ -23,7 +25,7 @@ public class PatientRecord {
     @Id
     @GeneratedValue
     long id; // still set automatically
-    LocalDate date, localDate;
+    protected Date date, localDate;
     @OneToOne
     HealthVisitor healthVisitor;
     String title; // Title consists of the Date of the report, the Patient and the HealthVisitor
@@ -33,7 +35,7 @@ public class PatientRecord {
      * Empty Constructor
      */
     public PatientRecord() {
-        this.localDate = LocalDate.now();
+        this.localDate = Date.valueOf(LocalDate.now());
         this.date = this.localDate;
         this.title = "";
         this.description = "";
@@ -49,8 +51,8 @@ public class PatientRecord {
      * @param description   Description of the report
      */
     public PatientRecord(LocalDate date, HealthVisitor healthVisitor, String title, String description) {
-        this.localDate = LocalDate.now();
-        this.date = date;
+        this.localDate = Date.valueOf(LocalDate.now());
+        this.date = Date.valueOf(date);
         this.healthVisitor = healthVisitor;
         this.title = title;
         this.description = description;
@@ -65,7 +67,7 @@ public class PatientRecord {
      */
     public PatientRecord(HealthVisitor healthVisitor) {
 
-        this.localDate = LocalDate.now();
+        this.localDate = Date.valueOf(LocalDate.now());
         this.date = this.localDate;
         this.healthVisitor = healthVisitor;
         this.title = "";
@@ -78,7 +80,7 @@ public class PatientRecord {
      * @return Returns the date as Date
      */
     public LocalDate getDate() {
-        return date;
+        return date.toLocalDate();
     }
 
     /**
@@ -88,12 +90,12 @@ public class PatientRecord {
      */
     public void setDate(LocalDate date) {
 
-        if (date.isAfter(localDate)) {
+        if (Date.valueOf(date).after(localDate)) {
             throw new DateTimeException("The date is after the current Date");
         } else if (date.toString().isEmpty()) {
             throw new NullPointerException("The date given was empty");
         } else {
-            this.date = date;
+            this.date = Date.valueOf(date);
         }
     }
 

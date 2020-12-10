@@ -1,5 +1,6 @@
 package ch.bfh.btx8081.blue.model;
 
+import java.sql.Date;
 import java.time.LocalDate;
 import java.time.Period;
 
@@ -26,7 +27,7 @@ public class Person {
 	protected String name;
 	protected String surname;
 	protected String namesuffix;
-	protected LocalDate birthday;
+	protected Date birthday;
 	@Embedded
 	protected Address address;
 
@@ -42,7 +43,7 @@ public class Person {
 		this.name = name;
 		this.surname = surname;
 		this.namesuffix = namesuffix;
-		this.birthday = birthday;
+		this.birthday = Date.valueOf(birthday);
 		this.address = new Address();
 	}
 
@@ -69,7 +70,7 @@ public class Person {
 	 */
 	public int getAge() {
 		LocalDate today = LocalDate.now();
-		Period diff = Period.between(birthday, today);
+		Period diff = Period.between(birthday.toLocalDate(), today);
 		int age = diff.getYears();
 		return age;
 	};
@@ -129,7 +130,7 @@ public class Person {
 	 * @return gets person's birthday
 	 */
 	public LocalDate getBirthday() {
-		return birthday;
+		return birthday.toLocalDate();
 	};
 
 	/**
@@ -137,7 +138,7 @@ public class Person {
 	 * @param newBirthday sets persons birthday
 	 */
 	public void setBirthday(LocalDate newBirthday) {
-		this.birthday = newBirthday;
+		this.birthday = Date.valueOf(newBirthday);
 	};
 
 	/**
