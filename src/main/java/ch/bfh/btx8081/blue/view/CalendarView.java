@@ -220,7 +220,7 @@ public class CalendarView extends VerticalLayout{
 	 */
 	private VisitView showVisit() {
 		Notification.show("Clicked Open Appointment");
-		return new VisitView();
+		return new VisitView(this.presenter.getCurrentAppointment());
 	}
 
 	private PatientView showPatient () {

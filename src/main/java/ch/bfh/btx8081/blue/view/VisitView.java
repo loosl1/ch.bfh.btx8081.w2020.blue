@@ -1,5 +1,7 @@
 package ch.bfh.btx8081.blue.view;
 
+import ch.bfh.btx8081.blue.model.Appointment;
+import ch.bfh.btx8081.blue.presenter.CalendarPresenter;
 import ch.bfh.btx8081.blue.presenter.VisitPresenter;
 import com.vaadin.flow.component.button.Button;
 import com.vaadin.flow.component.dependency.CssImport;
@@ -40,10 +42,12 @@ public class VisitView extends VerticalLayout {
 
     /**
      * Constructor
+     * @param currentAppointment
      */
-    public VisitView() {
+    public VisitView(Appointment currentAppointment) {
         addClassName("visit-view");
         loadUIElements();
+
 
         //topBar
         this.topBar.setAlignItems(Alignment.END);
@@ -62,5 +66,6 @@ public class VisitView extends VerticalLayout {
     }
 
     private void loadUIElements() {
+        this.presenter = new VisitPresenter(this);
     }
 }
