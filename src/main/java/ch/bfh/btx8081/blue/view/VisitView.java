@@ -45,11 +45,6 @@ public class VisitView extends VerticalLayout {
     /**
      * Constructor empty
      */
-    
-    /**
-     * Constructor
-     * @param currentAppointment
-     */
     public VisitView() {
         addClassName("visit-view");
         loadUIElements();
@@ -77,6 +72,7 @@ public class VisitView extends VerticalLayout {
 
         this.checklist.add(this.titlePanel, this.checklistPanel);
         this.content.add(this.checklist, this.buttonList);
+        this.listBox.setItems(this.presenter.setupChecklist());
 
     }
 

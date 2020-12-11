@@ -3,13 +3,10 @@ package ch.bfh.btx8081.blue.presenter;
 import ch.bfh.btx8081.blue.model.*;
 import ch.bfh.btx8081.blue.view.VisitView;
 
-import java.time.LocalDateTime;
 import java.time.OffsetDateTime;
-import java.time.OffsetTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Collection;
-import java.util.Date;
 
 /**
  * @author loosl1
@@ -73,12 +70,25 @@ public class VisitPresenter {
 
         //Is intended for the information if the visit is during the morning or during the afternoon
         OffsetDateTime midday = OffsetDateTime.parse(currentAppointment.getStart().toString()); //is the time 12:00
-        String morningAfternoon = OffsetDateTime.parse(currentAppointment.getStart().toString()).isBefore(midday) ?"Morgen":"Nachmittag";
+        String morningAfternoon = OffsetDateTime.parse(currentAppointment.getStart().toString()).isBefore(midday) ? "Morgen" : "Nachmittag";
 
         header = patientName + ", " + dateFormatted + ", " + morningAfternoon;
 
         return header;
     }
 
+    /**
+     * Adds new items to the MultiSelectListBox checklist
+     * @param currentItems ArrayList of items which already exist in the checklist
+     * @param newItems ArrayList of items which should be added
+     * @return Arraylist with the provided items and the currentItems
+     */
+    public Collection<String> addChecklistItem(ArrayList<String> currentItems, ArrayList<String> newItems) {
+        currentItems.addAll(newItems);
+
+        return currentItems;
+    }
+
 
 }
+
