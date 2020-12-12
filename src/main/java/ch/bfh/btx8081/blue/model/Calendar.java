@@ -21,7 +21,7 @@ public class Calendar {
     @GeneratedValue
     long id; // still set automatically
 
-    @OneToMany
+    @OneToMany(fetch=FetchType.EAGER)
     private List<Appointment> appointments; // Changed to List because of JPA
 
     /**

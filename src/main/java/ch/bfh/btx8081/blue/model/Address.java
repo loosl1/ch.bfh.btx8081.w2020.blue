@@ -1,7 +1,5 @@
 package ch.bfh.btx8081.blue.model;
 
-import java.time.LocalDate;
-
 import javax.persistence.Embeddable;
 import javax.persistence.Table;
 

@@ -6,8 +6,6 @@ import java.util.HashMap;
 import java.util.List;
 
 import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
@@ -135,5 +133,13 @@ public class Patient extends Person {
 	 */
 	public void setPatientId(int newPatientId) {
 		this.patientId = newPatientId;
+	};
+	
+	/**
+	 * 
+	 * @param gets the Calendar
+	 */
+	public Calendar getCalendar() {
+		return this.calendar;
 	};
 }

@@ -1,11 +1,9 @@
 package ch.bfh.btx8081.blue.model;
 
-import java.util.ArrayList;
 import java.util.List;
 
 
 import javax.persistence.EntityManager;
-import javax.persistence.EntityTransaction;
 import javax.persistence.Persistence;
 import javax.persistence.TypedQuery;
 
@@ -71,4 +69,50 @@ public class DataService {
 	public void closeEntityManager() {
 		entityManager.close();
 	}
+	
+	/**
+	 * Get a specific HealthVisitor by ID
+	 * @param ID ID of the HealthVisitor
+	 * @return HealthVisitor Object from the Database
+	 */
+	public HealthVisitor getHealthVisitor(long ID) {
+		HealthVisitor healthVisitor = entityManager.find(HealthVisitor.class, ID);
+		return healthVisitor;
+	}
+	
+	
+	/*
+	* Generate Demo Data - is not been use anymore
+	public void generateData() {
+
+		entityManager.getTransaction().begin();
+		HealthVisitor DemoHealthVisitor = this.getHealthVisitor(2);
+		ArrayList<Patient> firstList = new ArrayList<>();
+		Address addresse = new Address("Lyssstrasse", 12, "Urtenen-Schönbühl", 3322);
+		Patient patient1 = new Patient("Stanic", "Nikola", "von der Weide", LocalDate.of(1997, 2, 1), addresse);
+		entityManager.persist(patient1);
+		entityManager.persist(patient1.getCalendar());
+		Address addresse2 = new Address("Grubenstrasse", 53, "Belp", 3106);
+		Patient patient2 = new Patient("Müller", "Stephanie", "", LocalDate.of(2002, 12, 11), addresse2);
+		entityManager.persist(patient2);
+		entityManager.persist(patient2.getCalendar());
+		firstList.add(patient1);
+		ArrayList<Patient> secondList = new ArrayList<>();
+		secondList.add(patient2);
+		Appointment appointment1 = new Visit(LocalDate.parse("2020-11-26").atTime(10, 0),LocalDate.parse("2020-11-26").atTime(11, 0),"Besuch bei Broenimanns","Und hier die Infos", null , firstList, AppointmentType.GROUPVISIT);
+		entityManager.persist(appointment1);
+		DemoHealthVisitor.getCalendar().addAppointment(appointment1);
+		Appointment appointment2 = new Visit(LocalDate.parse("2020-11-26").atTime(11, 15),LocalDate.parse("2020-11-26").atTime(11, 30),"Besuch bei Broenimanns","Und hier die Infos", null , secondList, AppointmentType.GROUPVISIT);
+		entityManager.persist(appointment2);
+		DemoHealthVisitor.getCalendar().addAppointment(appointment2);
+		Appointment appointment3 = new Appointment(LocalDate.parse("2020-11-27").atTime(8, 0),LocalDate.parse("2020-11-27").atTime(9, 0),"Besuch bei Broenimanns","Und hier die Infos", AppointmentType.VISIT);
+		entityManager.persist(appointment3);
+		DemoHealthVisitor.getCalendar().addAppointment(appointment3);
+		Appointment appointment4 = new Appointment(LocalDate.parse("2020-11-27").atTime(9, 0),LocalDate.parse("2020-11-27").atTime(9, 30),"Besuch bei Broenimanns","Und hier die Infos", AppointmentType.INTERNAL);
+		entityManager.persist(appointment4);
+		DemoHealthVisitor.getCalendar().addAppointment(appointment4);
+		entityManager.getTransaction().commit();
+		
+	}
+	*/
 }

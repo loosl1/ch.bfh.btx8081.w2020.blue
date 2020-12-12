@@ -41,23 +41,9 @@ public class CalendarPresenter {
 		this.viewComponent = viewComponent;
 		this.selectedDate = LocalDate.now();
 		// manual created data 
-		ArrayList<Patient> firstList = new ArrayList<>();
-		Address addresse = new Address("Lyssstrasse", 12, "Urtenen-Schönbühl", 3322);
-		Patient patient1 = new Patient("Stanic", "Nikola", "von der Weide", LocalDate.of(1997, 2, 1), addresse);
-		Patient patient2 = new Patient("Müller", "Stephanie", "", LocalDate.of(2002, 12, 11), new Address("Grubenstrasse", 53, "Belp", 3106));
-		firstList.add(patient1);
-		ArrayList<Patient> secondList = new ArrayList<>();
-		secondList.add(patient2);
-		currentUser = new HealthVisitor ("Bern", "password", "naj", "Jung", "Natalie", "", LocalDate.parse("1990-05-23") , null);
-		currentUser.setCalendar(new Calendar ());
-		Appointment appointment1 = new Visit(LocalDate.parse("2020-11-26").atTime(10, 0),LocalDate.parse("2020-11-26").atTime(11, 0),"Besuch bei Broenimanns","Und hier die Infos", new Checklist(), firstList, AppointmentType.GROUPVISIT);
-		currentUser.getCalendar().addAppointment(appointment1);
-		Appointment appointment2 = new Visit(LocalDate.parse("2020-11-26").atTime(11, 15),LocalDate.parse("2020-11-26").atTime(11, 30),"Besuch bei Broenimanns","Und hier die Infos", new Checklist(), secondList, AppointmentType.GROUPVISIT);
-		currentUser.getCalendar().addAppointment(appointment2);
-		Appointment appointment3 = new Appointment(LocalDate.parse("2020-11-27").atTime(8, 0),LocalDate.parse("2020-11-27").atTime(9, 0),"Besuch bei Broenimanns","Und hier die Infos", AppointmentType.VISIT);
-		currentUser.getCalendar().addAppointment(appointment3);
-		Appointment appointment4 = new Appointment(LocalDate.parse("2020-11-27").atTime(9, 0),LocalDate.parse("2020-11-27").atTime(9, 30),"Besuch bei Broenimanns","Und hier die Infos", AppointmentType.INTERNAL);
-		currentUser.getCalendar().addAppointment(appointment4);
+		DataService dataService = new DataService();
+		// dataService.generateData();
+		currentUser = dataService.getHealthVisitor(2);
 	}
 
 	/**
