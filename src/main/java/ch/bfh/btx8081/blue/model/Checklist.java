@@ -2,6 +2,7 @@ package ch.bfh.btx8081.blue.model;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -81,16 +82,16 @@ public class Checklist {
 	/**
 	 * If a new item is added to the checklist, this method is called and adds a new
 	 * item to the arraylist
-	 *
-	 * @param itemDescription The textValue which the user sets on the view
+	 * @param newItems a set with the items from the checklist
 	 */
-	public void setItems(String itemDescription) {
-		if (itemDescription.isEmpty() || itemDescription == "") {
-			throw new NullPointerException("The itemDescription value was null");
+	public void setItems(Set<String> newItems) {
+		if (newItems.isEmpty()) {
+			throw new NullPointerException("The items values were null");
 		} else {
-			Item item = new Item(itemDescription);
-			items.add(item);
-		}
+			for(String s : newItems){
+			Item item = new Item(s);
+			this.items.add(item);
+		}}
 	}
 
 	/**
