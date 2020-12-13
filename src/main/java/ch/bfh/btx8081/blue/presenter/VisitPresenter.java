@@ -28,21 +28,13 @@ public class VisitPresenter {
     /**
      * Constructor
      */
-    public VisitPresenter(Appointment appointment) {
+    public VisitPresenter(VisitView visitView, Appointment appointment) {
         this.viewComponent = new VisitView();
 
         // manually created data
         this.currentAppointment = appointment;
         this.currentPatient = dataService.getAllPatients().get(currentPatient.getPatientId()); //toDo add the currentuser
 
-
-    }
-
-    public VisitPresenter(VisitView visitView) {
-        this.viewComponent = new VisitView();
-
-        // manually created data
-        this.currentPatient = dataService.getAllPatients().get(currentPatient.getPatientId()); //toDo add the currentuser
 
     }
 

@@ -1,5 +1,7 @@
 package ch.bfh.btx8081.blue.view;
 
+import ch.bfh.btx8081.blue.model.Appointment;
+import ch.bfh.btx8081.blue.presenter.CalendarPresenter;
 import ch.bfh.btx8081.blue.presenter.VisitPresenter;
 import com.vaadin.flow.component.button.Button;
 import com.vaadin.flow.component.dependency.CssImport;
@@ -50,6 +52,7 @@ public class VisitView extends VerticalLayout {
     private Dialog dlgEditChecklist;
     private TextField txtEditChecklist;
     private Span msgEditChecklist;
+    private Appointment currentAppointment;
 
 
     /**
@@ -83,6 +86,7 @@ public class VisitView extends VerticalLayout {
     }
 
     private void loadUIElements() {
+        this.presenter = new VisitPresenter(this, this.currentAppointment);
 
         //Layouts
         this.content = new HorizontalLayout();
@@ -129,5 +133,9 @@ public class VisitView extends VerticalLayout {
                 .withValidator(string -> string == null, "Bitte geben Sie einen Wert ein.");
         this.msgEditChecklist = new Span();
 
+    }
+
+    public void getAppointment(Appointment appointment) {
+        this.currentAppointment = appointment;
     }
 }

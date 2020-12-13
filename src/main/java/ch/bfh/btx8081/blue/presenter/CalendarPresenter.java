@@ -6,6 +6,7 @@ import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 
+import ch.bfh.btx8081.blue.view.VisitView;
 import org.vaadin.stefan.fullcalendar.BusinessHours;
 import org.vaadin.stefan.fullcalendar.CalendarViewImpl;
 import org.vaadin.stefan.fullcalendar.Entry;
@@ -234,6 +235,7 @@ public class CalendarPresenter {
 	}
 
 	public void createVisit(){
-		new VisitPresenter(currentAppointment);
+		VisitView visitView = new VisitView();
+		visitView.getAppointment(this.currentAppointment);
 	}
 }
