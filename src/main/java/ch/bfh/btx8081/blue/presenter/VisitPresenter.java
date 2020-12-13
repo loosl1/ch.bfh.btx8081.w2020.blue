@@ -38,6 +38,14 @@ public class VisitPresenter {
 
     }
 
+    public VisitPresenter(VisitView visitView) {
+        this.viewComponent = new VisitView();
+
+        // manually created data
+        this.currentPatient = dataService.getAllPatients().get(currentPatient.getPatientId()); //toDo add the currentuser
+
+    }
+
     /**
      * Gets the current appointment and casts it to a Visit object so that we can access and cast the
      * checklist for the appointment to Strings

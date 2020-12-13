@@ -83,7 +83,6 @@ public class VisitView extends VerticalLayout {
     }
 
     private void loadUIElements() {
-        //  this.presenter = new VisitPresenter(this);
 
         //Layouts
         this.content = new HorizontalLayout();
@@ -94,6 +93,7 @@ public class VisitView extends VerticalLayout {
         //Labels
         this.lblTitle = new Label();
         this.lblTitle.setClassName("title_label");
+        this.lblTitle.setText(this.presenter.displayHeader());
 
         //Buttons
         this.btnConcludeVisit = new Button("Besuch abschliessen",
@@ -102,7 +102,9 @@ public class VisitView extends VerticalLayout {
         this.btnEditChecklist = new Button("Checkliste bearbeiten", event -> {
             this.btnConfirm = new Button("Ok", event2 -> {
                 this.userInput = this.txtEditChecklist.getValue().isEmpty() ? null : this.txtEditChecklist.getValue(); //toDo return a errormessage
-                this.listBox.setValue(this.presenter.addChecklistItem(this.userInput));
+                if (!this.userInput.isEmpty()){
+                    this.listBox.setValue(this.presenter.addChecklistItem(this.userInput));
+                }
                 dlgEditChecklist.close();
             });
 
