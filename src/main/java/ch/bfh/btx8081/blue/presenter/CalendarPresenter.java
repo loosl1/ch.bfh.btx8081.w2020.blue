@@ -5,6 +5,10 @@ import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 import ch.bfh.btx8081.blue.view.VisitView;
 import org.vaadin.stefan.fullcalendar.BusinessHours;
@@ -13,6 +17,7 @@ import org.vaadin.stefan.fullcalendar.Entry;
 import org.vaadin.stefan.fullcalendar.FullCalendar;
 
 import com.vaadin.flow.component.UI;
+import com.vaadin.flow.router.QueryParameters;
 
 import ch.bfh.btx8081.blue.exceptions.AppointmentNotFoundException;
 import ch.bfh.btx8081.blue.model.*;
@@ -40,8 +45,8 @@ public class CalendarPresenter {
 	/**
 	 * Constructor 
 	 */
-	public CalendarPresenter (CalendarView viewComponent) {
-		this.viewComponent = viewComponent;
+	public CalendarPresenter (CalendarView calendarView) {
+		this.viewComponent = calendarView;
 		this.selectedDate = LocalDate.now();
 		// manual created data 
 		DataService dataService = new DataService();
@@ -237,8 +242,13 @@ public class CalendarPresenter {
 	}
 
 	public void createVisit(){
-		System.out.println("TestCreateVisitView");
-		VisitPresenter visitView = new VisitPresenter(this.currentAppointment);
-		UI.getCurrent().navigate("VisitView");
+		/*
+		Map<String, List<String>> parametersMap = new HashMap<String, List<String>>();
+		List<String> sublist = Arrays.asList(currentAppointment.getAppointmentID()+"");
+		parametersMap.put("AppointmentID", sublist);
+		QueryParameters queryParameters = new QueryParameters(parametersMap);
+		*/
+		UI.getCurrent().navigate("VisitView/" + currentAppointment.getAppointmentID());
+		
 	}
 }

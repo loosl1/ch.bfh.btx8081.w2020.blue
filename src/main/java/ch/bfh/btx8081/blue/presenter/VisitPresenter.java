@@ -30,14 +30,14 @@ public class VisitPresenter {
     /**
      * Constructor
      */
-    public VisitPresenter(Appointment appointment) {
-    	this.currentAppointment = appointment;
-    	this.viewComponent = new VisitView();
-
+    public VisitPresenter(VisitView visitView, String AppointmentId) {
+    	this.viewComponent = visitView;
+    	DataService dataService = new DataService();
+    	this.currentAppointment = dataService.getAppointment(1000);
         // manually created data
-        Visit visit = (Visit) appointment;
+        Visit visit = (Visit) this.currentAppointment;
         this.currentPatients = visit.getTreatedPatients(); //toDo add the currentuser
-
+        System.out.println("--- Finish VisitPresenter()");
 
     }
 
@@ -80,7 +80,6 @@ public class VisitPresenter {
         DateTimeFormatter formatterDate = DateTimeFormatter.ofPattern("dd.MM.yyyy");
         String dateFormatted = currentAppointment.getStart().format(formatterDate);
 
-        System.out.println("TestbevoredateFormatted");
       //Is intended for the information if the visit is during the morning or during the afternoon
         LocalTime midday = LocalTime.of(12, 00);
         String morningAfternoon = (midday).isBefore(LocalTime.from(currentAppointment.getStart())) ? "Morgen" : "Nachmittag";

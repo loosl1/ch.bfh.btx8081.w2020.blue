@@ -14,6 +14,9 @@ import com.vaadin.flow.component.orderedlayout.HorizontalLayout;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
 import com.vaadin.flow.component.textfield.TextField;
 import com.vaadin.flow.data.binder.Binder;
+import com.vaadin.flow.router.BeforeEnterEvent;
+import com.vaadin.flow.router.BeforeEvent;
+import com.vaadin.flow.router.HasUrlParameter;
 import com.vaadin.flow.router.Route;
 import com.vaadin.flow.theme.Theme;
 import com.vaadin.flow.theme.lumo.Lumo;
@@ -24,8 +27,8 @@ import com.vaadin.flow.theme.lumo.Lumo;
 @Route("VisitView")
 @Theme(value = Lumo.class, variant = Lumo.DARK)
 
-public class VisitView extends VerticalLayout {
-
+public class VisitView extends VerticalLayout implements HasUrlParameter<String> {
+	
     //Elements
     String userInput;
     Binder binder;
@@ -53,12 +56,16 @@ public class VisitView extends VerticalLayout {
     private TextField txtEditChecklist;
     private Span msgEditChecklist;
     private Appointment currentAppointment;
+    private String parameter;
+
 
 
     /**
      * Constructor empty
      */
     public VisitView() {
+    	
+    	this.presenter = new VisitPresenter(this, this.parameter);
         addClassName("visit-view");
         loadUIElements();
         
@@ -78,6 +85,7 @@ public class VisitView extends VerticalLayout {
         this.checklist.add(this.titlePanel, this.checklistPanel);
         this.content.add(this.checklist, this.buttonList);
         this.dlgEditChecklist.add(this.txtEditChecklist, this.msgEditChecklist, this.btnConfirm, this.btnCancel);
+        System.out.println("--- Finish VisitView()");
     }
 
     private void loadUIElements() {
@@ -129,7 +137,14 @@ public class VisitView extends VerticalLayout {
         this.msgEditChecklist = new Span();
 
     }
-    	public void setPresenter(VisitPresenter presenter) {
-    		this.presenter = presenter;
-    	}
+    	
+        @Override
+        public void setParameter(BeforeEvent event, String parameter) {
+            if (parameter.isEmpty()) {
+            	System.out.println("is Empty");
+            } else {
+            	System.out.println("Load Parameter" + parameter);
+            	this.parameter = parameter;
+            }
+        }
 }

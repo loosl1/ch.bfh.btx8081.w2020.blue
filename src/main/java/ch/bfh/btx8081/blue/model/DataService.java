@@ -55,6 +55,17 @@ public class DataService {
 	}
 	
 	/**
+	 * Get a specific Patient by ID
+	 * @param ID ID of the Patient
+	 * @return Patient Object from the Database
+	 */
+	public Appointment getAppointment(int appointmentID) {
+		//entityManager.getTransaction().begin();
+		Appointment appointment = entityManager.find(Appointment.class, appointmentID);
+		return appointment;
+	}
+	
+	/**
 	 * Gets all Patients from the database
 	 * @return
 	 */
