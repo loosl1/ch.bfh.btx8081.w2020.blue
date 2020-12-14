@@ -83,6 +83,9 @@ public class Visit extends Appointment {
 	 * @return Checklist object
 	 */
 	public Checklist getChecklist() {
+		if (this.checklist == null) {
+			this.checklist = new Checklist();
+		};
 		return checklist;
 	}
 

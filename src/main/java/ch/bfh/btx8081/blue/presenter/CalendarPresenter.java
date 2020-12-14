@@ -12,6 +12,8 @@ import org.vaadin.stefan.fullcalendar.CalendarViewImpl;
 import org.vaadin.stefan.fullcalendar.Entry;
 import org.vaadin.stefan.fullcalendar.FullCalendar;
 
+import com.vaadin.flow.component.UI;
+
 import ch.bfh.btx8081.blue.exceptions.AppointmentNotFoundException;
 import ch.bfh.btx8081.blue.model.*;
 import ch.bfh.btx8081.blue.model.Appointment.AppointmentType;
@@ -235,7 +237,8 @@ public class CalendarPresenter {
 	}
 
 	public void createVisit(){
-		VisitView visitView = new VisitView();
-		visitView.getAppointment(this.currentAppointment);
+		System.out.println("TestCreateVisitView");
+		VisitPresenter visitView = new VisitPresenter(this.currentAppointment);
+		UI.getCurrent().navigate("VisitView");
 	}
 }

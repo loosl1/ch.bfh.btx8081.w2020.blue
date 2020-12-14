@@ -3,10 +3,12 @@ package ch.bfh.btx8081.blue.presenter;
 import ch.bfh.btx8081.blue.model.*;
 import ch.bfh.btx8081.blue.view.VisitView;
 
+import java.time.LocalTime;
 import java.time.OffsetDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.List;
 import java.util.Set;
 
 /**
@@ -16,7 +18,7 @@ import java.util.Set;
  */
 public class VisitPresenter {
     private VisitView viewComponent;
-    private Patient currentPatient;
+    private List <Patient> currentPatients;
     private Calendar calendar;
     private Checklist checklist;
     private Item item;
@@ -28,12 +30,13 @@ public class VisitPresenter {
     /**
      * Constructor
      */
-    public VisitPresenter(VisitView visitView, Appointment appointment) {
-        this.viewComponent = new VisitView();
+    public VisitPresenter(Appointment appointment) {
+    	this.currentAppointment = appointment;
+    	this.viewComponent = new VisitView();
 
         // manually created data
-        this.currentAppointment = appointment;
-        this.currentPatient = dataService.getAllPatients().get(currentPatient.getPatientId()); //toDo add the currentuser
+        Visit visit = (Visit) appointment;
+        this.currentPatients = visit.getTreatedPatients(); //toDo add the currentuser
 
 
     }
@@ -48,10 +51,14 @@ public class VisitPresenter {
         Visit visit = ( Visit ) this.currentAppointment;
 
         ArrayList<String> stringItems = new ArrayList<>();
-
+        if (stringItems.isEmpty()) {
+        	stringItems.add("Create a new item.");
+        }
+        else {
         for (Item item : visit.getChecklist().getItems()) {
             stringItems.add(item.getDescription());
-        }
+        }}
+ 
         return stringItems;
     }
 
@@ -64,17 +71,21 @@ public class VisitPresenter {
         String header;
 
         //The name of the patient
-        String patientName = this.currentPatient.getFullname();
+        String patientName = "";
+        for (Patient patient : currentPatients) {
+        	patientName = patient.getFullname();
+        }
 
         //Casts the date of the appointment to a String in the correct Format
         DateTimeFormatter formatterDate = DateTimeFormatter.ofPattern("dd.MM.yyyy");
         String dateFormatted = currentAppointment.getStart().format(formatterDate);
 
-        //Is intended for the information if the visit is during the morning or during the afternoon
-        OffsetDateTime midday = OffsetDateTime.parse(currentAppointment.getStart().toString()); //is the time 12:00
-        String morningAfternoon = OffsetDateTime.parse(currentAppointment.getStart().toString()).isBefore(midday) ? "Morgen" : "Nachmittag";
-
+        System.out.println("TestbevoredateFormatted");
+      //Is intended for the information if the visit is during the morning or during the afternoon
+        LocalTime midday = LocalTime.of(12, 00);
+        String morningAfternoon = (midday).isBefore(LocalTime.from(currentAppointment.getStart())) ? "Morgen" : "Nachmittag";
         header = patientName + ", " + dateFormatted + ", " + morningAfternoon;
+
 
         return header;
     }

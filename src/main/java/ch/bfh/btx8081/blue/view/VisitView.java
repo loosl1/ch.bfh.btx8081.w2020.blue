@@ -61,7 +61,7 @@ public class VisitView extends VerticalLayout {
     public VisitView() {
         addClassName("visit-view");
         loadUIElements();
-
+        
         this.buttonList.add(
                 this.btnConcludeVisit,
                 this.btnEditChecklist,
@@ -69,30 +69,24 @@ public class VisitView extends VerticalLayout {
                 this.btnGoals,
                 this.btnDailyPlanning
         );
-
-        this.titlePanel.add(
-                this.lblTitle
-        );
-
+        
+        this.titlePanel.add(this.lblTitle);
         this.buttonList.setWidth("30%");
         this.titlePanel.setWidth("10%");
-
+        this.listBox.setItems(this.presenter.setupChecklist());
+        this.checklistPanel.add(listBox);
         this.checklist.add(this.titlePanel, this.checklistPanel);
         this.content.add(this.checklist, this.buttonList);
-        this.listBox.setItems(this.presenter.setupChecklist());
-
         this.dlgEditChecklist.add(this.txtEditChecklist, this.msgEditChecklist, this.btnConfirm, this.btnCancel);
-
     }
 
     private void loadUIElements() {
-        this.presenter = new VisitPresenter(this, this.currentAppointment);
-
         //Layouts
         this.content = new HorizontalLayout();
         this.checklist = new HorizontalLayout();
         this.titlePanel = new VerticalLayout();
         this.buttonList = new HorizontalLayout();
+        this.checklistPanel = new VerticalLayout();
 
         //Labels
         this.lblTitle = new Label();
@@ -100,10 +94,11 @@ public class VisitView extends VerticalLayout {
         this.lblTitle.setText(this.presenter.displayHeader());
 
         //Buttons
+        this.listBox = new MultiSelectListBox<String>();
         this.btnConcludeVisit = new Button("Besuch abschliessen",
                 event -> this.presenter.concludeVisit(listBox.getSelectedItems())
         );
-        this.btnEditChecklist = new Button("Checkliste bearbeiten", event -> {
+        this.btnEditChecklist = new Button("Checkliste bearbeiten", event -> {});
             this.btnConfirm = new Button("Ok", event2 -> {
                 this.userInput = this.txtEditChecklist.getValue().isEmpty() ? null : this.txtEditChecklist.getValue(); //toDo return a errormessage
                 if (!this.userInput.isEmpty()){
@@ -115,7 +110,7 @@ public class VisitView extends VerticalLayout {
             this.btnCancel = new Button("Abbrechen", event2 -> {
                 dlgEditChecklist.close();
             });
-        });
+      //  });
         this.btnGotoReport = new Button();
         this.btnGoals = new Button();
         this.btnDailyPlanning = new Button();
@@ -134,8 +129,7 @@ public class VisitView extends VerticalLayout {
         this.msgEditChecklist = new Span();
 
     }
-
-    public void getAppointment(Appointment appointment) {
-        this.currentAppointment = appointment;
-    }
+    	public void setPresenter(VisitPresenter presenter) {
+    		this.presenter = presenter;
+    	}
 }
