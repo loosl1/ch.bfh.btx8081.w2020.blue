@@ -16,17 +16,13 @@ import com.vaadin.flow.component.html.Label;
 import com.vaadin.flow.component.notification.Notification;
 import com.vaadin.flow.component.orderedlayout.HorizontalLayout;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
-import com.vaadin.flow.component.page.Page;
 import com.vaadin.flow.component.textfield.TextArea;
-import com.vaadin.flow.dom.Style;
 import com.vaadin.flow.router.Route;
 import com.vaadin.flow.server.PWA;
 import com.vaadin.flow.theme.Theme;
 import com.vaadin.flow.theme.lumo.Lumo;
 
 import ch.bfh.btx8081.blue.model.Appointment.AppointmentType;
-import ch.bfh.btx8081.blue.model.Patient;
-import ch.bfh.btx8081.blue.model.Visit;
 import ch.bfh.btx8081.blue.presenter.CalendarPresenter;
 
 @SuppressWarnings("serial")
@@ -57,10 +53,10 @@ public class CalendarView extends VerticalLayout{
 	private Label lblPatientName;
 	private Label lblBeginsAt;
 	private Label lblEndsAt;
-	private Label lblTitleAdress;
-	private Label lblAdressName;
-	private Label lblAdress;
-	private Label lblAdressPlace;
+	private Label lblTitleAddress;
+	private Label lblAddressName;
+	private Label lblAddress;
+	private Label lblAddressPlace;
 	private Label lblTitleInfo;
 	private TextArea lblInfo;
 
@@ -88,10 +84,10 @@ public class CalendarView extends VerticalLayout{
 				this.lblPatientName,
 				this.lblBeginsAt,
 				this.lblEndsAt,
-				this.lblTitleAdress,
-				this.lblAdressName,
-				this.lblAdress,
-				this.lblAdressPlace,
+				this.lblTitleAddress,
+				this.lblAddressName,
+				this.lblAddress,
+				this.lblAddressPlace,
 				this.lblTitleInfo,
 				this.lblInfo,
 				buttonDiv
@@ -121,18 +117,18 @@ public class CalendarView extends VerticalLayout{
 		this.lblPatientName.setClassName("title-label");
 		this.lblTitleInfo = new Label();
 		this.lblTitleInfo.setClassName("title-label");
-		this.lblTitleAdress = new Label();
-		this.lblTitleAdress.setClassName("title-label");
+		this.lblTitleAddress = new Label();
+		this.lblTitleAddress.setClassName("title-label");
 		this.lblBeginsAt = new Label();
 		this.lblBeginsAt.setClassName("text-label");
 		this.lblEndsAt = new Label();
 		this.lblEndsAt.setClassName("text-label");
-		this.lblAdress = new Label();
-		this.lblAdress.setClassName("text-label");
-		this.lblAdressName = new Label();
-		this.lblAdressName.setClassName("text-label");
-		this.lblAdressPlace = new Label();
-		this.lblAdressPlace.setClassName("text-label");
+		this.lblAddress = new Label();
+		this.lblAddress.setClassName("text-label");
+		this.lblAddressName = new Label();
+		this.lblAddressName.setClassName("text-label");
+		this.lblAddressPlace = new Label();
+		this.lblAddressPlace.setClassName("text-label");
 		this.lblInfo = new TextArea();
 		this.lblInfo.setClassName("text-label");
 
@@ -157,9 +153,7 @@ public class CalendarView extends VerticalLayout{
 		this.cmbChangeCalendarType.setItems("Daily", "Weekly", "Monthly", "List-Daily", "List-Weekly", "List-Monthly" );
 		this.cmbChangeCalendarType.setClearButtonVisible(false);
 		this.cmbChangeCalendarType.setValue("Daily");
-		this.cmbChangeCalendarType.addValueChangeListener(event -> {
-			this.presenter.setCalendarType(event.getValue());
-		});
+		this.cmbChangeCalendarType.addValueChangeListener(event -> this.presenter.setCalendarType(event.getValue()));
 	}
 
 	public void update() {
@@ -168,35 +162,35 @@ public class CalendarView extends VerticalLayout{
 		if (this.presenter.getCurrentAppointment() != null && this.presenter.getCurrentAppointment().getAppointmentType() != AppointmentType.INTERNAL) {
 			this.lblPatientName.setVisible(true); 
 			this.lblTitleInfo.setVisible(true);
-			this.lblTitleAdress.setVisible(true);
+			this.lblTitleAddress.setVisible(true);
 			this.lblBeginsAt.setVisible(true);
 			this.lblEndsAt.setVisible(true);
-			this.lblAdressName.setVisible(true);
-			this.lblAdress.setVisible(true);
-			this.lblAdressPlace.setVisible(true);
+			this.lblAddressName.setVisible(true);
+			this.lblAddress.setVisible(true);
+			this.lblAddressPlace.setVisible(true);
 			this.lblInfo.setVisible(true);
 			
 			this.lblPatientName.setText(this.presenter.getCurrentAppointment().getTitle());
 			this.lblTitleInfo.setText("Info");
-			this.lblTitleAdress.setText("Adresse");
+			this.lblTitleAddress.setText("Adresse");
 			
 			this.lblBeginsAt.setText("Starts: " + this.presenter.formatedDate(this.presenter.getCurrentAppointment().getStart()));
 			this.lblEndsAt.setText("Ends:   " + this.presenter.formatedDate(this.presenter.getCurrentAppointment().getEnd()));
-			this.lblAdressName.setText(this.presenter.displayNameOfPatient(this.presenter.getCurrentAppointment()));
-			this.lblAdress.setText(this.presenter.displayAdressOfPatient(this.presenter.getCurrentAppointment()));
-			this.lblAdressPlace.setText(this.presenter.displayPlaceOfPatient(this.presenter.getCurrentAppointment()));
+			this.lblAddressName.setText(this.presenter.displayNameOfPatient(this.presenter.getCurrentAppointment()));
+			this.lblAddress.setText(this.presenter.displayAdressOfPatient(this.presenter.getCurrentAppointment()));
+			this.lblAddressPlace.setText(this.presenter.displayPlaceOfPatient(this.presenter.getCurrentAppointment()));
 			this.lblInfo.setReadOnly(true);
 			this.lblInfo.setValue(this.presenter.getCurrentAppointment().getInfo());
 		}
 		else {
 			this.lblPatientName.setVisible(false);
 			this.lblTitleInfo.setVisible(false);
-			this.lblTitleAdress.setVisible(false);
+			this.lblTitleAddress.setVisible(false);
 			this.lblBeginsAt.setVisible(false);
 			this.lblEndsAt.setVisible(false);
-			this.lblAdressName.setVisible(false);
-			this.lblAdress.setVisible(false);
-			this.lblAdressPlace.setVisible(false);
+			this.lblAddressName.setVisible(false);
+			this.lblAddress.setVisible(false);
+			this.lblAddressPlace.setVisible(false);
 			this.lblInfo.setVisible(false);
 		}
 	}

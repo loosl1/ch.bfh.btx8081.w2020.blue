@@ -3,8 +3,8 @@ package ch.bfh.btx8081.blue.presenter;
 import ch.bfh.btx8081.blue.model.*;
 import ch.bfh.btx8081.blue.view.VisitView;
 
+import java.time.LocalDate;
 import java.time.LocalTime;
-import java.time.OffsetDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Collection;
@@ -17,28 +17,42 @@ import java.util.Set;
  * created on 05/12/2020
  */
 public class VisitPresenter {
+    //Configurations
+    private static final int WORKHOURS_MIDDAY_HOUR = 12;
+    private static final int WORKHOURS_MIDDAY_MINUTE = 0;
     private VisitView viewComponent;
-    private List <Patient> currentPatients;
+    private List<Patient> currentPatients;
+    private Patient currentPatient;
+    private Appointment currentAppointment;
     private Calendar calendar;
     private Checklist checklist;
     private Item item;
     private HealthVisitor currentUser;
-    private Appointment currentAppointment;
     private DataService dataService;
     private Set<String> currentItems;
 
     /**
      * Constructor
      */
-    public VisitPresenter(VisitView visitView, String AppointmentId) {
-    	this.viewComponent = visitView;
-    	DataService dataService = new DataService();
-    	this.currentAppointment = dataService.getAppointment(1000);
+    public VisitPresenter(VisitView visitView, String appointmentId) {
+        this.viewComponent = visitView;
+        System.out.println("AppointmentId "+ appointmentId);
+        DataService dataService = new DataService();
+        this.currentAppointment = dataService.getAppointment(1000);
         // manually created data
-        Visit visit = (Visit) this.currentAppointment;
+        Visit visit = ( Visit ) this.currentAppointment;
+
         this.currentPatients = visit.getTreatedPatients(); //toDo add the currentuser
         System.out.println("--- Finish VisitPresenter()");
-
+       /*
+        //toDo for TESTING PURPOSES ONLY!
+        this.currentPatient = new Patient("TestName", "testSurname", null, LocalDate.of(1990, 12, 12), new Address("Steinerstrasse", 12345, "Bern", 3000));
+        System.out.println(this.currentPatient.getName());
+        this.currentPatients.add(this.currentPatient);
+        System.out.println(this.currentPatients.toString());
+        //toDo for TESTING PURPOSES ONLY!
+        //this.currentAppointment = new Appointment(LocalDateTime.now(), LocalDateTime.now().plusHours(2), "TestTitle", "TestInfo", VISIT);
+   */
     }
 
     /**
@@ -52,13 +66,13 @@ public class VisitPresenter {
 
         ArrayList<String> stringItems = new ArrayList<>();
         if (stringItems.isEmpty()) {
-        	stringItems.add("Create a new item.");
+            stringItems.add("Create a new item.");
+        } else {
+            for (Item item : visit.getChecklist().getItems()) {
+                stringItems.add(item.getDescription());
+            }
         }
-        else {
-        for (Item item : visit.getChecklist().getItems()) {
-            stringItems.add(item.getDescription());
-        }}
- 
+
         return stringItems;
     }
 
@@ -73,15 +87,15 @@ public class VisitPresenter {
         //The name of the patient
         String patientName = "";
         for (Patient patient : currentPatients) {
-        	patientName = patient.getFullname();
+            patientName = patient.getFullname();
         }
 
         //Casts the date of the appointment to a String in the correct Format
         DateTimeFormatter formatterDate = DateTimeFormatter.ofPattern("dd.MM.yyyy");
         String dateFormatted = currentAppointment.getStart().format(formatterDate);
 
-      //Is intended for the information if the visit is during the morning or during the afternoon
-        LocalTime midday = LocalTime.of(12, 00);
+        //Is intended for the information if the visit is during the morning or during the afternoon
+        LocalTime midday = LocalTime.of(WORKHOURS_MIDDAY_HOUR, WORKHOURS_MIDDAY_MINUTE);
         String morningAfternoon = (midday).isBefore(LocalTime.from(currentAppointment.getStart())) ? "Morgen" : "Nachmittag";
         header = patientName + ", " + dateFormatted + ", " + morningAfternoon;
 
@@ -91,11 +105,12 @@ public class VisitPresenter {
 
     /**
      * Adds new items to the MultiSelectListBox checklist
+     *
      * @param newItem String of item which should be added
      * @return Set with the provided items and the currentItems
      */
     public Set<String> addChecklistItem(String newItem) {
-        if(!newItem.isEmpty()) {
+        if (!newItem.isEmpty()) {
             this.currentItems.add(newItem);
         }
 
@@ -104,7 +119,7 @@ public class VisitPresenter {
 
 
     public void concludeVisit(Set<String> selectedItems) {
-        this.checklist = new Checklist();
+        Checklist checklist = new Checklist();
         checklist.setItems(selectedItems);
 
     }

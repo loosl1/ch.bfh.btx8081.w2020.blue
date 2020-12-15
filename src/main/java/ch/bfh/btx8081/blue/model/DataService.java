@@ -48,7 +48,7 @@ public class DataService {
 	 * @param ID ID of the Patient
 	 * @return Patient Object from the Database
 	 */
-	public Patient getPatient(int ID) {
+	public Patient getPatient(long ID) {
 		//entityManager.getTransaction().begin();
 		Patient patient = entityManager.find(Patient.class, ID);
 		return patient;
@@ -56,7 +56,7 @@ public class DataService {
 	
 	/**
 	 * Get a specific Patient by ID
-	 * @param ID ID of the Patient
+	 * @param appointmentID ID of the Patient
 	 * @return Patient Object from the Database
 	 */
 	public Appointment getAppointment(int appointmentID) {

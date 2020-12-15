@@ -61,8 +61,8 @@ public class CalendarPresenter {
 	public void setupCalendarConfiguration(FullCalendar calendar) {
 		calendar.changeView(CalendarViewImpl.TIME_GRID_DAY);
 		calendar.setBusinessHours(new BusinessHours(LocalTime.of(WORKHOURS_START_HOUR, WORKHOURS_START_MINUTE),
-													LocalTime.of(WORKHOURS_END_HOUR, WORKHOURS_END_MINUTE),
-													BusinessHours.DEFAULT_BUSINESS_WEEK));
+				LocalTime.of(WORKHOURS_END_HOUR, WORKHOURS_END_MINUTE),
+				BusinessHours.DEFAULT_BUSINESS_WEEK));
 		calendar.today();
 		calendar.setWeekNumbersVisible(false);
 		calendar.setWidth("70%");
@@ -85,31 +85,31 @@ public class CalendarPresenter {
 		ArrayList<Entry> entries = new ArrayList<>();
 		this.currentUser.getCalendar().getAppointments().forEach(appointment -> {
 			Entry entry = new Entry(); //Makes Creating an Entry into Calendar Object possible.
-		    entry.setTitle(appointment.getTitle());
-		    entry.setStart(appointment.getStart());
-		    entry.setEnd(appointment.getEnd());
-		    //Color Handling
-		    if (appointment.getAppointmentType() != AppointmentType.INTERNAL) {
-		    	int hourDiff, minDiff; //Needed to calculate difference of start and endtime
-		    	hourDiff = (appointment.getEnd().getHour() - appointment.getStart().getHour());
-		    	minDiff = (appointment.getEnd().getMinute() - appointment.getStart().getMinute());
-		    	if ((hourDiff * 60) + minDiff >= APPOINTMENT_IS_LARGE_IN_MIN) {
-		    		entry.setColor(APPOINTMENT_COLOR_LARGE);
-		    	}
-		    	else {
-		    		entry.setColor(APPOINTMENT_COLOR_SMALL);
-		    	}
-		    }
-		    else {
-		    	entry.setColor(APPOINTMENT_COLOR_ADMIN);
-		    }
-		    
-		    entry.setEditable(false);
-		    entries.add(entry);
+			entry.setTitle(appointment.getTitle());
+			entry.setStart(appointment.getStart());
+			entry.setEnd(appointment.getEnd());
+			//Color Handling
+			if (appointment.getAppointmentType() != AppointmentType.INTERNAL) {
+				int hourDiff, minDiff; //Needed to calculate difference of start and endtime
+				hourDiff = (appointment.getEnd().getHour() - appointment.getStart().getHour());
+				minDiff = (appointment.getEnd().getMinute() - appointment.getStart().getMinute());
+				if ((hourDiff * 60) + minDiff >= APPOINTMENT_IS_LARGE_IN_MIN) {
+					entry.setColor(APPOINTMENT_COLOR_LARGE);
+				}
+				else {
+					entry.setColor(APPOINTMENT_COLOR_SMALL);
+				}
+			}
+			else {
+				entry.setColor(APPOINTMENT_COLOR_ADMIN);
+			}
+
+			entry.setEditable(false);
+			entries.add(entry);
 		});
-	    return entries;
+		return entries;
 	}
-	
+
 
 	/**
 	 * Gets next Appointment to the currently selected one.
@@ -161,7 +161,7 @@ public class CalendarPresenter {
 	public Appointment getCurrentAppointment () {
 		return this.currentAppointment;
 	}
-	
+
 	/**
 	 * Changes the appearance of the Calendar Object
 	 * @param viewtype Type for the Calendar Appearance
@@ -169,23 +169,23 @@ public class CalendarPresenter {
 	public void setCalendarType (String viewtype) {
 		CalendarViewImpl type = null;
 		switch (viewtype) {
-			case "Daily":			type = CalendarViewImpl.TIME_GRID_DAY;					
-									break;
+			case "Daily":			type = CalendarViewImpl.TIME_GRID_DAY;
+				break;
 			case "Weekly":			type = CalendarViewImpl.TIME_GRID_WEEK;
-									break;
+				break;
 			case "Monthly":			type = CalendarViewImpl.DAY_GRID_MONTH;
-									break;
+				break;
 			case "List-Daily":		type = CalendarViewImpl.LIST_DAY;
-									break;
+				break;
 			case "List-Weekly":		type = CalendarViewImpl.LIST_WEEK;
-									break;
+				break;
 			case "List-Monthly":	type = CalendarViewImpl.LIST_MONTH;
-									break;	
+				break;
 			default:				break;
 		}
 		this.viewComponent.changeCalendarAppearance(type);
 	}
-	
+
 	/**
 	 * Prepares the Name to be displayed in the Infopanel of the Appointment
 	 * @param appointment Current Appointment
@@ -200,7 +200,7 @@ public class CalendarPresenter {
 			return "";
 		}
 	}
-	
+
 	/**
 	 * Prepares the Address to be displayed in the Infopanel of the Appointment
 	 * @param appointment Current Appointment
@@ -215,7 +215,7 @@ public class CalendarPresenter {
 			return "";
 		}
 	}
-	
+
 	/**
 	 * Prepares the Place to be displayed in the Infopanel of the Appointment
 	 * @param appointment Current Appointment
@@ -230,7 +230,7 @@ public class CalendarPresenter {
 			return "";
 		}
 	}
-	
+
 	/**
 	 * Formats dates to a specific pattern
 	 * @param date Date to be formatted

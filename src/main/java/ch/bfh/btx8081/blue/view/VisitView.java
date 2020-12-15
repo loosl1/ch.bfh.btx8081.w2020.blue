@@ -1,6 +1,7 @@
 package ch.bfh.btx8081.blue.view;
 
 import ch.bfh.btx8081.blue.model.Appointment;
+import ch.bfh.btx8081.blue.model.Item;
 import ch.bfh.btx8081.blue.presenter.CalendarPresenter;
 import ch.bfh.btx8081.blue.presenter.VisitPresenter;
 import com.vaadin.flow.component.button.Button;
@@ -20,6 +21,7 @@ import com.vaadin.flow.router.HasUrlParameter;
 import com.vaadin.flow.router.Route;
 import com.vaadin.flow.theme.Theme;
 import com.vaadin.flow.theme.lumo.Lumo;
+import org.hibernate.cache.spi.support.AbstractReadWriteAccess;
 
 @SuppressWarnings("serial")
 @CssImport("styles/lumo-custom-dark-theme.css")
@@ -28,10 +30,10 @@ import com.vaadin.flow.theme.lumo.Lumo;
 @Theme(value = Lumo.class, variant = Lumo.DARK)
 
 public class VisitView extends VerticalLayout implements HasUrlParameter<String> {
-	
+
     //Elements
     String userInput;
-    Binder binder;
+    Binder<Item> binder;
     //Presenter
     private VisitPresenter presenter;
     //Layout
@@ -64,11 +66,11 @@ public class VisitView extends VerticalLayout implements HasUrlParameter<String>
      * Constructor empty
      */
     public VisitView() {
-    	
+
     	this.presenter = new VisitPresenter(this, this.parameter);
         addClassName("visit-view");
         loadUIElements();
-        
+
         this.buttonList.add(
                 this.btnConcludeVisit,
                 this.btnEditChecklist,
@@ -76,7 +78,7 @@ public class VisitView extends VerticalLayout implements HasUrlParameter<String>
                 this.btnGoals,
                 this.btnDailyPlanning
         );
-        
+
         this.titlePanel.add(this.lblTitle);
         this.buttonList.setWidth("30%");
         this.titlePanel.setWidth("10%");
@@ -85,7 +87,13 @@ public class VisitView extends VerticalLayout implements HasUrlParameter<String>
         this.checklist.add(this.titlePanel, this.checklistPanel);
         this.content.add(this.checklist, this.buttonList);
         this.dlgEditChecklist.add(this.txtEditChecklist, this.msgEditChecklist, this.btnConfirm, this.btnCancel);
+
+        add(this.content);
+
+
         System.out.println("--- Finish VisitView()");
+
+
     }
 
     private void loadUIElements() {
@@ -95,6 +103,7 @@ public class VisitView extends VerticalLayout implements HasUrlParameter<String>
         this.titlePanel = new VerticalLayout();
         this.buttonList = new HorizontalLayout();
         this.checklistPanel = new VerticalLayout();
+
 
         //Labels
         this.lblTitle = new Label();
@@ -131,13 +140,13 @@ public class VisitView extends VerticalLayout implements HasUrlParameter<String>
         //Textfields and Spans
         this.txtEditChecklist = new TextField();
         //toDo check if this is really the way to go
-        binder = new Binder();
+        binder = new Binder<Item>();
         binder.forField(txtEditChecklist)
                 .withValidator(string -> string == null, "Bitte geben Sie einen Wert ein.");
         this.msgEditChecklist = new Span();
 
     }
-    	
+
         @Override
         public void setParameter(BeforeEvent event, String parameter) {
             if (parameter.isEmpty()) {

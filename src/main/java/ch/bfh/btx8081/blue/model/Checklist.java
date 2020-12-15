@@ -4,12 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.OneToMany;
-import javax.persistence.OneToOne;
-import javax.persistence.Table;
+import javax.persistence.*;
 
 import static ch.bfh.btx8081.blue.model.Item.isEmpty;
 
@@ -27,11 +22,12 @@ public class Checklist {
 	@OneToOne
 	private PatientRecord report; // the report which is created by a HealthVisitor after a visit
 
+
 	/**
 	 * empty Constructor
 	 */
 	public Checklist() {
-		this.items = new ArrayList<>();
+		//this.items.add(new Item("Neue Liste"));
 		this.report = new PatientRecord();
 	}
 
