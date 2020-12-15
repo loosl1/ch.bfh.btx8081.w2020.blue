@@ -39,9 +39,9 @@ public class VisitView extends VerticalLayout implements HasUrlParameter<String>
     //Layout
     private HorizontalLayout topBar;
     private HorizontalLayout content;
-    private HorizontalLayout checklist;
-    private HorizontalLayout buttonList;
+    private VerticalLayout checklist;
     private Grid<VerticalLayout> layoutGrid;
+    private VerticalLayout buttonList;
     private VerticalLayout titlePanel;
     private VerticalLayout checklistPanel;
     //UI Objects
@@ -81,7 +81,8 @@ public class VisitView extends VerticalLayout implements HasUrlParameter<String>
 
         this.titlePanel.add(this.lblTitle);
         this.buttonList.setWidth("30%");
-        this.titlePanel.setWidth("10%");
+        this.titlePanel.setWidth("100%");
+        this.content.setWidth("100%");
         this.listBox.setItems(this.presenter.setupChecklist());
         this.checklistPanel.add(listBox);
         this.checklist.add(this.titlePanel, this.checklistPanel);
@@ -99,15 +100,18 @@ public class VisitView extends VerticalLayout implements HasUrlParameter<String>
     private void loadUIElements() {
         //Layouts
         this.content = new HorizontalLayout();
-        this.checklist = new HorizontalLayout();
+        this.checklist = new VerticalLayout();
+        this.checklist.setClassName("checklist-container");
         this.titlePanel = new VerticalLayout();
-        this.buttonList = new HorizontalLayout();
+        this.buttonList = new VerticalLayout();
+        this.buttonList.setClassName("buttonList-container");
         this.checklistPanel = new VerticalLayout();
 
 
         //Labels
         this.lblTitle = new Label();
         this.lblTitle.setClassName("title_label");
+        this.lblTitle.setClassName("title_label_h1");
         this.lblTitle.setText(this.presenter.displayHeader());
 
         //Buttons
@@ -128,9 +132,9 @@ public class VisitView extends VerticalLayout implements HasUrlParameter<String>
                 dlgEditChecklist.close();
             });
       //  });
-        this.btnGotoReport = new Button();
-        this.btnGoals = new Button();
-        this.btnDailyPlanning = new Button();
+        this.btnGotoReport = new Button("Zum Rapport");
+        this.btnGoals = new Button("Ziele");
+        this.btnDailyPlanning = new Button("Zur Tagesplanung");
 
         //Dialogs
         this.dlgEditChecklist = new Dialog();
