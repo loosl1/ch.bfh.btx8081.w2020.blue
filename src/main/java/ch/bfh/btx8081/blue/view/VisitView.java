@@ -5,6 +5,7 @@ import ch.bfh.btx8081.blue.model.Item;
 import ch.bfh.btx8081.blue.presenter.CalendarPresenter;
 import ch.bfh.btx8081.blue.presenter.VisitPresenter;
 import com.vaadin.flow.component.button.Button;
+import com.vaadin.flow.component.checkbox.CheckboxGroup;
 import com.vaadin.flow.component.dependency.CssImport;
 import com.vaadin.flow.component.dialog.Dialog;
 import com.vaadin.flow.component.grid.Grid;
@@ -45,7 +46,7 @@ public class VisitView extends VerticalLayout implements HasUrlParameter<String>
     private VerticalLayout titlePanel;
     private VerticalLayout checklistPanel;
     //UI Objects
-    private MultiSelectListBox<String> listBox;
+    private CheckboxGroup<String> checkBox;
     private Button btnConcludeVisit;
     private Button btnEditChecklist;
     private Button btnGotoReport;
@@ -83,18 +84,13 @@ public class VisitView extends VerticalLayout implements HasUrlParameter<String>
         this.buttonList.setWidth("30%");
         this.titlePanel.setWidth("100%");
         this.content.setWidth("100%");
-        this.listBox.setItems(this.presenter.setupChecklist());
-        this.checklistPanel.add(listBox);
+        this.checkBox.setItems(this.presenter.setupChecklist());
+        this.checklistPanel.add(checkBox);
         this.checklist.add(this.titlePanel, this.checklistPanel);
         this.content.add(this.checklist, this.buttonList);
         this.dlgEditChecklist.add(this.txtEditChecklist, this.msgEditChecklist, this.btnConfirm, this.btnCancel);
-
         add(this.content);
-
-
         System.out.println("--- Finish VisitView()");
-
-
     }
 
     private void loadUIElements() {
@@ -113,33 +109,38 @@ public class VisitView extends VerticalLayout implements HasUrlParameter<String>
         this.lblTitle.setClassName("title_label");
         this.lblTitle.setClassName("title_label_h1");
         this.lblTitle.setText(this.presenter.displayHeader());
+        
+      //Dialogs
+        this.dlgEditChecklist = new Dialog();
+        this.dlgEditChecklist.setCloseOnEsc(true);
+        this.dlgEditChecklist.setCloseOnOutsideClick(true);
 
         //Buttons
-        this.listBox = new MultiSelectListBox<String>();
+        this.checkBox = new CheckboxGroup<String>();
+        this.checkBox.setClassName("checklist-items");
         this.btnConcludeVisit = new Button("Besuch abschliessen",
-                event -> this.presenter.concludeVisit(listBox.getSelectedItems())
+                event -> this.presenter.concludeVisit(checkBox.getSelectedItems())
         );
-        this.btnEditChecklist = new Button("Checkliste bearbeiten", event -> {});
-            this.btnConfirm = new Button("Ok", event2 -> {
-                this.userInput = this.txtEditChecklist.getValue().isEmpty() ? null : this.txtEditChecklist.getValue(); //toDo return a errormessage
-                if (!this.userInput.isEmpty()){
-                    this.listBox.setValue(this.presenter.addChecklistItem(this.userInput));
-                }
-                dlgEditChecklist.close();
-            });
-
-            this.btnCancel = new Button("Abbrechen", event2 -> {
-                dlgEditChecklist.close();
-            });
-      //  });
+        this.btnEditChecklist = new Button("Checkliste bearbeiten", event -> {
+            dlgEditChecklist.open();
+        });
+        this.btnConfirm = new Button("Ok", event2 -> {
+            this.userInput = this.txtEditChecklist.getValue().isEmpty() ? null : this.txtEditChecklist.getValue(); //toDo return a errormessage
+            System.out.println("I'm in Confirm Eventhandler with the following text: " + this.userInput);
+            if (!this.userInput.isEmpty()){
+            	System.out.println("My input is not empty");
+                this.checkBox.setValue(this.presenter.addChecklistItem(this.userInput));
+            }
+            dlgEditChecklist.close();
+        });
+        this.btnCancel = new Button("Abbrechen", event2 -> {
+            dlgEditChecklist.close();
+        });
         this.btnGotoReport = new Button("Zum Rapport");
         this.btnGoals = new Button("Ziele");
         this.btnDailyPlanning = new Button("Zur Tagesplanung");
 
-        //Dialogs
-        this.dlgEditChecklist = new Dialog();
-        this.dlgEditChecklist.setCloseOnEsc(false);
-        this.dlgEditChecklist.setCloseOnOutsideClick(false);
+        
 
         //Textfields and Spans
         this.txtEditChecklist = new TextField();
