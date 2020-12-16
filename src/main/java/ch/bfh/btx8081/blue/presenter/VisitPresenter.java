@@ -8,8 +8,10 @@ import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
+import java.util.TreeSet;
 
 /**
  * @author loosl1
@@ -41,7 +43,7 @@ public class VisitPresenter {
         this.currentAppointment = dataService.getAppointment(1000);
         // manually created data
         Visit visit = ( Visit ) this.currentAppointment;
-
+        this.currentItems = new TreeSet<String>();
         this.currentPatients = visit.getTreatedPatients(); //toDo add the currentuser
         System.out.println("--- Finish VisitPresenter()");
        /*
@@ -121,7 +123,6 @@ public class VisitPresenter {
     public void concludeVisit(Set<String> selectedItems) {
         Checklist checklist = new Checklist();
         checklist.setItems(selectedItems);
-
     }
 }
 

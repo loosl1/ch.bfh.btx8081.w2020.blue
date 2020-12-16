@@ -6,6 +6,7 @@ import ch.bfh.btx8081.blue.presenter.CalendarPresenter;
 import ch.bfh.btx8081.blue.presenter.VisitPresenter;
 import com.vaadin.flow.component.button.Button;
 import com.vaadin.flow.component.checkbox.CheckboxGroup;
+import com.vaadin.flow.component.checkbox.CheckboxGroupVariant;
 import com.vaadin.flow.component.dependency.CssImport;
 import com.vaadin.flow.component.dialog.Dialog;
 import com.vaadin.flow.component.grid.Grid;
@@ -118,6 +119,7 @@ public class VisitView extends VerticalLayout implements HasUrlParameter<String>
         //Buttons
         this.checkBox = new CheckboxGroup<String>();
         this.checkBox.setClassName("checklist-items");
+        this.checkBox.addThemeVariants(CheckboxGroupVariant.LUMO_VERTICAL);
         this.btnConcludeVisit = new Button("Besuch abschliessen",
                 event -> this.presenter.concludeVisit(checkBox.getSelectedItems())
         );
@@ -126,10 +128,9 @@ public class VisitView extends VerticalLayout implements HasUrlParameter<String>
         });
         this.btnConfirm = new Button("Ok", event2 -> {
             this.userInput = this.txtEditChecklist.getValue().isEmpty() ? null : this.txtEditChecklist.getValue(); //toDo return a errormessage
-            System.out.println("I'm in Confirm Eventhandler with the following text: " + this.userInput);
             if (!this.userInput.isEmpty()){
-            	System.out.println("My input is not empty");
-                this.checkBox.setValue(this.presenter.addChecklistItem(this.userInput));
+                this.checkBox.setItems(this.presenter.addChecklistItem(this.userInput));
+                this.userInput = "";
             }
             dlgEditChecklist.close();
         });
