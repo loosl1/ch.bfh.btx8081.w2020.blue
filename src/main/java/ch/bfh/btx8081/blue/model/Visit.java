@@ -72,7 +72,7 @@ public class Visit extends Appointment {
 		for (Patient ignored : treatedPatients) {
 
 			if (this.appointmentID == visitID) {
-
+				//toDo
 			}
 		}
 	}

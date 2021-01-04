@@ -1,17 +1,13 @@
 package ch.bfh.btx8081.blue.presenter;
 
+import ch.bfh.btx8081.blue.exceptions.AppointmentNotFoundException;
+import ch.bfh.btx8081.blue.model.Calendar;
 import ch.bfh.btx8081.blue.model.*;
 import ch.bfh.btx8081.blue.view.VisitView;
 
-import java.time.LocalDate;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
-import java.util.TreeSet;
+import java.util.*;
 
 /**
  * @author loosl1
@@ -25,7 +21,7 @@ public class VisitPresenter {
     private VisitView viewComponent;
     private List<Patient> currentPatients;
     private Patient currentPatient;
-    private Appointment currentAppointment;
+    private Appointment currentAppointment, recentAppointment;
     private Calendar calendar;
     private Checklist checklist;
     private Item item;
@@ -38,7 +34,7 @@ public class VisitPresenter {
      */
     public VisitPresenter(VisitView visitView, String appointmentId) {
         this.viewComponent = visitView;
-        System.out.println("AppointmentId "+ appointmentId);
+        System.out.println("AppointmentId " + appointmentId);
         DataService dataService = new DataService();
         this.currentAppointment = dataService.getAppointment(1000);
         // manually created data
@@ -63,14 +59,16 @@ public class VisitPresenter {
      *
      * @return Collection with Strings
      */
-    public Collection<String> setupChecklist() {
-        Visit visit = ( Visit ) this.currentAppointment;
+    public Collection<String> setupChecklist() throws AppointmentNotFoundException {
+        Visit currentVisit = ( Visit ) this.currentAppointment;
 
-        ArrayList<String> stringItems = new ArrayList<>();
+
+        ArrayList<String> stringItems = new ArrayList<>(), itemsUnchecked = new ArrayList<>();
+
         if (stringItems.isEmpty()) {
             stringItems.add("Create a new item.");
         } else {
-            for (Item item : visit.getChecklist().getItems()) {
+            for (Item item : currentVisit.getChecklist().getItems()) {
                 stringItems.add(item.getDescription());
             }
         }
@@ -101,7 +99,6 @@ public class VisitPresenter {
         String morningAfternoon = (midday).isBefore(LocalTime.from(currentAppointment.getStart())) ? "Morgen" : "Nachmittag";
         header = patientName + ", " + dateFormatted + ", " + morningAfternoon;
 
-
         return header;
     }
 
@@ -119,10 +116,19 @@ public class VisitPresenter {
         return currentItems;
     }
 
+    /**
+     * Closes the visit and gives all the open items to the next checklist
+     *
+     * @param selectedItems a Set of the checklist items
+     */
+    public void concludeVisit(Set<String> selectedItems) throws AppointmentNotFoundException {
+        calendar = new Calendar();
+        Visit nextVisit = null;
 
-    public void concludeVisit(Set<String> selectedItems) {
-        Checklist checklist = new Checklist();
-        checklist.setItems(selectedItems);
+        if (calendar.getNextAppointment(this.currentAppointment.getAppointmentID()).isEmpty())
+            nextVisit = ( Visit ) calendar.getNextAppointment(this.currentAppointment.getAppointmentID());
+        nextVisit.setChecklist(( Checklist ) selectedItems);
+
     }
 }
 

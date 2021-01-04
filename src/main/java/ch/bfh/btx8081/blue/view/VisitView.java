@@ -1,5 +1,6 @@
 package ch.bfh.btx8081.blue.view;
 
+import ch.bfh.btx8081.blue.exceptions.AppointmentNotFoundException;
 import ch.bfh.btx8081.blue.model.Appointment;
 import ch.bfh.btx8081.blue.model.Item;
 import ch.bfh.btx8081.blue.presenter.CalendarPresenter;
@@ -85,7 +86,11 @@ public class VisitView extends VerticalLayout implements HasUrlParameter<String>
         this.buttonList.setWidth("30%");
         this.titlePanel.setWidth("100%");
         this.content.setWidth("100%");
-        this.checkBox.setItems(this.presenter.setupChecklist());
+        try {
+            this.checkBox.setItems(this.presenter.setupChecklist());
+        } catch (AppointmentNotFoundException e) {
+            e.printStackTrace();
+        }
         this.checklistPanel.add(checkBox);
         this.checklist.add(this.titlePanel, this.checklistPanel);
         this.content.add(this.checklist, this.buttonList);
@@ -121,7 +126,14 @@ public class VisitView extends VerticalLayout implements HasUrlParameter<String>
         this.checkBox.setClassName("checklist-items");
         this.checkBox.addThemeVariants(CheckboxGroupVariant.LUMO_VERTICAL);
         this.btnConcludeVisit = new Button("Besuch abschliessen",
-                event -> this.presenter.concludeVisit(checkBox.getSelectedItems())
+                event -> {
+                    try {
+
+                        this.presenter.concludeVisit(checkBox.getSelectedItems() );
+                    } catch (AppointmentNotFoundException e) {
+                        e.printStackTrace();
+                    }
+                }
         );
         this.btnEditChecklist = new Button("Checkliste bearbeiten", event -> {
             dlgEditChecklist.open();

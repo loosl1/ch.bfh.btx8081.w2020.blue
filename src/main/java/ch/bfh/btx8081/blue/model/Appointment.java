@@ -38,7 +38,17 @@ public class Appointment implements Comparable<Appointment> {
 
 	protected String title, info;
 
-	public enum AppointmentType {
+	/**
+	 * Checks if a appointment exists or not
+	 * @return
+	 */
+    public boolean isEmpty() {
+
+    	boolean boo = this.appointmentID==0?true:false;
+    	return boo;
+    }
+
+    public enum AppointmentType {
 		GROUPVISIT,
 		VISIT,
 		INTERNAL 
