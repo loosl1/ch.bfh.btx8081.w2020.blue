@@ -1,30 +1,26 @@
 package ch.bfh.btx8081.blue.view;
 
 import ch.bfh.btx8081.blue.exceptions.AppointmentNotFoundException;
-import ch.bfh.btx8081.blue.model.Appointment;
 import ch.bfh.btx8081.blue.model.Item;
-import ch.bfh.btx8081.blue.presenter.CalendarPresenter;
 import ch.bfh.btx8081.blue.presenter.VisitPresenter;
 import com.vaadin.flow.component.button.Button;
 import com.vaadin.flow.component.checkbox.CheckboxGroup;
 import com.vaadin.flow.component.checkbox.CheckboxGroupVariant;
 import com.vaadin.flow.component.dependency.CssImport;
 import com.vaadin.flow.component.dialog.Dialog;
-import com.vaadin.flow.component.grid.Grid;
 import com.vaadin.flow.component.html.Label;
 import com.vaadin.flow.component.html.Span;
-import com.vaadin.flow.component.listbox.MultiSelectListBox;
 import com.vaadin.flow.component.orderedlayout.HorizontalLayout;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
 import com.vaadin.flow.component.textfield.TextField;
 import com.vaadin.flow.data.binder.Binder;
-import com.vaadin.flow.router.BeforeEnterEvent;
 import com.vaadin.flow.router.BeforeEvent;
 import com.vaadin.flow.router.HasUrlParameter;
 import com.vaadin.flow.router.Route;
 import com.vaadin.flow.theme.Theme;
 import com.vaadin.flow.theme.lumo.Lumo;
-import org.hibernate.cache.spi.support.AbstractReadWriteAccess;
+
+import java.util.Objects;
 
 @SuppressWarnings("serial")
 @CssImport("styles/lumo-custom-dark-theme.css")
@@ -38,12 +34,10 @@ public class VisitView extends VerticalLayout implements HasUrlParameter<String>
     String userInput;
     Binder<Item> binder;
     //Presenter
-    private VisitPresenter presenter;
+    private final VisitPresenter presenter;
     //Layout
-    private HorizontalLayout topBar;
     private HorizontalLayout content;
     private VerticalLayout checklist;
-    private Grid<VerticalLayout> layoutGrid;
     private VerticalLayout buttonList;
     private VerticalLayout titlePanel;
     private VerticalLayout checklistPanel;
@@ -60,9 +54,7 @@ public class VisitView extends VerticalLayout implements HasUrlParameter<String>
     private Dialog dlgEditChecklist;
     private TextField txtEditChecklist;
     private Span msgEditChecklist;
-    private Appointment currentAppointment;
     private String parameter;
-
 
 
     /**
@@ -70,7 +62,7 @@ public class VisitView extends VerticalLayout implements HasUrlParameter<String>
      */
     public VisitView() {
 
-    	this.presenter = new VisitPresenter(this, this.parameter);
+        this.presenter = new VisitPresenter(this, this.parameter);
         addClassName("visit-view");
         loadUIElements();
 
@@ -86,11 +78,7 @@ public class VisitView extends VerticalLayout implements HasUrlParameter<String>
         this.buttonList.setWidth("30%");
         this.titlePanel.setWidth("100%");
         this.content.setWidth("100%");
-        try {
-            this.checkBox.setItems(this.presenter.setupChecklist());
-        } catch (AppointmentNotFoundException e) {
-            e.printStackTrace();
-        }
+        this.checkBox.setItems(this.presenter.setupChecklist());
         this.checklistPanel.add(checkBox);
         this.checklist.add(this.titlePanel, this.checklistPanel);
         this.content.add(this.checklist, this.buttonList);
@@ -115,63 +103,58 @@ public class VisitView extends VerticalLayout implements HasUrlParameter<String>
         this.lblTitle.setClassName("title_label");
         this.lblTitle.setClassName("title_label_h1");
         this.lblTitle.setText(this.presenter.displayHeader());
-        
-      //Dialogs
+
+        //Dialogs
         this.dlgEditChecklist = new Dialog();
         this.dlgEditChecklist.setCloseOnEsc(true);
         this.dlgEditChecklist.setCloseOnOutsideClick(true);
 
         //Buttons
-        this.checkBox = new CheckboxGroup<String>();
+        this.checkBox = new CheckboxGroup<>();
         this.checkBox.setClassName("checklist-items");
         this.checkBox.addThemeVariants(CheckboxGroupVariant.LUMO_VERTICAL);
         this.btnConcludeVisit = new Button("Besuch abschliessen",
                 event -> {
                     try {
-
-                        this.presenter.concludeVisit(checkBox.getSelectedItems() );
+                        this.presenter.concludeVisit(checkBox.getSelectedItems());
                     } catch (AppointmentNotFoundException e) {
                         e.printStackTrace();
                     }
                 }
         );
-        this.btnEditChecklist = new Button("Checkliste bearbeiten", event -> {
-            dlgEditChecklist.open();
-        });
+        this.btnEditChecklist = new Button("Checkliste bearbeiten", event -> dlgEditChecklist.open());
         this.btnConfirm = new Button("Ok", event2 -> {
             this.userInput = this.txtEditChecklist.getValue().isEmpty() ? null : this.txtEditChecklist.getValue(); //toDo return a errormessage
-            if (!this.userInput.isEmpty()){
+            assert this.userInput != null;
+            if (!this.userInput.isEmpty()) {
                 this.checkBox.setItems(this.presenter.addChecklistItem(this.userInput));
                 this.userInput = "";
             }
             dlgEditChecklist.close();
         });
-        this.btnCancel = new Button("Abbrechen", event2 -> {
-            dlgEditChecklist.close();
-        });
+        this.btnCancel = new Button("Abbrechen", event2 -> dlgEditChecklist.close());
         this.btnGotoReport = new Button("Zum Rapport");
         this.btnGoals = new Button("Ziele");
         this.btnDailyPlanning = new Button("Zur Tagesplanung");
 
-        
 
         //Textfields and Spans
         this.txtEditChecklist = new TextField();
-        //toDo check if this is really the way to go
-        binder = new Binder<Item>();
+
+        binder = new Binder<>();
         binder.forField(txtEditChecklist)
-                .withValidator(string -> string == null, "Bitte geben Sie einen Wert ein.");
+                .withValidator(Objects::isNull, "Bitte geben Sie einen Wert ein.");
         this.msgEditChecklist = new Span();
 
     }
 
-        @Override
-        public void setParameter(BeforeEvent event, String parameter) {
-            if (parameter.isEmpty()) {
-            	System.out.println("is Empty");
-            } else {
-            	System.out.println("Load Parameter" + parameter);
-            	this.parameter = parameter;
-            }
+    @Override
+    public void setParameter(BeforeEvent event, String parameter) {
+        if (parameter.isEmpty()) {
+            System.out.println("is Empty");
+        } else {
+            System.out.println("Load Parameter" + parameter);
+            this.parameter = parameter;
         }
+    }
 }

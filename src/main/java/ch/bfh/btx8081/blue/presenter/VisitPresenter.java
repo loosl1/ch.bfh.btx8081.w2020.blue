@@ -18,39 +18,24 @@ public class VisitPresenter {
     //Configurations
     private static final int WORKHOURS_MIDDAY_HOUR = 12;
     private static final int WORKHOURS_MIDDAY_MINUTE = 0;
-    private VisitView viewComponent;
-    private List<Patient> currentPatients;
-    private Patient currentPatient;
-    private Appointment currentAppointment, recentAppointment;
-    private Calendar calendar;
-    private Checklist checklist;
-    private Item item;
-    private HealthVisitor currentUser;
-    private DataService dataService;
-    private Set<String> currentItems;
+    private final List<Patient> currentPatients;
+    private final Appointment currentAppointment;
+    private final Set<String> currentItems, currentItems2; //currentItems2 is being used in the method concludeVisit()
 
     /**
      * Constructor
      */
     public VisitPresenter(VisitView visitView, String appointmentId) {
-        this.viewComponent = visitView;
         System.out.println("AppointmentId " + appointmentId);
         DataService dataService = new DataService();
         this.currentAppointment = dataService.getAppointment(1000);
-        // manually created data
+
         Visit visit = ( Visit ) this.currentAppointment;
-        this.currentItems = new TreeSet<String>();
-        this.currentPatients = visit.getTreatedPatients(); //toDo add the currentuser
+        this.currentItems = new TreeSet<>();
+        this.currentItems2 = new TreeSet<>();
+        this.currentPatients = visit.getTreatedPatients();
         System.out.println("--- Finish VisitPresenter()");
-       /*
-        //toDo for TESTING PURPOSES ONLY!
-        this.currentPatient = new Patient("TestName", "testSurname", null, LocalDate.of(1990, 12, 12), new Address("Steinerstrasse", 12345, "Bern", 3000));
-        System.out.println(this.currentPatient.getName());
-        this.currentPatients.add(this.currentPatient);
-        System.out.println(this.currentPatients.toString());
-        //toDo for TESTING PURPOSES ONLY!
-        //this.currentAppointment = new Appointment(LocalDateTime.now(), LocalDateTime.now().plusHours(2), "TestTitle", "TestInfo", VISIT);
-   */
+
     }
 
     /**
@@ -59,11 +44,11 @@ public class VisitPresenter {
      *
      * @return Collection with Strings
      */
-    public Collection<String> setupChecklist() throws AppointmentNotFoundException {
+    public Collection<String> setupChecklist() {
         Visit currentVisit = ( Visit ) this.currentAppointment;
 
 
-        ArrayList<String> stringItems = new ArrayList<>(), itemsUnchecked = new ArrayList<>();
+        ArrayList<String> stringItems = new ArrayList<>();
 
         if (stringItems.isEmpty()) {
             stringItems.add("Create a new item.");
@@ -122,12 +107,18 @@ public class VisitPresenter {
      * @param selectedItems a Set of the checklist items
      */
     public void concludeVisit(Set<String> selectedItems) throws AppointmentNotFoundException {
-        calendar = new Calendar();
-        Visit nextVisit = null;
+        Calendar calendar = new Calendar();
+        Visit nextVisit;
 
-        if (calendar.getNextAppointment(this.currentAppointment.getAppointmentID()).isEmpty())
+        System.out.println(selectedItems);
+        this.currentItems2.addAll(this.currentItems);
+        this.currentItems2.removeAll(selectedItems);
+        System.out.println(currentItems2);
+
+        if (calendar.getNextAppointment(this.currentAppointment.getAppointmentID()).isEmpty()) {
             nextVisit = ( Visit ) calendar.getNextAppointment(this.currentAppointment.getAppointmentID());
-        nextVisit.setChecklist(( Checklist ) selectedItems);
+            nextVisit.setChecklist(( Checklist ) selectedItems);
+        }
 
     }
 }
