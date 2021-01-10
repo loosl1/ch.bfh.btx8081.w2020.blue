@@ -67,7 +67,7 @@ public class Patient extends Person {
 
 	public void loadRecord(int appointmentId) {
 		myRecords.put(appointmentId, new PatientRecord());
-	};
+	}
 
 	/* getters and setters */
 
@@ -85,7 +85,7 @@ public class Patient extends Person {
 	 */
 	public void setContacts(ArrayList<Contact> newContacts) {
 		this.contacts = newContacts;
-	};
+	}
 
 	/**
 	 * 
@@ -93,7 +93,7 @@ public class Patient extends Person {
 	 */
 	public Checklist getDailyGoals() {
 		return dailyGoals;
-	};
+	}
 
 	/**
 	 * 
@@ -101,7 +101,7 @@ public class Patient extends Person {
 	 */
 	public void setDailyGoals(Checklist newDailyGoals) {
 		this.dailyGoals = newDailyGoals;
-	};
+	}
 
 	/**
 	 * 
@@ -109,7 +109,7 @@ public class Patient extends Person {
 	 */
 	public String getInfoAdmin() {
 		return infoAdmin;
-	};
+	}
 
 	/**
 	 * 
@@ -117,7 +117,7 @@ public class Patient extends Person {
 	 */
 	public void setInfoAdmin(String newInfoAdmin) {
 		this.infoAdmin = newInfoAdmin;
-	};
+	}
 
 	/**
 	 * 
@@ -125,7 +125,7 @@ public class Patient extends Person {
 	 */
 	public int getPatientId() {
 		return patientId;
-	};
+	}
 
 	/**
 	 * 
@@ -133,13 +133,13 @@ public class Patient extends Person {
 	 */
 	public void setPatientId(int newPatientId) {
 		this.patientId = newPatientId;
-	};
-	
+	}
+
 	/**
-	 * 
-	 * @param gets the Calendar
+	 * Getter for the calendar
+	 * @return Calendar
 	 */
 	public Calendar getCalendar() {
 		return this.calendar;
-	};
+	}
 }

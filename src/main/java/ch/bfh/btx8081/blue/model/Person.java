@@ -54,15 +54,13 @@ public class Person {
 	public String getFullname() {
 
 		if (namesuffix != null) {
-			String fullname = this.namesuffix + " " + this.name + " " + this.surname;
-			return fullname;
+			return this.namesuffix + " " + this.name + " " + this.surname;
 		}
 
 		else {
-			String fullname = this.name + " " + this.surname;
-			return fullname;
+			return this.name + " " + this.surname;
 		}
-	};
+	}
 
 	/**
 	 * 
@@ -71,9 +69,8 @@ public class Person {
 	public int getAge() {
 		LocalDate today = LocalDate.now();
 		Period diff = Period.between(birthday.toLocalDate(), today);
-		int age = diff.getYears();
-		return age;
-	};
+		return diff.getYears();
+	}
 
 	/* getters and setters */
 
@@ -83,7 +80,7 @@ public class Person {
 	 */
 	public String getName() {
 		return name;
-	};
+	}
 
 	/**
 	 * 
@@ -91,7 +88,7 @@ public class Person {
 	 */
 	public void setName(String newName) {
 		this.name = newName;
-	};
+	}
 
 	/**
 	 * 
@@ -99,7 +96,7 @@ public class Person {
 	 */
 	public String getSurname() {
 		return surname;
-	};
+	}
 
 	/**
 	 * 
@@ -107,7 +104,7 @@ public class Person {
 	 */
 	public void setSurname(String newSurname) {
 		this.surname = newSurname;
-	};
+	}
 
 	/**
 	 * 
@@ -115,7 +112,7 @@ public class Person {
 	 */
 	public String getNamesuffix() {
 		return namesuffix;
-	};
+	}
 
 	/**
 	 * 
@@ -123,7 +120,7 @@ public class Person {
 	 */
 	public void setNamesuffix(String newNamesuffix) {
 		this.namesuffix = newNamesuffix;
-	};
+	}
 
 	/**
 	 * 
@@ -131,7 +128,7 @@ public class Person {
 	 */
 	public LocalDate getBirthday() {
 		return birthday.toLocalDate();
-	};
+	}
 
 	/**
 	 * 
@@ -139,7 +136,7 @@ public class Person {
 	 */
 	public void setBirthday(LocalDate newBirthday) {
 		this.birthday = Date.valueOf(newBirthday);
-	};
+	}
 
 	/**
 	 * 
@@ -147,7 +144,7 @@ public class Person {
 	 */
 	public Address getAdress() {
 		return address;
-	};
+	}
 
 	/**
 	 * 
@@ -155,6 +152,6 @@ public class Person {
 	 */
 	public void setAdress(Address newAdress) {
 		this.address = newAdress;
-	};
+	}
 
 }

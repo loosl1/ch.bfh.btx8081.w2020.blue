@@ -24,7 +24,7 @@ public class PatientRecord {
     protected Calendar calendar;
     @Id
     @GeneratedValue
-    long id; // still set automatically
+    long id; // set automatically
     protected Date date, localDate;
     @OneToOne
     HealthVisitor healthVisitor;

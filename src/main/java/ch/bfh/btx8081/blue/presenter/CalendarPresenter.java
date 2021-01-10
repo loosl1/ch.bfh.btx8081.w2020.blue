@@ -1,28 +1,22 @@
 package ch.bfh.btx8081.blue.presenter;
 
+import ch.bfh.btx8081.blue.exceptions.AppointmentNotFoundException;
+import ch.bfh.btx8081.blue.model.Appointment;
+import ch.bfh.btx8081.blue.model.Appointment.AppointmentType;
+import ch.bfh.btx8081.blue.model.DataService;
+import ch.bfh.btx8081.blue.model.HealthVisitor;
+import ch.bfh.btx8081.blue.model.Visit;
+import ch.bfh.btx8081.blue.view.CalendarView;
+import com.vaadin.flow.component.UI;
+import org.vaadin.stefan.fullcalendar.BusinessHours;
+import org.vaadin.stefan.fullcalendar.CalendarViewImpl;
+import org.vaadin.stefan.fullcalendar.Entry;
+import org.vaadin.stefan.fullcalendar.FullCalendar;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-
-import ch.bfh.btx8081.blue.view.VisitView;
-import org.vaadin.stefan.fullcalendar.BusinessHours;
-import org.vaadin.stefan.fullcalendar.CalendarViewImpl;
-import org.vaadin.stefan.fullcalendar.Entry;
-import org.vaadin.stefan.fullcalendar.FullCalendar;
-
-import com.vaadin.flow.component.UI;
-import com.vaadin.flow.router.QueryParameters;
-
-import ch.bfh.btx8081.blue.exceptions.AppointmentNotFoundException;
-import ch.bfh.btx8081.blue.model.*;
-import ch.bfh.btx8081.blue.model.Appointment.AppointmentType;
-import ch.bfh.btx8081.blue.view.CalendarView;
 
 public class CalendarPresenter {
 	private final CalendarView viewComponent;
@@ -78,7 +72,7 @@ public class CalendarPresenter {
 	}
 
 	/**
-	 * Converts the Appointments into applyable Objects of the Type "Entry", since the Calendar Object can only handle these type of objects.
+	 * Converts the Appointments into applicable Objects of the Type "Entry", since the Calendar Object can only handle these type of objects.
 	 * @return List of all Entries to be displayed.
 	 */
 	public ArrayList<Entry> generateEntriesForCalendar() {
@@ -114,7 +108,6 @@ public class CalendarPresenter {
 	/**
 	 * Gets next Appointment to the currently selected one.
 	 * @return Next Appointment from the currently selected Appointment.
-	 * @throws AppointmentNotFoundException
 	 */
 	public Appointment getNextAppointment(){
 		Appointment nextAppointment = null; //Is used for try/catch, so it can be made
@@ -129,10 +122,9 @@ public class CalendarPresenter {
 	/**
 	 * Gets previous Appointment to the currently selected one.
 	 * @return Previous Appointment from the currently selected Appointment.
-	 * @throws AppointmentNotFoundException
 	 */
 	public Appointment getPreviousAppointment(){
-		Appointment prevAppointment = null; //Is used for try/catch, so it can be made
+		Appointment prevAppointment = null;
 		try {
 			prevAppointment = this.currentUser.getCalendar().getNextAppointment(this.currentAppointment.getAppointmentID());
 		} catch (AppointmentNotFoundException e) {
@@ -206,7 +198,7 @@ public class CalendarPresenter {
 	 * @param appointment Current Appointment
 	 * @return String to be displayed
 	 */
-	public String displayAdressOfPatient (Appointment appointment) {
+	public String displayAddressOfPatient(Appointment appointment) {
 		if (this.getCurrentAppointment().getAppointmentType() != AppointmentType.INTERNAL) {
 			Visit visit = (Visit) this.getCurrentAppointment(); //Cast to Visit, so access to functions is possible.
 			return visit.getTreatedPatients().get(0).getAdress().getStreet() + " " + visit.getTreatedPatients().get(0).getAdress().getNumber();
@@ -236,7 +228,7 @@ public class CalendarPresenter {
 	 * @param date Date to be formatted
 	 * @return Formatted Date
 	 */
-	public String formatedDate(LocalDateTime date) {
+	public String formattedDate(LocalDateTime date) {
 		DateTimeFormatter formatter = DateTimeFormatter.ofPattern(DATETIME_PATTERN);
 		return date.format(formatter) + " Uhr";
 	}

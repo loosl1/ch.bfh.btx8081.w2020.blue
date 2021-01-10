@@ -174,10 +174,10 @@ public class CalendarView extends VerticalLayout{
 			this.lblTitleInfo.setText("Info");
 			this.lblTitleAddress.setText("Adresse");
 			
-			this.lblBeginsAt.setText("Starts: " + this.presenter.formatedDate(this.presenter.getCurrentAppointment().getStart()));
-			this.lblEndsAt.setText("Ends:   " + this.presenter.formatedDate(this.presenter.getCurrentAppointment().getEnd()));
+			this.lblBeginsAt.setText("Starts: " + this.presenter.formattedDate(this.presenter.getCurrentAppointment().getStart()));
+			this.lblEndsAt.setText("Ends:   " + this.presenter.formattedDate(this.presenter.getCurrentAppointment().getEnd()));
 			this.lblAddressName.setText(this.presenter.displayNameOfPatient(this.presenter.getCurrentAppointment()));
-			this.lblAddress.setText(this.presenter.displayAdressOfPatient(this.presenter.getCurrentAppointment()));
+			this.lblAddress.setText(this.presenter.displayAddressOfPatient(this.presenter.getCurrentAppointment()));
 			this.lblAddressPlace.setText(this.presenter.displayPlaceOfPatient(this.presenter.getCurrentAppointment()));
 			this.lblInfo.setReadOnly(true);
 			this.lblInfo.setValue(this.presenter.getCurrentAppointment().getInfo());

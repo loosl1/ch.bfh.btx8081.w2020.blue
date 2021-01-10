@@ -17,7 +17,7 @@ public class Item {
 
 	@Id
 	@GeneratedValue
-	long id; // still set automatically
+	long id; // set automatically
 
 	private String description;
 

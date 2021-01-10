@@ -1,17 +1,9 @@
 package ch.bfh.btx8081.blue.model;
 
+import javax.persistence.*;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
-
-import javax.persistence.Embedded;
-import javax.persistence.Entity;
-import javax.persistence.ManyToMany;
-import javax.persistence.OneToMany;
-import javax.persistence.OneToOne;
-import javax.persistence.PrimaryKeyJoinColumn;
-import javax.persistence.Table;
-import javax.persistence.Transient;
 
 /**
  * @author loosl1
@@ -60,22 +52,6 @@ public class Visit extends Appointment {
 
 	}
 
-	/**
-	 * loops through the treatedPatients List on which it searches for given ID
-	 * which was given the constructed Visit If found, it ads the report with the id
-	 * to the checklist
-	 *
-	 * @param visitID the ID of the visit
-	 */
-	private void updateRecords(int visitID) {
-
-		for (Patient ignored : treatedPatients) {
-
-			if (this.appointmentID == visitID) {
-				//toDo
-			}
-		}
-	}
 
 	/**
 	 * returns the checklist
@@ -85,7 +61,7 @@ public class Visit extends Appointment {
 	public Checklist getChecklist() {
 		if (this.checklist == null) {
 			this.checklist = new Checklist();
-		};
+		}
 		return checklist;
 	}
 
