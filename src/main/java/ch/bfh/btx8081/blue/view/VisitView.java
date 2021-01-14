@@ -3,6 +3,8 @@ package ch.bfh.btx8081.blue.view;
 import ch.bfh.btx8081.blue.exceptions.AppointmentNotFoundException;
 import ch.bfh.btx8081.blue.model.Item;
 import ch.bfh.btx8081.blue.presenter.VisitPresenter;
+
+import com.vaadin.flow.component.UI;
 import com.vaadin.flow.component.button.Button;
 import com.vaadin.flow.component.checkbox.CheckboxGroup;
 import com.vaadin.flow.component.checkbox.CheckboxGroupVariant;
@@ -135,7 +137,7 @@ public class VisitView extends VerticalLayout implements HasUrlParameter<String>
         this.btnCancel = new Button("Abbrechen", event2 -> dlgEditChecklist.close());
         this.btnGotoReport = new Button("Zum Rapport");
         this.btnGoals = new Button("Ziele");
-        this.btnDailyPlanning = new Button("Zur Tagesplanung");
+        this.btnDailyPlanning = new Button("Zur Tagesplanung", event3 -> UI.getCurrent().navigate(""));
 
 
         //Textfields and Spans
