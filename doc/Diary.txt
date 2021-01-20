@@ -199,7 +199,7 @@ ____
 What: Had a daily scrum meeting, Discussed open problems, tracked progress, Jan and Nikola worked on the presenter of the Calendar
 Who: everyone was attending, toDo is in the scrumfile
 Deadline: 10.12.2020
-Status: open
+Status: closed
 
 ___________________________________________________
 
@@ -212,7 +212,7 @@ ____
 What: had a daily scrum meeting, Jan S. implemented the persistence via JPA, 3 and 4 finished a lot of their goals with the ecxeption of the view and the presenter,, Details in scrum file
 Who: everyone in attendance
 Deadline: 10.12.2020
-Status: open
+Status: closed
 
 ___________________________________________________
 
@@ -222,10 +222,10 @@ Attendance: 1. Stanic Nikola, 2. Stöckli Jan, 3. Rohr Jelena, 4. Loosli Lukas,
 
 ToDo
 ____
-What:
-Who:
+What:had a daily scrum meeting, talked aout persistence and populated everything
+Who:1. Stanic Nikola, 2. Stöckli Jan,
 Deadline: 10.12.2020
-Status: open
+Status: closed
 
 ___________________________________________________
 
@@ -235,35 +235,101 @@ Attendance: 1. Stanic Nikola, 2. Stöckli Jan, 3. Rohr Jelena, 4. Loosli Lukas,
 
 ToDo
 ____
-What:
-Who:
+What:had a daily scrum meeting, talked about progress
+Who:1. Stanic Nikola, 2. Stöckli Jan, 3. Rohr Jelena, 4. Loosli Lukas,
 Deadline:
-Status: open
+Status: closed
 
 ___________________________________________________
 
-Date:
+Date: 12.12.2020
 Time:
 Attendance: 1. Stanic Nikola, 2. Stöckli Jan, 3. Rohr Jelena, 4. Loosli Lukas,
 
 ToDo
 ____
-What:
-Who:
+What:had a daily scrum meeting, reallocated Tasks
+Who:1. Stanic Nikola, 2. Stöckli Jan, 3. Rohr Jelena, 4. Loosli Lukas,
 Deadline:
-Status: open
+Status: closed
 
 ___________________________________________________
 
-Date:
+Date:16/12/2020
 Time:
 Attendance: 1. Stanic Nikola, 2. Stöckli Jan, 3. Rohr Jelena, 4. Loosli Lukas,
 
 ToDo
 ____
-What:
-Who:
+What: had a daily scrum meeting,
+Who:1. Stanic Nikola, 2. Stöckli Jan, 3. Rohr Jelena, 4. Loosli Lukas,
 Deadline:
 Status: open
 
 ___________________________________________________
+Date:17/12/2020
+Time:
+Attendance: 1. Stanic Nikola, 2. Stöckli Jan, 3. Rohr Jelena, 4. Loosli Lukas,
+
+ToDo
+____
+What:had a daily scrum meeting,
+Who:1. Stanic Nikola, 2. Stöckli Jan, 3. Rohr Jelena, 4. Loosli Lukas,
+Deadline:
+Status: open
+
+___________________________________________________
+
+Date:19/12/2020
+Time:
+Attendance: 1. Stanic Nikola, 2. Stöckli Jan, 3. Rohr Jelena, 4. Loosli Lukas,
+
+ToDo
+____
+What:had a daily scrum meeting,
+Who:1. Stanic Nikola, 2. Stöckli Jan, 3. Rohr Jelena, 4. Loosli Lukas,
+Deadline:
+Status: open
+
+___________________________________________________
+
+Date:13/01/2021
+Time:
+Attendance: 1. Stanic Nikola, 2. Stöckli Jan, 3. Rohr Jelena, 4. Loosli Lukas,
+
+ToDo
+____
+What:had a daily scrum meeting, final sprint
+Who:1. Stanic Nikola, 2. Stöckli Jan, 3. Rohr Jelena, 4. Loosli Lukas,
+Deadline:
+Status: open
+
+___________________________________________________
+Date:20/01/2021
+Time:
+Attendance: 1. Stanic Nikola, 2. Stöckli Jan, 3. Rohr Jelena, 4. Loosli Lukas,
+
+ToDo
+____
+What:had a daily scrum meeting, final sprint
+Who:1. Stanic Nikola, 2. Stöckli Jan, 3. Rohr Jelena, 4. Loosli Lukas,
+Deadline:
+Status: open
+
+___________________________________________________
+Date:21/01/2021
+Time:
+Attendance: 1. Stanic Nikola, 2. Stöckli Jan, 3. Rohr Jelena, 4. Loosli Lukas,
+
+ToDo
+____
+What:Presentation
+Who:1. Stanic Nikola, 2. Stöckli Jan, 3. Rohr Jelena, 4. Loosli Lukas,
+Deadline:
+Status: open
+
+___________________________________________________
+
+
+
+
